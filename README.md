@@ -2,5 +2,17 @@
 CTRM
 ====
 
-1.  Source `R/helpers.R`
-2.  Run `foo.R` line by line.
+Install from GitHub
+-------------------
+
+Run
+
+``` r
+# install.packages("devtools")
+devtools::install_github("strakaps/CTRM")
+```
+
+Example
+-------
+
+Run `foo.R` line by line.
