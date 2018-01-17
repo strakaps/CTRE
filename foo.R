@@ -1,6 +1,7 @@
 times <- cumsum(MittagLeffleR::rml(n = 1000, tail = 0.8, scale = 5))
 magnitudes <- rexp(n = 1000)
 mrp <- new_mrp(times, magnitudes)
+plot(mrp)
 ML_e <- ML_estimates(mrp)
 MLtailPlot(estimates = ML_e, hline = 0.8)
 MLscalePlot(estimates = ML_e, tail = 0.8, hline = 5)

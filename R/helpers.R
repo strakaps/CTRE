@@ -11,12 +11,20 @@ new_mrp <- function(times, magnitudes) {
     JJ = df$JJ,
     # idxJ will be used frequently, calculate it once and for all
     idxJ = order(df$JJ, decreasing = TRUE),
-    n = n
+    n = n,
+    MLestimates = NA,
+    GPestimates = NA
   ),
   class = 'mrp')
 }
 
-plot.mrp <- function(mrp, p = 0.05) {
+plot.mrp <- function(mrp, what = "data", ...){
+  switch (what,
+    "data" = plot_data(mrp, ...)
+  )
+}
+
+plot_data <- function(mrp, p = 0.05) {
   plot(
     mrp$TT,
     mrp$JJ,
