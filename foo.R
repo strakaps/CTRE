@@ -4,7 +4,7 @@ mrp <- new_mrp(times, magnitudes)
 plot(mrp, p = 0.02)
 
 plot(mrp, what = "MLtail")
-plot(mrp, what = "MLtail", hline = 0.6)
+plot(mrp, what = "MLtail", hline = 0.8)
 as.list(environment(mrp))$MLestimates
 str(as.list(environment(mrp)))
 
@@ -17,4 +17,4 @@ plot(mrp, what = "GPscale", hline = 1)
 smaller_mrp <- mrp("thin", k = 100)
 plot(smaller_mrp)
 
-plot(mrp, what = "MLqq", k = 30, tail = 0.8)
+plot(mrp, what = "MLqq", k = 300, tail = 0.8)

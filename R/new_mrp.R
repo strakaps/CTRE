@@ -1,3 +1,18 @@
+#' Create a CTRM object
+#'
+#' The constructor for the class \code{'mrp'} (max-renewal process).
+#'
+#' @return An object of class 'mrp' (max-renewal process).
+#' @param TT a vector of event times.
+#' @param JJ a vector of event magnitudes, same length as \code{TT}.
+#' @examples
+#' times <- cumsum(MittagLeffleR::rml(n = 1000, tail = 0.8, scale = 5))
+#' magnitudes <- rexp(n = 1000)
+#' mrp <- new_mrp(times, magnitudes)
+#' @export
+#' @seealso \link{plot.mrp}
+
+
 new_mrp <- function(TT, JJ) {
   n <- length(TT)
   if (n != length(JJ))
@@ -219,7 +234,3 @@ new_mrp <- function(TT, JJ) {
 
   structure(f, class = 'mrp')
 }
-
-plot.mrp <- function(mrp, what = "data", ...)
-  mrp(what, ...)
-
