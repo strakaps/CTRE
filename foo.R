@@ -15,4 +15,5 @@ plot(mrp, what = "GPshape", hline = 0)
 plot(mrp, what = "GPscale", hline = 1)
 
 smaller_mrp <- mrp("thin", k = 100)
-# TODO: Doesn't plot blue crosses!
+plot(smaller_mrp)
+

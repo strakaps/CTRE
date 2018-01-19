@@ -43,7 +43,7 @@ new_mrp <- function(TT, JJ) {
       JJ,
       type = 'h',
       col = 'gray',
-      ylim = c(min(JJ), max(JJ)),
+      ylim = c(0, max(JJ)),
       xlab = "times",
       ylab = "magnitudes"
     )
