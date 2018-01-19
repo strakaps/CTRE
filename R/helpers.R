@@ -2,19 +2,26 @@ new_mrp <- function(TT, JJ) {
   n <- length(TT)
   if (n != length(JJ))
     stop("times TT and magnitudes JJ must have equal length")
-  if (n < 2)
-    stop("need at least 2 observations")
+  if (n < 5)
+    stop("need at least 5 observations")
   # order the pairs (time, magnitude)
   JJ <- JJ[order(TT)]
   TT <- TT[order(TT)]
   idxJ <- order(JJ)
-  MLestimates <- NA
-  GPestimates <- NA
+  MLestimates <- NULL
+  GPestimates <- NULL
   f <- function(what, ...) {
     switch (
       what,
       data = plot_data(...),
-      MLtail = plot_MLtail(...),
+      MLtail = {
+        if (is.null(MLestimates)) {
+          message("Computing Mittag-Leffler estimates for all thresholds.")
+          MLestimates <<- ML_estimates(ks = 5:n)
+        }
+        plot_MLtail(...)
+      },
+      # below is TODO
       MLscale = plot_MLscale(mrp),
       GPshape = plot_GPshape(mrp),
       GPscale = plot_GPscale(mrp),
@@ -22,6 +29,7 @@ new_mrp <- function(TT, JJ) {
       stop("unknown plot type: ", what)
     )
   }
+
   # "methods" for the mrp "object"
   plot_data <- function(p = 0.05) {
     plot(
@@ -33,7 +41,6 @@ new_mrp <- function(TT, JJ) {
       xlab = "times",
       ylab = "magnitudes"
     )
-    n <- length(TT)
     k <- ceiling(n * p)
     idxJ <- order(JJ, decreasing = TRUE)
     ell <- JJ[idxJ][k]
@@ -53,23 +60,45 @@ new_mrp <- function(TT, JJ) {
     }
   }
 
+  ML_estimates <- function(ks = 5:n) {
+    plyr::ldply(.data = ks, function(k) {
+      WW <- diff(sort(TT[idxJ[1:k]]))
+      est <- MittagLeffleR::logMomentEstimator(WW)
+      names(est) <-
+        c("tail", "scale", "tailLo", "tailHi", "scaleLo", "scaleHi")
+      c(k = k, est)
+    })
+  }
+
+  plot_MLtail <- function(hline = NULL) {
+    plot(
+      MLestimates$k,
+      MLestimates$tail,
+      type = "l",
+      ylab = "tail parameter",
+      xlab = "k",
+      ylim = c(0, 1.5),
+      main = "ML tail"
+    )
+    lines(MLestimates$k,
+          MLestimates$tailHi,
+          type = "l",
+          lty = 2)
+    lines(MLestimates$k,
+          MLestimates$tailLo,
+          type = "l",
+          lty = 2)
+    if (!is.null(hline))
+      abline(h = hline, lty = 3)
+  }
+
+
   structure(f, class = 'mrp')
 }
 
-plot.mrp <- function(mrp, what = "data", ...) mrp(what, ...)
+plot.mrp <- function(mrp, what = "data", ...)
+  mrp(what, ...)
 
-library(plyr)
-ML_estimates <- function(TT, JJ, idxJ, KK = 5:mrp$n) {
-  get_durations <- function(TT, JJ, idxJ, k = min(30, mrp$n)) {
-    diff(sort(TT[idxJ[1:k]]))
-  }
-  ldply(.data = KK, function(k) {
-    WW <- get_durations(TT, JJ, idxJ, k)
-    est <- MittagLeffleR::logMomentEstimator(WW)
-    names(est) <- c("tail", "scale", "tailLo", "tailHi", "scaleLo", "scaleHi")
-    c(k = k, est)
-  })
-}
 
 library(POT)
 GP_estimates <- function(mrp, KK = 5:mrp$n) {
@@ -90,34 +119,6 @@ GP_estimates <- function(mrp, KK = 5:mrp$n) {
   })
 }
 
-plot_MLtail <- function(mrp, hline = NULL) {
-  if (is.na(mrp$MLestimates)) {
-    message("Computing Mittag-Leffler estimates for all thresholds.")
-    mrp$MLestimates <- ML_estimates(mrp)
-    message("Finished.")
-    # TODO: speed up by only calculating this once
-  }
-  estimates <- mrp$MLestimates
-  plot(
-    estimates$k,
-    estimates$tail,
-    type = "l",
-    ylab = "tail parameter",
-    xlab = "k",
-    ylim = c(0, 1.5),
-    main = "ML tail"
-  )
-  lines(estimates$k,
-        estimates$tailHi,
-        type = "l",
-        lty = 2)
-  lines(estimates$k,
-        estimates$tailLo,
-        type = "l",
-        lty = 2)
-  if (!is.null(hline))
-    abline(h = hline, lty = 3)
-}
 
 
 plot_MLscale <- function(estimates, tail = NULL, hline = NULL) {

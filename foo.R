@@ -3,6 +3,9 @@ magnitudes <- rexp(n = 1000)
 mrp <- new_mrp(times, magnitudes)
 plot(mrp, p = 0.07)
 plot(mrp, what = "MLtail")
+plot(mrp, what = "MLtail", hline = 0.6)
+as.list(environment(mrp))$MLestimates
+
 ML_e <- ML_estimates(mrp)
 MLtailPlot(estimates = ML_e, hline = 0.8)
 MLscalePlot(estimates = ML_e, tail = 0.8, hline = 5)
