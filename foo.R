@@ -17,3 +17,4 @@ plot(mrp, what = "GPscale", hline = 1)
 smaller_mrp <- mrp("thin", k = 100)
 plot(smaller_mrp)
 
+plot(mrp, what = "MLqq", k = 30, tail = 0.8)

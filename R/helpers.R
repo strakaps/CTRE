@@ -205,9 +205,7 @@ new_mrp <- function(TT, JJ) {
   }
 
   plot_MLqq <- function(tail, k = n, log_scale = TRUE) {
-
-    thmrp <- apply_threshold(mrp, k)
-    WW <- diff(thmrp$TT)
+    WW <- diff(sort(TT[idxJ[1:k]]))
     qqplot(
       WW,
       MittagLeffleR::qml(p = ppoints(k - 1), tail = tail),
