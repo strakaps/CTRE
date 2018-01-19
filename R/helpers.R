@@ -1,70 +1,70 @@
-new_mrp <- function(times, magnitudes) {
-  n = length(times)
-  if (n != length(magnitudes))
-    stop("times and magnitudes must have equal length")
-  if (n < 2) stop("need at least 2 observations")
+new_mrp <- function(TT, JJ) {
+  n <- length(TT)
+  if (n != length(JJ))
+    stop("times TT and magnitudes JJ must have equal length")
+  if (n < 2)
+    stop("need at least 2 observations")
   # order the pairs (time, magnitude)
-  df <- data.frame(TT = times, JJ = magnitudes)
-  df <- df[order(df$TT), ]
-  structure(list(
-    TT = df$TT,
-    JJ = df$JJ,
-    # idxJ will be used frequently, calculate it once and for all
-    idxJ = order(df$JJ, decreasing = TRUE),
-    n = n,
-    MLestimates = NA,
-    GPestimates = NA
-  ),
-  class = 'mrp')
-}
-
-plot.mrp <- function(mrp, what = "data", ...){
-  switch (what,
-    "data" = plot_data(mrp, ...)
-  )
-}
-
-plot_data <- function(mrp, p = 0.05) {
-  plot(
-    mrp$TT,
-    mrp$JJ,
-    type = 'h',
-    col = 'gray',
-    ylim = c(min(mrp$JJ), max(mrp$JJ)),
-    xlab = "times",
-    ylab = "magnitudes"
-  )
-  k <- ceiling(mrp$n * p)
-  ell <- mrp$JJ[mrp$idxJ][k]
-  ell <- ifelse(is.na(ell), 0, ell)
-  abline(h = ell, lty = 2)
-  ii <- which(mrp$JJ > ell)
-  n <- length(ii)
-  points(mrp$TT[ii],
-         rep(0, n),
-         col = 4,
-         pch = 3,
-         lwd = 3)
-  for (i in ii) {
-    xx = c(mrp$TT[i], mrp$TT[i])
-    yy = c(ell, mrp$JJ[i])
-    lines(xx, yy, col = 2)
+  JJ <- JJ[order(TT)]
+  TT <- TT[order(TT)]
+  idxJ <- order(JJ)
+  MLestimates <- NA
+  GPestimates <- NA
+  f <- function(what, ...) {
+    switch (
+      what,
+      data = plot_data(...),
+      MLtail = plot_MLtail(...),
+      MLscale = plot_MLscale(mrp),
+      GPshape = plot_GPshape(mrp),
+      GPscale = plot_GPscale(mrp),
+      MLqq = plot_MLqq(mrp),
+      stop("unknown plot type: ", what)
+    )
   }
+  # "methods" for the mrp "object"
+  plot_data <- function(p = 0.05) {
+    plot(
+      TT,
+      JJ,
+      type = 'h',
+      col = 'gray',
+      ylim = c(min(JJ), max(JJ)),
+      xlab = "times",
+      ylab = "magnitudes"
+    )
+    n <- length(TT)
+    k <- ceiling(n * p)
+    idxJ <- order(JJ, decreasing = TRUE)
+    ell <- JJ[idxJ][k]
+    ell <- ifelse(is.na(ell), 0, ell)
+    abline(h = ell, lty = 2)
+    ii <- which(JJ > ell)
+    n <- length(ii)
+    points(TT[ii],
+           rep(0, n),
+           col = 4,
+           pch = 3,
+           lwd = 3)
+    for (i in ii) {
+      xx = c(TT[i], TT[i])
+      yy = c(ell, JJ[i])
+      lines(xx, yy, col = 2)
+    }
+  }
+
+  structure(f, class = 'mrp')
 }
 
-apply_threshold <- function(mrp, k = min(30, mrp$n)){
-  TT <- mrp$TT[mrp$idxJ[1:k]]
-  JJ <- mrp$JJ[mrp$idxJ[1:k]]
-  new_mrp(TT, JJ)
-}
+plot.mrp <- function(mrp, what = "data", ...) mrp(what, ...)
 
 library(plyr)
-ML_estimates <- function(mrp, KK = 5:mrp$n) {
-  get_durations <- function(mrp, k = min(30, mrp$n)) {
-    diff(sort(mrp$TT[mrp$idxJ[1:k]]))
+ML_estimates <- function(TT, JJ, idxJ, KK = 5:mrp$n) {
+  get_durations <- function(TT, JJ, idxJ, k = min(30, mrp$n)) {
+    diff(sort(TT[idxJ[1:k]]))
   }
   ldply(.data = KK, function(k) {
-    WW <- get_durations(mrp, k)
+    WW <- get_durations(TT, JJ, idxJ, k)
     est <- MittagLeffleR::logMomentEstimator(WW)
     names(est) <- c("tail", "scale", "tailLo", "tailHi", "scaleLo", "scaleHi")
     c(k = k, est)
@@ -90,7 +90,14 @@ GP_estimates <- function(mrp, KK = 5:mrp$n) {
   })
 }
 
-MLtailPlot <- function(estimates, hline = NULL) {
+plot_MLtail <- function(mrp, hline = NULL) {
+  if (is.na(mrp$MLestimates)) {
+    message("Computing Mittag-Leffler estimates for all thresholds.")
+    mrp$MLestimates <- ML_estimates(mrp)
+    message("Finished.")
+    # TODO: speed up by only calculating this once
+  }
+  estimates <- mrp$MLestimates
   plot(
     estimates$k,
     estimates$tail,
@@ -113,7 +120,7 @@ MLtailPlot <- function(estimates, hline = NULL) {
 }
 
 
-MLscalePlot <- function(estimates, tail = NULL, hline = NULL) {
+plot_MLscale <- function(estimates, tail = NULL, hline = NULL) {
   # no rescaling if no tail parameter given
   if (is.null(tail)) tail <- 1
   p <- estimates$k / max(estimates$k)
@@ -141,7 +148,7 @@ MLscalePlot <- function(estimates, tail = NULL, hline = NULL) {
 }
 
 
-MLqqplot <- function(mrp, tail, k = mrp$n, log_scale = TRUE) {
+plot_MLqq <- function(mrp, tail, k = mrp$n, log_scale = TRUE) {
   thmrp <- apply_threshold(mrp, k)
   WW <- diff(thmrp$TT)
   qqplot(
@@ -155,7 +162,7 @@ MLqqplot <- function(mrp, tail, k = mrp$n, log_scale = TRUE) {
 }
 
 
-GPshapePlot <- function(estimates, hline = NULL) {
+plot_GPshape <- function(estimates, hline = NULL) {
   spread <- diff(range(estimates$shape))
   ylim <- c(min(estimates$shape) - spread, max(estimates$shape) + spread)
   plot(
@@ -180,7 +187,7 @@ GPshapePlot <- function(estimates, hline = NULL) {
 }
 
 
-GPscalePlot <- function(estimates, hline = NULL) {
+plot_GPscale <- function(estimates, hline = NULL) {
   spread <- diff(range(estimates$scale))
   ylim <- c(min(estimates$scale) - spread, max(estimates$scale) + spread)
   plot(
