@@ -136,7 +136,7 @@ new_mrp <- function(TT, JJ) {
     # no rescaling if no tail parameter given
     if (is.null(tail))
       tail <- 1
-    p <- MLestimates$k / max(MLestimates$k)
+    p <- MLestimates$k / n
     rescaledScale   <- MLestimates$scale   * p ^ (1 / tail)
     rescaledScaleLo <- MLestimates$scaleLo * p ^ (1 / tail)
     rescaledScaleHi <- MLestimates$scaleHi * p ^ (1 / tail)
