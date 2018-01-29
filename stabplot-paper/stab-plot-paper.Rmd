@@ -1,0 +1,507 @@
+---
+title: Inference for Heavy-Tailed Max-Renewal Processes
+
+# to produce blinded version set to 1
+blinded: 0
+
+authors: 
+- name: "Katharina Hees"
+  thanks: The authors gratefully acknowledge ...
+  affiliation: University of Dortmund
+  
+- name: "Smarak Nayak"
+  affiliation: National Australia Bank
+  
+- name: "Peter Straka"
+  affiliation: UNSW Sydney
+  
+keywords:
+- heavy tails
+- renewal process
+- extreme value theory
+- peaks over threshold
+
+abstract: |
+  Max-renewal processes, or Continuous Time Random Maxima, assume that
+  events arrive according to a renewal process, and track the running
+  maximum of the magnitudes of events up to time $t$.  In many complex
+  systems of interest, notably earthquakes, trades and neuron voltages,
+  inter-arrival times exhibit heavy-tailed distributions. The dynamics of
+  events then exhibits memory, which affects the rate at which events
+  occur: rates are highly variable in some time intervals, while other
+  intervals have long quiescent periods, a behaviour which has been dubbed 
+  "bursty" in the physics literature. 
+  
+  This article provides a statistical model for the exceedances $X(\ell)$
+  and inter-exceedance times $T(\ell)$ of events whose magnitude exceeds a
+  given threshold $\ell$. It derives limit theorems for the distribution of
+  $X(\ell)$ and $T(\ell)$ as $\ell$ approaches very high values: as is
+  well-known, $X(\ell)$ approaches a generalized Pareto distributions; we
+  moreover show that $T(\ell)$ approaches a Mittag-Leffler distribution
+  whose scale parameter increases as $\ell^\beta$, where $\beta \in (0,1)$
+  is the exponent of the inter-arrival distribution of events. We provide
+  graphical means of estimating model parameters, and show that these
+  methods provide useful results on a simulated dataset, as well as
+  Earthquake, Trading and Solar Flare data. 
+
+bibliography: CTRMstats.bib
+
+output: rticles::asa_article
+
+# doesn't seem to work
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+# Introduction
+
+Time series displaying temporally inhomogeneous behaviour have received 
+strong interest in the recent statistical physics literature 
+[@Barabasi2005, @Oliveira2005, @Vasquez2006, @Vazquez2007, @Omi2011, 
+@Min2010, @Karsai2011, @Bagrow2013], and have been observed in the context 
+of earthquakes, sunspots, neuronal activity and human communication (see 
+@Karsai2012, @Vajna2013 and @MeerschaertStoev08 for a list of references. 
+Such time series exhibit high activity in some 'bursty' intervals, which 
+alternate with other, quiet intervals.  Although several mechanisms are 
+plausible explanations for bursty behaviour (most prominently self-exciting
+point processes [@hawkes1971point]), there seems to be one salient feature 
+which very typically indicates the departure from temporal homogeneity: a 
+heavy-tailed distribution of waiting times [@Vasquez2006, @Karsai2012, 
+@Vajna2013]. As we show below in simulations, a simple renewal process with
+heavy-tailed waiting times can capture this type of dynamics. For many 
+systems, the renewal property is appropriate; a simple test of the absence 
+of correlations in a succession of waiting times can be undertaken by 
+randomly reshuffling the waiting times [@Karsai2012].
+
+Often a magnitude can be assigned to each event in the renewal process, 
+such as for earthquakes, sun flares or neuron voltages. It is then natural 
+to study the size and timing of the largest events. Thus two questions that
+arise are: 
+When will the next extreme event occur? And, how large will it be?
+A probabilistic extreme value model which assumes the renewal property can 
+be used to answer these questions. One such model has been studied under 
+the names "Continuous Time Random Maxima process" (CTRM) 
+[@Benson2007, @MeerschaertStoev08, @Hees16, @Hees17], 
+"Max-Renewal process" [@Silvestrov2002a, @ST04, @Basrak2014], 
+and "Shock process"
+[@Esary1973, @Sumita1983, @Sumita1984, @Sumita1985, @Anderson1987, @Gut1999].
+In this work, we discuss ideas for methods of inference for this type of 
+model, a problem which has seemingly received little attention by the 
+statistical community.
+
+
+# CTRMs
+
+In this section we will introduce the Continuous Time Random Maxima process
+as well its exceedance and corresponding exceedance time. Additionally we 
+will recall some results from classical extreme value theory, which are 
+important for the rest of the article. 
+
+Continuous Time Random Maxima (CTRM), or Max-Renewal processes, track the 
+largest event in a renewal sequence of events [@Basrak2014, 
+@MeerschaertStoev08, @Hees16]:
+
+Definition (CTRM): 
+
+: Let $(W,J), (W_1, J_1), (W_2, J_2), \ldots$ be i.i.d. pairs of random 
+variables, where the $W_k > 0$ are interpreted as the *waiting times* or 
+inter-arrival times and $J_k \in [x_L, x_R]$ as the *event magnitudes* 
+($x_L \in [-\infty, +\infty), x_R \in (-\infty, +\infty]$). 
+The renewal process associated with the $W_k$ is 
+$$N(t) = \max\{n: W_1 + \ldots + W_n \le t\},$$
+and the running maximum is $M(n) := \bigvee_{k=1}^n J_k$. Then the process
+$$V(t)=M(N(t)) = \bigvee_{k=1}^{N(t)} J_k, \quad t \ge 0.$$
+is called a CTRM (Continuous Time Random Maxima) process. 
+If $W$ and $J$ are independent, the CTRM is said to be *uncoupled*. 
+We let $M(0) = x_L$.
+
+![\label{fig:ctrm} A CTRM sample path.](figures/just-tikz-figure0.pdf)
+
+It follows from the definition of the CTRM $V(t)$, that its paths are
+non-decreasing, piece-wise constant and right-continuous, see figure 
+\ref{fig:ctrm}.
+
+The main purpose of this article is to provide a method for fitting data to
+a CTRM. Therefore we will first study the distribution of the following two
+random variables:
+
+Definition: 
+
+: The random variables
+$$X(\ell) = V(T(\ell)) - \ell, \quad 
+T(\ell) = \inf\{t: V(t) > \ell\}, 
+\quad \ell \in (x_L, x_R)$$
+are called the *exceedance* resp. *time until exceedance* of level $\ell$.
+
+
+It is clear that $T(\ell)$ assumes values in the renewal set 
+$\{\sum_{k=1}^n W_k: n \ge 0\}$, the time points at which new events occur.
+Applying the renewal property at $T(\ell)$ (i.e. ``resetting'' the clock to
+$0$) then yields another CTRM process based on the pair-sequence 
+$(W_{\tau(\ell)+1}, J_{\tau(\ell)+1}), (W_{\tau(\ell)+2}, J_{\tau(\ell)+2}), \ldots$ started at $\tau(\ell) = \min\{k: J_k > \ell\}$,
+where T(l,k) is the  This new CTRM process has the same distribution as the
+original CTRM $V(t)$. By repetition, we can construct i.i.d.\ sequences
+$\{T(\ell,k)\}_{k}$ and
+$\{X(\ell,k)\}_{k}$ for any given threshold $\ell$.
+Moreover, in the uncoupled case we observe: since $J_{\tau(\ell)}$ is
+independent of the $\sigma$-algebra generated by
+$W_1, W_2, \ldots, W_{\tau(\ell)}$, the two random variables
+$X(\ell) = J_{\tau(\ell)}$ and
+$T(\ell) = W_1 + \ldots + W_{\tau(\ell)}$ are independent.
+
+
+
+
+```{r thresholdedBursty, fig.cap="\\label{fig:thresholdedBursty}Exceedances (red) and Times until Exceedance (durations between blue crosses) for a given threshold $\\ell$ (dashed line)."}
+library(CTRM)
+times <- cumsum(MittagLeffleR::rml(n = 1000, tail = 0.8, scale = 5))
+magnitudes <- rexp(n = 1000)
+mrp <- new_mrp(times, magnitudes)
+plot(mrp)
+```
+
+
+Figure \ref{fig:thresholdedBursty} illustrates that $T(\ell, k)$ and 
+$X(\ell, k)$ are directly observable in data: Event magnitudes $J_k$ are 
+grey vertical lines at their arrival times $W_1 + \ldots + W_k$. 
+Thresholding at a level $\ell$ (dashed line) gives a series of 
+$\{X(\ell,k)\}_{k}$ (red) and the preceding times until exceedance 
+$\{T(\ell, k)\}_{k}$ (distances between adjacent blue crosses).
+
+
+A standard result from extreme value theory provides the asymptotic 
+distribution of $X(\ell)$ as $\ell \uparrow x_R$. For later use, we also 
+include the scaling limit of the cumulative maximum $M(n)$. 
+
+**Theorem GEV** (e.g. Chapter 2 & Section 5.3, @beirlantBook):
+
+Suppose the distribution of $J_k$ is continuous. Then there
+exist non-decreasing norming functions $a(n)$ and $d(n)$ such that
+as $n \to \infty$, the running maximum $M(n)$ converges weakly 
+to a *Generalized Extreme Value Distribution* with shape
+parameter
+$\xi$:
+$$[M(n) - d(n)] / a(n) \stackrel{d}{\to} A, 
+\quad
+\mathbf P(A \le z) = G(z | \xi) = \exp\left(-[1+\xi z]^{-1/\xi}\right),$$
+defined for $z$ such that $1 + \xi z > 0$. 
+This definition extends continuously to $\xi = 0$ via 
+$$G(z | 0) = \exp(-\exp(-x)).$$
+For $\mu$ and $\sigma > 0$, we write ${\rm GEV}(\xi, \mu, \sigma)$ for the 
+probability distribution of the random variable $\sigma A + \mu$. 
+
+Moreover, asymptotically as $\ell \uparrow x_R$,
+$$\mathbf P(J - \ell > y | J > \ell) 
+\to 1 - H(y),$$
+where 
+$$H(y) = \begin{cases}
+1 - (1+ \xi y / \tilde \sigma)^{-1/\xi}, & y \in (0,\infty) \text{if } \xi > 0,\\
+1 - \exp(-y/\tilde \sigma), & y \in (0,\infty) \text{if } \xi = 0,\\
+1 - (1+ \xi y / \tilde \sigma)^{-1/\xi}, & y \in (0, -\sigma / \xi) \text{if } \xi < 0
+\end{cases}$$
+
+where $\tilde \sigma := \sigma + \xi(\ell-\mu)$.
+The CDF $H(y)$ belongs to the *Generalised Pareto family*
+$GP(\xi,\bar \sigma)$.
+
+
+# CTRM Scaling limits
+
+## Waiting times
+
+We will assume that the waiting times $W_k$ have very heavy tails,
+i.e.~a tail parameter $\beta \in (0,1)$ and regularly varying tail probabilities:
+$\mathbf P(W > t) \sim L(t) t^{-\beta}$ as $t \uparrow \infty$ for
+some slowly varying function $L(t)$. As usually, $f(t) \sim g(t)$
+means that the quotient of $f(t)$ and $g(t)$ converges to $1$. The
+law of the $W$ then lies in the domain of attraction of a stable law,
+in the sense that the distributional limit 
+\begin{align} \label{eq:Wscale}
+\frac{W_1 + \ldots + W_n}{b(n)} \overset{d}{\longrightarrow} D, 
+\quad n \to \infty
+\end{align}
+exists, for a regularly varying scaling function
+\begin{equation} \label{eq:bScale}
+b \in {\rm RV}_\infty(1/\beta)
+\end{equation}
+[Sec. 2.9.2, @beirlantBook]. 
+The limit is then a positively skewed stable distribution, 
+whose scale parameter is $1$ if $b(n)$ is chosen accordingly, i.e. \begin{align} \label{theD}
+\mathbf E[\exp(-sD)] = \exp(-s^\beta)
+\end{align}
+Moreover, the following functional limit theorem holds: \[
+(W_1 + \ldots + W_{\lfloor ct \rfloor})/b(c) \overset{d}{\longrightarrow} D(t), \quad c \to \infty
+\] with convergence in the Skorokhod $J_1$ topology. The limit
+$D(t)$ is a stable subordinator, i.e.~an increasing Lévy process with
+Laplace transform $\exp(-t s^\beta)$.
+
+
+It is well known [see e.g. @limitCTRW] that the renewal
+process then satisfies the functional limit
+$$
+N(ct)/ \tilde b(c) \stackrel{d}{\to} E(t) = \inf\{r: D(r) > t\}, 
+\quad c \to \infty
+$$
+for a scaling function $\tilde b(c) \in {\rm RV}_\infty(\beta)$ which is asymptotically inverse to $b(c)$, in the sense of @seneta (p.20): 
+$$
+b(\tilde b(c)) \sim c \sim \tilde b(b(c)).
+$$
+[see e.g. Prop~4.15 in @MeerschaertSikorskii]. 
+The limit process $E(t)$ is called the _inverse stable subordinator_ [@invSubord].
+
+## Magnitudes and Extreme Value Distributions
+
+The extremal limit theorem then allows for an extension to functional (pathwise) limits: assume that the norming sequences $a(n)$ and $d(n)$ are as in Theorem GEV. Then 
+$$
+[M(\lfloor ct \rfloor) - d(c)] / a(c) \stackrel{d}{\to} A(t),
+\quad c \to \infty.
+$$
+Convergence is in Skorokhod's $J_1$ topology, and the limit
+process $A(t)$ is an _extremal process_, with
+finite-dimensional distributions given by
+$$
+\mathbf P(A(t_i)\leq x_i,1\leq i \leq d) 
+= F_A(\wedge_{i=1}^d x_i)^{t_1} 
+F_A(\wedge_{i=2}^d x_i)^{t_2-t_1}
+\ldots F_A(x_d)^{t_d-t_{d-1}},
+$$
+where $F_A(x)$ is a GEV distribution. 
+
+## CTRM limit
+
+The CTRM $V(t)$ results from the running maximum $M(n)$ via a time change by the renewal process $n = N(t)$. This is also reflected in its corresponding limit process:
+
+Theorem MS1 [@MeerschaertStoev08]: 
+
+: The CTRM process $V(t) = M(N(t))$ satisfies the following functional scaling limit in the Skorokhod $J_1$ topology: 
+$$
+[V(ct) - d(\tilde b(c))] / a(\tilde b(c)) \stackrel{d}{\to} 
+A(E(t)), \quad c \to \infty.
+$$
+
+The distribution of the _hitting time_ of a level $\ell^*$ by the limit 
+process $A(E(t))$ is also known:
+
+Theorem MS2 [@MeerschaertStoev08]: 
+
+: Let $F_A$ be the CDF of a GEV distribution, and let $A(t)$ be the
+corresponding extremal process. 
+For a given threshold $\ell^*$ in the support of $F_A$,
+the hitting time
+$$
+B(\ell^*) = \inf\{t: A(E(t)) > \ell^*\} 
+$$
+is equal in distribution to $(-\log F_A(\ell^*))^{-1/\beta} X^{1/\beta} D$,
+where $X \sim {\rm Exp}(1)$ and $D$ (defined above) are independent.
+
+The Mittag-Leffler distribution with parameter $\beta \in (0,1]$ is 
+(except for $\beta = 1$) a heavy-tailed positive distribution. 
+For $\sigma > 0$, we write ${\rm ML}(\beta, \sigma)$ for the distribution 
+of $\sigma Y$, where $Y$ has Laplace transform 
+$\mathbf E[\exp(-s Y)] = 1/(1+s^\beta)$. Due to e.g. Theorem 19.1 in 
+@Haubold11, the exceedance time from Theorem MS2 can be written as 
+$$
+B(\ell^*) \sim {\rm ML}\left(\beta, (-\log F_A(\ell^*))^{-1/\beta}\right)
+$$
+
+
+# Scaling limit of Exceedance Times
+
+There are two main approaches in classical extreme value theory : the Block
+Maxima method and the Peak-Over-Threshold (POT) approach. For the Block 
+Maxima method, the time line gets subdivided in `Blocks` of equal length 
+and the maximum of each block is taken as realization of the random 
+variable $M_n$. An approach where on subdivides the time-line is for our 
+model inappropriate, since different choices of subdivision would lead to 
+different results, since we assume random waiting times between our 
+magnitudes and want to use our model to analyze irregular arising events. 
+For the POT  approach, one chooses a threshhold $l$ and due to Theorem 3 
+the distribution of the exceedances is known, which is a GPD distribution. 
+So one can then fit data by estimating the parameters of a GPD. The method 
+which we present in this article is similar to the POT approach, except 
+that we have to take the random waiting times between the jumps into 
+account. To do so, we need additionally the assymptotic distribution of the
+exceedance time, which delivers the following theorem.
+
+**Theorem**  
+
+Let $b(c)$ be the scaling function \eqref{eq:bScale},
+and let $\ell$ be a threshold from the support $[x_L, x_R]$ of $J$. 
+Writing $p := \mathbf P(J > \ell)$, we have
+\begin{equation} \label{eq:Tellscale}
+T(\ell) / b(1/p) \stackrel{d}{\to} {\rm ML}(\beta, 1), \quad \ell \uparrow x_R.
+\end{equation}
+
+*Proof:*
+Let the scaling functions $a(c)$ and $d(c)$ be as in Section 
+\ref{magnitudes-and-extreme-value-distributions}, and assume WLOG 
+$\ell = a(n) \ell^* + d(n)$ for some $\ell^*$ in the support of $A$. 
+We first note that as $n \to \infty$,
+\begin{equation} \label{eq:Tellbn}
+\mathbf P(T(\ell) / b(n) > t) = \mathbf P(V(b(n)t) \le \ell)
+= \mathbf P\left(\frac{V(b(n) t) - d(n)}{a(n)} \le \ell^*\right)
+\to \mathbf P(A(E(t)) \le \ell^*) = \mathbf P(B(\ell^*) > t).
+\end{equation}
+Next, we see that
+\begin{align*}
+\left(1 - \frac{np}{n}\right)^n = (1-p)^n = F_J(\ell)^n = F_J(a(n) \ell^* + d(n))^n
+= \mathbf P\left(\frac{M(n)-d(n)}{a(n)} \le \ell^*\right)
+\to \mathbf P(A \le \ell^*) = F_A(\ell^*)
+\end{align*}
+which after taking negative logarithms on both sides implies 
+$np \to -\log F_A(\ell^*)$. As $b(n) = L(n) n^{1/\beta}$ for some slowly 
+varying function $L(n)$, we see that
+\begin{align*}
+\frac{b(n)}{b(1/p)} = \frac{L(n)}{L(1/p)} \frac{p^{-1/\beta}}{n^{1/\beta}}
+\to (-\log F_A(\ell^*))^{-1/\beta}
+\end{align*}
+and thus by replacing $b(n)$ in \eqref{eq:Tellbn} with the asymptotically 
+equivalent expression
+$(-\log F_A(\ell^*))^{-1/\beta} b(1/p)$,
+the $\ell^*$-dependent term cancels and the theorem follows.
+
+
+
+# Inference on Exceedance times
+
+Equation \eqref{eq:Tellscale} implies that for large $\ell$ we may 
+approximate the distribution of $T(\ell)$ with an 
+${\rm ML}(\beta, b(1/p))$ distribution.
+Inspired by the POT (points over threshold) method, one may use the 
+following estimation procedure for the distribution of $T(\ell)$: 
+
+* For varying thresholds $\ell \uparrow x_R$, extract datasets of    
+  exceedance times $\{T(\ell, k)\}_k$.
+
+* For each $\ell$, fit a Mittag-Leffler distribution to $\{T(\ell, k)\}_k$,
+  resulting in the estimates $\{\hat\beta(\ell)\}_\ell$ and 
+  $\{\hat \sigma(\ell)\}_\ell$.
+
+* Plot $\ell$ vs.\ $\hat \beta(\ell)$, and check for the stability 
+  (constance) of $\hat \beta(\ell)$. Choose $\hat \beta$ from the
+  high-$\ell$ end of the region where $\hat \beta$ is constant as an
+  estimate for $\beta$. 
+
+* Approximating $p \approx |\{k: J_k > \ell\}| / n$, 
+  plot $\ell$ vs.\ $p^{1/\hat \beta} \hat \sigma(\ell)$, and check for the
+  stability (constance) of the plot. Choose $\hat \sigma_0$ from the
+  high-$\ell$ end of the region of constance.
+
+
+The estimates $\hat \beta$ and $\hat \sigma_0$ give an estimate of the 
+distribution of exceedance times, dependent on the threshold $\ell$:
+\begin{align*}
+T(\ell) \sim {\rm ML}(\hat \beta, p^{-1/\hat \beta} \hat \sigma_0).
+\end{align*}
+For quick estimates of the Mittag-Leffler parameters the method of
+log-transformed moments by Cahoy @Cahoy2013 was used.
+
+## Simulated Data
+
+To test the above inference method, we have simulated $n=10000$ independent
+waiting time and magnitude pairs $(W_k, J_k)$. In order to have exact 
+analytical values available for $\beta$ and $\sigma_0$, a distribution for 
+$W_k$ needs to be chosen for which $b(n)$ from \eqref{eq:Wscale} is known. 
+If we choose $W_k \stackrel{d}{=} D$, where $D$ is as in \eqref{theD}, we 
+in fact have *equality* of distribution, 
+$W_1 + \ldots + W_n \stackrel{d}{=} b(n) D$, 
+for $b(n) = n^{1/\beta}$. By Theorem~\ref{eq:Tellscale}, the distribution 
+of $T(\ell)$ is ${\rm ML}(\beta, p^{-1/\beta})$, which means 
+$\sigma_0 = 1$.  
+The distribution of $J_k$ is irrelevant for the inference on $\beta$ and 
+$\sigma_0$; we have chosen unit Frechet random variables. 
+
+% Put figure here
+
+Figure~\ref{fig:sim} displays plots of $\hat \beta(\ell)$ and 
+$\hat \sigma(\ell)$ vs. $k$, the number of exceedances as $\ell$ traverses 
+the largest observations $J_i$. 
+Dotted lines show 95 % confidence intervals, which are derived from the 
+asymptotic normality of the log-moments estimators and the $\delta$-method.
+The dashed lines show the actual values of $\beta$ resp.\ $\sigma_0$, 
+showing that the approach of stability plots effectively identifies the 
+right parameters. 
+
+
+## Solar Flare Data
+
+\begin{figure}
+\centering
+\includegraphics[width=0.49\textwidth]{figures/flares-tail.png}
+\includegraphics[width=0.49\textwidth]{figures/flares-scale.png}
+\caption{Stability plots for the tail and scale parameter of the 
+Mittag-Leffler distribution of the Solar Flare dataset.\label{fig:flares}}
+\end{figure}
+
+The "complete Hard X Ray Burst Spectrometer event list" 
+\footnote{https://umbra.nascom.nasa.gov/smm/hxrbs.html} \cite{HXRBS} is a 
+comprehensive reference for all Hard X ray bursts detected with the Hard X 
+Ray Burst Spectrometer on NASA's Solar Maximum Mission from the time of 
+launch on Feb 14, 1980 to the end of the mission in Dec 1989. Some 12,776 
+events were detected in the energy range 30 to 600 keV with the vast 
+majority being solar flares. The list includes the start time, peak time, 
+duration, and peak rate of each event. We have used "start time" as the 
+variable for event times, and "peak rate" as the variable for event 
+magnitudes. 
+
+Figure~\ref{fig:flares} shows estimates for the tail and scale parameters 
+of the fitted Mittag-Leffler distribution. The dotted line for the tail 
+parameter is at $\beta = 0.85$, yielding the plot of (transformed) scale 
+estimates $p^{1/0.85} \hat \sigma(\ell)$. We suggest the estimate 
+$\sigma_0 = 0.35$. The exceedance times of a threshold $\ell$ are hence 
+Mittag-Leffler distributed 
+\begin{align*}
+T(\ell) \sim {\rm ML}(0.85, 0.35 p^{-1/0.85})
+\end{align*}
+where time is measured in days. Since $p$ is estimated as the proportion 
+of magnitudes above level $\ell$, we can attach the physical unit 
+"days per recurrence$^{1.18}$" to $\sigma_0$. Here, 'recurrence' 
+re-expresses the threshold height in terms of the number of observations 
+it takes, on average, until an exceedance of the threshold happens; and 
+$1.18 \approx 1/0.85$. Thus, for instance, the scale parameter of the 
+Mittag-Leffler distribution for an event size above the 99th percentile is 
+$0.35 \times 100^{1.18} \approx 80$ (days). The central 50% of the 
+${\rm ML}(0.85, 80 \text{ days})$ distribution are between 17.8 and 131 
+days.
+
+To evaluate goodness of model fit, we need to test 
+
+* the i.i.d. assumption on the waiting times and magnitudes
+
+* the independence of waiting times and magnitudes
+
+* the quality of fit of the Mittag-Leffler distribution.
+
+* Explain what it has to do with the fractional Poisson process and the
+  Poisson process subordinated by the inverse subordinator
+
+
+\begin{figure}
+\includegraphics[width=0.5\textwidth]{figures/qq-plot.png}
+\includegraphics[width=0.5\textwidth]{figures/acf.png}
+\caption{Diagnostic plots for the fitted model: 
+i) QQ-Plot of exceedances vs. Mittag-Leffler quantiles 
+ii) Autocorrelation function for the logarithms of the inter-arrival times 
+iii) independence test of exceedances $X(\ell)$ and exceedance times 
+$T(\ell)$.
+The threshold was set at the height of the 50th highest magnitude.
+\label{fig:diagnostic}}
+\end{figure}
+
+
+# TODO: 
+
+* Mention that CTRM and OCTRM have the same distribution in the 
+  uncoupled case
+
+* Show that the scaling limit for $T(\ell)$ is the same for CTRM and OCTRM
+
+* Test hypothesis of independence of waiting times and magnitudes
+
+* give a method that jointly estimates beta and sigma
+
+* Mention fractional Poisson Process, cite JStatPlanInf paper by Cahoy
