@@ -29,3 +29,15 @@ devtools::install_github("strakaps/CTRM")
 ## Example
 
 Run `foo.R` line by line.
+
+
+## TODO
+
+- [ ] Write method that outputs MLestimates and GPestimates
+- [ ] empirical copula for the check of independence assumption
+- [ ] estimate parameters automatically 
+- [ ] quality of fits
+- [ ] acf plot to check i.i.d. assumption
+- [ ] output a new instance of simulated mrp based on the estimated
+      parameters
+
