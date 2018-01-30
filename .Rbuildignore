@@ -3,4 +3,5 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^foo$
-stabplot-paper
+^stabplot-paper$
+^data-raw$

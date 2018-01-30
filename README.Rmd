@@ -40,4 +40,7 @@ Run `foo.R` line by line.
 - [ ] acf plot to check i.i.d. assumption
 - [ ] output a new instance of simulated mrp based on the estimated
       parameters
+- [x] add data
+- [ ] add shiny function
+- [ ] allow for input of class 'zoo' and 'irts'
 
