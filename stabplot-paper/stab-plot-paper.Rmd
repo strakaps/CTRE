@@ -156,7 +156,7 @@ $T(\ell) = W_1 + \ldots + W_{\tau(\ell)}$ are independent.
 
 
 
-```{r thresholdedBursty, fig.cap="\\label{fig:thresholdedBursty}Exceedances (red) and Times until Exceedance (durations between blue crosses) for a given threshold $\\ell$ (dashed line)."}
+```{r thresholdedBursty, message=FALSE, fig.cap="\\label{fig:thresholdedBursty}Exceedances (red) and Times until Exceedance (durations between blue crosses) for a given threshold $\\ell$ (dashed line)."}
 library(CTRM)
 times <- cumsum(MittagLeffleR::rml(n = 1000, tail = 0.8, scale = 5))
 magnitudes <- rexp(n = 1000)
@@ -409,13 +409,23 @@ $W_k$ needs to be chosen for which $b(n)$ from \eqref{eq:Wscale} is known.
 If we choose $W_k \stackrel{d}{=} D$, where $D$ is as in \eqref{theD}, we 
 in fact have *equality* of distribution, 
 $W_1 + \ldots + W_n \stackrel{d}{=} b(n) D$, 
-for $b(n) = n^{1/\beta}$. By Theorem~\ref{eq:Tellscale}, the distribution 
-of $T(\ell)$ is ${\rm ML}(\beta, p^{-1/\beta})$, which means 
+for $b(n) = n^{1/\beta}$. By Theorem \ref{eq:Tellscale}, the distribution 
+of $T(\ell)$ is approximately ${\rm ML}(\beta, p^{-1/\beta})$, which means 
 $\sigma_0 = 1$.  
 The distribution of $J_k$ is irrelevant for the inference on $\beta$ and 
-$\sigma_0$; we have chosen unit Frechet random variables. 
+$\sigma_0$; we have chosen unit exponential random variables. 
 
-% Put figure here
+```{r simulated-example, message=FALSE, fig.cap="\\label{fig:sim}Tail and scale estimates for a simulated simulated data, with Mittag-Leffler waiting times ML(0.8, 10) and unit exponentially distributed magnitudes."}
+tail <- 0.7
+scale <- 10
+times <- cumsum(MittagLeffleR::rml(n = 1000, tail = tail, scale = scale))
+magnitudes <- rexp(n = 1000)
+mrp <- new_mrp(times, magnitudes)
+par(mfrow=c(1,2))
+plot(mrp, what = "MLtail", hline = tail)
+plot(mrp, what = "MLscale", tail = tail, hline = scale)
+```
+
 
 Figure~\ref{fig:sim} displays plots of $\hat \beta(\ell)$ and 
 $\hat \sigma(\ell)$ vs. $k$, the number of exceedances as $\ell$ traverses 
@@ -429,13 +439,15 @@ right parameters.
 
 ## Solar Flare Data
 
-\begin{figure}
-\centering
-\includegraphics[width=0.49\textwidth]{figures/flares-tail.png}
-\includegraphics[width=0.49\textwidth]{figures/flares-scale.png}
-\caption{Stability plots for the tail and scale parameter of the 
-Mittag-Leffler distribution of the Solar Flare dataset.\label{fig:flares}}
-\end{figure}
+
+
+```{r, message=FALSE, fig.cap="\\label{fig:flares}Stability plots for the tail and scale parameter of the Mittag-Leffler distribution of the Solar Flare dataset."}
+flares_mrp <- new_mrp(flares$times, flares$magnitudes)
+par(mfrow=c(1,2))
+plot(flares_mrp, what = "MLtail", hline = 0.9)
+plot(flares_mrp, what = "MLscale", tail = 0.9, hline = 0.075)
+```
+
 
 The "complete Hard X Ray Burst Spectrometer event list" 
 \footnote{https://umbra.nascom.nasa.gov/smm/hxrbs.html} \cite{HXRBS} is a 
