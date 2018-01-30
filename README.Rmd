@@ -43,4 +43,5 @@ Run `foo.R` line by line.
 - [x] add data
 - [ ] add shiny function
 - [ ] allow for input of class 'zoo' and 'irts'
+- [ ] Maximum Likelihood estimators for Mittag-Leffler distribution
 
