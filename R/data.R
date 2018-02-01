@@ -7,6 +7,14 @@
 #' \url{https://umbra.nascom.nasa.gov/smm/hxrbs.html}
 "flares"
 
+#' Coral Sea Earthquake Data
+#'
+#' A time series of earthquake magnitudes measured within the bounding box
+#' [166'E, 167'E] x [13.5'S, 12.4'S]
+#'
+#' @source \url{http://seismicportal.eu/}
+"seaquakes"
+
 
 #' Bitcoin trading data
 #'
@@ -20,11 +28,3 @@
 "bitcoin"
 
 
-#' Coral Sea Earthquake Data
-#'
-#' A time series of earthquake magnitudes measured within the bounding box
-#' [166'E, 167'E] $\times$ [13.5'S, 12.4'S]
-#'
-#' @source \url{http://seismicportal.eu/}
-#'
-"quakes"
