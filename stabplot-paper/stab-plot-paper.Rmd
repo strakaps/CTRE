@@ -17,8 +17,11 @@ authors:
   
 keywords:
 - heavy tails
+
 - renewal process
+
 - extreme value theory
+
 - peaks over threshold
 
 abstract: |
@@ -331,7 +334,7 @@ exceedance time, which delivers the following theorem.
 
 Let $b(c)$ be the scaling function \eqref{eq:bScale},
 and let $\ell$ be a threshold from the support $[x_L, x_R]$ of $J$. 
-Writing $p := \mathbf P(J > \ell)$, we have
+Furthermore let $p := \mathbf P(J > \ell)$. Under the assumption \eqref{eq:Wscale} and the assumptions of the GEV Theorem, we have 
 \begin{equation} \label{eq:Tellscale}
 T(\ell) / b(1/p) \stackrel{d}{\to} {\rm ML}(\beta, 1), \quad \ell \uparrow x_R.
 \end{equation}
@@ -339,31 +342,32 @@ T(\ell) / b(1/p) \stackrel{d}{\to} {\rm ML}(\beta, 1), \quad \ell \uparrow x_R.
 *Proof:*
 Let the scaling functions $a(c)$ and $d(c)$ be as in Section 
 \ref{magnitudes-and-extreme-value-distributions}, and assume WLOG 
-$\ell = a(n) \ell^* + d(n)$ for some $\ell^*$ in the support of $A$. 
-We first note that as $n \to \infty$,
-\begin{equation} \label{eq:Tellbn}
-\mathbf P(T(\ell) / b(n) > t) = \mathbf P(V(b(n)t) \le \ell)
-= \mathbf P\left(\frac{V(b(n) t) - d(n)}{a(n)} \le \ell^*\right)
-\to \mathbf P(A(E(t)) \le \ell^*) = \mathbf P(B(\ell^*) > t).
+$\ell = a(n) \ell^* + d(n)$ for some arbitrary but fixed $\ell^*$, out of the support of $A$. 
+We first note that due to \eqref{eq:GEV}
+\begin{equation} 
+F_J (a_n \ell^* + d_n)^n \stackrel{d}{\to} F_A(\ell^*), \text{ as } n \to \infty.
 \end{equation}
-Next, we see that
-\begin{align*}
-\left(1 - \frac{np}{n}\right)^n = (1-p)^n = F_J(\ell)^n = F_J(a(n) \ell^* + d(n))^n
-= \mathbf P\left(\frac{M(n)-d(n)}{a(n)} \le \ell^*\right)
-\to \mathbf P(A \le \ell^*) = F_A(\ell^*)
-\end{align*}
-which after taking negative logarithms on both sides implies 
-$np \to -\log F_A(\ell^*)$. As $b(n) = L(n) n^{1/\beta}$ for some slowly 
-varying function $L(n)$, we see that
-\begin{align*}
-\frac{b(n)}{b(1/p)} = \frac{L(n)}{L(1/p)} \frac{p^{-1/\beta}}{n^{1/\beta}}
-\to (-\log F_A(\ell^*))^{-1/\beta}
-\end{align*}
-and thus by replacing $b(n)$ in \eqref{eq:Tellbn} with the asymptotically 
-equivalent expression
-$(-\log F_A(\ell^*))^{-1/\beta} b(1/p)$,
-the $\ell^*$-dependent term cancels and the theorem follows.
-
+\noindent Taking the logarithm on each side and using the relationship  $z-1 \sim \log(z)$ as $z \to 1$, implies
+\begin{equation}
+n (1-F_J(a_n \ell^*+d_n)) \stackrel{d}{\to} - \log F_A(\ell^*).
+\end{equation}
+\noindent Hence we have 
+\begin{equation}
+n \cdot p \stackrel{d}{\to} - \log F_A(\ell^*) \label{eq:np_conv}
+\end{equation}
+\noindent as $\ell \uparrow x_R$.
+Now we get
+\begin{align}
+\mathbf P \left(T(\ell)/b(1/p) > t \right) &= P(M(b(1/p) t) \leq \ell) \label{eq:proofTheo}\\
+&= \mathbf P\left(\frac{V(b(1/p)/b(c) \cdot b(c) \cdot t)-d((b(c)))}{a(b(c))} \le \ell^*\right) \nonumber\\
+&\stackrel{d}{\to} \mathbf P(A(E(-\log F_A(l))^{-1/\beta} t) \leq \ell^*),\nonumber
+\end{align}
+where the convergence follows due to Theorem MS1 and the fact that
+\begin{equation}
+b(1/p)/b(c) = b(1/cp \cdot c) \to \left( -\log F_A(l)\right)^{-1/\beta} \text{ as } c \to \infty,
+\end{equation}
+where we used that $b \in RV(1/\beta)$ and \eqref{eq:np_conv}. The right side of \eqref{eq:proofTheo} is equal to
+$$\mathbf P \left( \left( -\log(F_A(\ell^{*})) \right)^ {1/\beta} B(\ell^*) > t\right).$$ Due to Theorem MS2 and the scaling proparty of the Mittag Leffler distribution we know that $(-\log F_A (\ell^*))^{1/\beta} B(\ell^*)$ is $ML(\beta,1)$ distributed, hence the assertion follows. 
 
 
 # Inference on Exceedance times
@@ -376,15 +380,18 @@ following estimation procedure for the distribution of $T(\ell)$:
 
 1. For varying thresholds $\ell \uparrow x_R$, extract datasets of
   exceedance times $\{T(\ell, k)\}_k$.
+  
 
 2. Fit a Mittag-Leffler distribution to each dataset, which
   results in the $\ell$-dependent estimates $\{\hat\beta(\ell)\}_\ell$ and 
   $\{\hat \sigma(\ell)\}_\ell$.
+  
 
 3. Plot $\ell$ vs.\ $\hat \beta(\ell)$. As $\ell$ increases towards $x_R$, 
   $\hat \beta(\ell)$ *stabilizes* around a constant $\hat \beta$. 
   Use $\hat \beta$ as an estimate for the tail parameter $\beta$ of the
   Mittag-Leffler distribution of exceedance times. 
+  
 
 4. Approximating $p \approx |\{k: J_k > \ell\}| / n$, 
   plot $\ell$ vs.\ $p^{1/\hat \beta} \hat \sigma(\ell)$. 
@@ -394,6 +401,7 @@ following estimation procedure for the distribution of $T(\ell)$:
   Use $p^{-1/\hat \beta} \hat \sigma_0$ as an estimate of the scale 
   parameter of the Mittag-Leffler distribution of exceedance times for
   the level $\ell$. 
+  
 
 For a more practicable algorithm, we make the following adjustments to the
 above four steps: 
@@ -427,11 +435,15 @@ below. For each assumption, we suggest one means of checking if it holds:
 
 I.i.d.:
 : The pairs $(W_i, J_i)$ are i.i.d. An indication if this is true is given 
-  by a cross-correlation plot for the two time series. 
+  by a cross-correlation plot for the two time series.
+  
+  
 
 Uncoupled:
 : Each $W_i$ is independent of each $J_i$. We propose an empirical copula
   plot to test independence. 
+  
+  
 
 Heavy tails:
 : The waiting times are heavy-tailed with tail parameter 
@@ -609,10 +621,14 @@ flares_mrp("is.uncoupled")
 
 * Mention that CTRM and OCTRM have the same distribution in the 
   uncoupled case
+  
 
 * Show that the scaling limit for $T(\ell)$ is the same for CTRM and OCTRM
 
+
 * give a method that jointly estimates beta and sigma
+
+
 
 * Mention fractional Poisson Process, cite JStatPlanInf paper by Cahoy
 
