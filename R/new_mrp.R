@@ -48,7 +48,8 @@ new_mrp <- function(TT, JJ) {
       thin    = apply_threshold(...),
       MLqq = plot_MLqq(...),
       hillPlot = hillPlot(...),
-      uncoupled = cross_cor(),
+      iidTest = cross_cor(),
+      is.uncoupled = empiCopula(),
       getTimes = getTimes(),
       getMags = getMags(),
       stop("unknown plot type: ", what)
@@ -252,6 +253,14 @@ new_mrp <- function(TT, JJ) {
 
   getMags <- function() {
     JJ
+  }
+
+  empiCopula <- function(){
+    WW <- diff(TT)
+    n <- length(WW)
+    x <- rank(diff(TT))/n
+    y <- rank(JJ[-1])/n
+    plot(x,y)
   }
 
   structure(f, class = 'mrp')
