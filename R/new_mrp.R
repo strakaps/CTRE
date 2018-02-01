@@ -47,6 +47,7 @@ new_mrp <- function(TT, JJ) {
       GPscale = plot_GPscale(...),
       thin    = apply_threshold(...),
       MLqq = plot_MLqq(...),
+      uncoupled = cross_cor(),
       stop("unknown plot type: ", what)
     )
   }
@@ -136,10 +137,9 @@ new_mrp <- function(TT, JJ) {
     # no rescaling if no tail parameter given
     if (is.null(tail))
       tail <- 1
-    p <- MLestimates$k / n
-    rescaledScale   <- MLestimates$scale   * p ^ (1 / tail)
-    rescaledScaleLo <- MLestimates$scaleLo * p ^ (1 / tail)
-    rescaledScaleHi <- MLestimates$scaleHi * p ^ (1 / tail)
+    rescaledScale   <- MLestimates$scale   * MLestimates$k ^ (1 / tail)
+    rescaledScaleLo <- MLestimates$scaleLo * MLestimates$k ^ (1 / tail)
+    rescaledScaleHi <- MLestimates$scaleHi * MLestimates$k ^ (1 / tail)
     plot(
       MLestimates$k,
       rescaledScale,
@@ -231,6 +231,9 @@ new_mrp <- function(TT, JJ) {
     )
   }
 
+  cross_cor <- function(){
+    acf(cbind(diff(TT), JJ[-1]))
+  }
 
   structure(f, class = 'mrp')
 }
