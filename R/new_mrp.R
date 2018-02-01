@@ -47,7 +47,10 @@ new_mrp <- function(TT, JJ) {
       GPscale = plot_GPscale(...),
       thin    = apply_threshold(...),
       MLqq = plot_MLqq(...),
+      hillPlot = hillPlot(...),
       uncoupled = cross_cor(),
+      getTimes = getTimes(),
+      getMags = getMags(),
       stop("unknown plot type: ", what)
     )
   }
@@ -214,9 +217,11 @@ new_mrp <- function(TT, JJ) {
   }
 
   apply_threshold <- function(k = n) {
-      new_times       <- TT[idxJ[1:k]]
-      new_magnitudes  <- JJ[idxJ[1:k]]
-      new_mrp(new_times, new_magnitudes)
+    if (k > n)
+      stop("Can't threshold to ", k, " observations if I only have ", n)
+    new_times       <- TT[idxJ[1:k]]
+    new_magnitudes  <- JJ[idxJ[1:k]]
+    new_mrp(new_times, new_magnitudes)
   }
 
   plot_MLqq <- function(tail, k = n, log_scale = TRUE) {
@@ -233,6 +238,20 @@ new_mrp <- function(TT, JJ) {
 
   cross_cor <- function(){
     acf(cbind(diff(TT), JJ[-1]))
+  }
+
+  hillPlot <- function(hline = NULL){
+    fExtremes::hillPlot(diff(TT))
+    if (!is.null(hline))
+      abline(h = hline, lty = 3, col = "orange")
+  }
+
+  getTimes <- function() {
+    TT
+  }
+
+  getMags <- function() {
+    JJ
   }
 
   structure(f, class = 'mrp')

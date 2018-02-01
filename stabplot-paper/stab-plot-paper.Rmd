@@ -38,7 +38,7 @@ abstract: |
   $X(\ell)$ and $T(\ell)$ as $\ell$ approaches very high values: as is
   well-known, $X(\ell)$ approaches a generalized Pareto distributions; we
   moreover show that $T(\ell)$ approaches a Mittag-Leffler distribution
-  whose scale parameter increases as $\ell^\beta$, where $\beta \in (0,1)$
+  whose scale parameter increases as $\ell^{1/\beta}$, where $\beta \in (0,1)$
   is the exponent of the inter-arrival distribution of events. We provide
   graphical means of estimating model parameters, and show that these
   methods provide useful results on a simulated dataset, as well as
@@ -53,7 +53,7 @@ output: rticles::asa_article
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE, message = FALSE)
 ```
 
 
@@ -558,53 +558,34 @@ magnitudes (Figure \ref{fig:solar-flare-data}).
 flares_mrp <- new_mrp(flares$times, flares$magnitudes)
 flares_mrp <- flares_mrp("thin", k = 300)
 par(mfrow=c(1,2))
-plot(flares_mrp, what = "MLtail", hline = 0.9)
-plot(flares_mrp, what = "MLscale", tail = 0.9, hline = 250)
+plot(flares_mrp, what = "MLtail", hline = 0.85)
+plot(flares_mrp, what = "MLscale", tail = 0.85, hline = 350)
 ```
 
 Figure \ref{fig:flares} shows estimates for the tail and scale parameters 
 of the fitted Mittag-Leffler distribution. The dotted line for the tail 
 parameter is at $\beta = 0.85$, yielding the plot of (transformed) scale 
-estimates $p^{1/0.85} \hat \sigma(\ell)$. We suggest the estimate 
-$\sigma_0 = 0.35$. The exceedance times of a threshold $\ell$ are hence 
-Mittag-Leffler distributed 
-\begin{align*}
-T(\ell) \sim {\rm ML}(0.85, 0.35 p^{-1/0.85})
-\end{align*}
-where time is measured in days. Since $p$ is estimated as the proportion 
-of magnitudes above level $\ell$, we can attach the physical unit 
-"days per recurrence$^{1.18}$" to $\sigma_0$. Here, 'recurrence' 
-re-expresses the threshold height in terms of the number of observations 
-it takes, on average, until an exceedance of the threshold happens; and 
-$1.18 \approx 1/0.85$. Thus, for instance, the scale parameter of the 
-Mittag-Leffler distribution for an event size above the 99th percentile is 
-$0.35 \times 100^{1.18} \approx 80$ (days). The central 50% of the 
-${\rm ML}(0.85, 80 \text{ days})$ distribution are between 17.8 and 131 
-days.
-
-To evaluate goodness of model fit, we need to test 
-
-* the i.i.d. assumption on the waiting times and magnitudes
-
-* the independence of waiting times and magnitudes
-
-* the quality of fit of the Mittag-Leffler distribution.
-
-* Explain what it has to do with the fractional Poisson process and the
-  Poisson process subordinated by the inverse subordinator
-
-
+estimates $\hat \sigma_0 = k^{1/0.85} \hat \sigma(\ell)$. 
+We suggest the estimate $\sigma_0 = 350$. 
+The exceedance times of a threshold $\ell$ are hence 
+Mittag-Leffler distributed as
+$$ T(\ell) \sim {\rm ML}(0.85, 350  k^{-1/0.85})$$
+where time is measured in days. 
 
 \appendix
 
 # Model-checking plots
 
-```{r bitcoin-cross-cor}
-bitcoin_mrp <- bitcoin_mrp("thin", k = 250)
-plot(bitcoin_mrp)
-par(mfrow = c(2,2))
+## Bitcoin data
+
+```{r bitcoin-cross-cor, fig.cap="I.i.d. assumption check"}
 bitcoin_mrp("uncoupled")
 ```
+
+```{r}
+bitcoin_mrp(what = "hillPlot", hline = 0.85)
+```
+
 
 
 
