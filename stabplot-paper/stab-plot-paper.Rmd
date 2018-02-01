@@ -578,15 +578,31 @@ where time is measured in days.
 
 ## Bitcoin data
 
-```{r bitcoin-cross-cor, fig.cap="I.i.d. assumption check"}
-bitcoin_mrp("uncoupled")
+```{r bitcoin-cross-cor}
+bitcoin_mrp("iidTest")
 ```
 
-```{r}
+```{r bitcoin-hillPlot}
 bitcoin_mrp(what = "hillPlot", hline = 0.85)
 ```
 
+```{r bitcoin-uncoupled}
+bitcoin_mrp("is.uncoupled")
+```
 
+## Solar Flare Data
+
+```{r solar-flare-cross-cor}
+flares_mrp("iidTest")
+```
+
+```{r flares-hillPlot}
+flares_mrp(what = "hillPlot", hline = 0.85)
+```
+
+```{r flares-uncoupled}
+flares_mrp("is.uncoupled")
+```
 
 
 # TODO: 
@@ -595,8 +611,6 @@ bitcoin_mrp(what = "hillPlot", hline = 0.85)
   uncoupled case
 
 * Show that the scaling limit for $T(\ell)$ is the same for CTRM and OCTRM
-
-* Test hypothesis of independence of waiting times and magnitudes
 
 * give a method that jointly estimates beta and sigma
 
