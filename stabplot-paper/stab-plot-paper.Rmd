@@ -119,7 +119,7 @@ is called a CTRM (Continuous Time Random Maxima) process.
 If $W$ and $J$ are independent, the CTRM is said to be *uncoupled*. 
 We let $M(0) = x_L$.
 
-![\label{fig:ctrm} A CTRM sample path.](figures/just-tikz-figure0.pdf)
+![\label{fig:ctrm} A CTRM sample path.](just-tikz-figure0.pdf)
 
 It follows from the definition of the CTRM $V(t)$, that its paths are
 non-decreasing, piece-wise constant and right-continuous, see figure 
@@ -594,17 +594,6 @@ To evaluate goodness of model fit, we need to test
   Poisson process subordinated by the inverse subordinator
 
 
-\begin{figure}
-\includegraphics[width=0.5\textwidth]{figures/qq-plot.png}
-\includegraphics[width=0.5\textwidth]{figures/acf.png}
-\caption{Diagnostic plots for the fitted model: 
-i) QQ-Plot of exceedances vs. Mittag-Leffler quantiles 
-ii) Autocorrelation function for the logarithms of the inter-arrival times 
-iii) independence test of exceedances $X(\ell)$ and exceedance times 
-$T(\ell)$.
-The threshold was set at the height of the 50th highest magnitude.
-\label{fig:diagnostic}}
-\end{figure}
 
 \appendix
 
