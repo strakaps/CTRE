@@ -624,6 +624,39 @@ tails as the threshold reaches very high values.
 This may mean that the CTRM model may overestimate the heaviness of the
 tail of the waiting time distribution. 
 
+# Conclusion
+
+We have proposed the CTRM model for the extremes of "bursty" events. 
+Burstiness is a phenomenon of intermittency which has received a lot of 
+attention in the recent statistical physics literature. 
+The CTRM model is a straightforward generalization of the POT (Peaks over 
+Threshold) model, for which the inter-arrival times between threshold 
+crossings are exponentially distributed. 
+If the Mittag-Leffler tail parameter of the CTRM equals $1$, then the 
+CTRM model reproduces this behaviour exactly, showing that the CTRM model 
+nests the POT model. 
+
+The scale parameter $\sigma$ of the inter-event distribution follows a 
+power-law $\sigma \propto p^{-1/\beta}$, where $\beta \in (0,1)$ is the 
+tail parameter of the inter-event distribution and $p$ the probability 
+that an event crosses a given threshold. 
+From this power law, we have constructed "stability plots", from which 
+estimates of $\beta$ and $\sigma$ can be read off. 
+
+We have demonstrated the applicability of the CTRM model with two 
+real-world datasets. 
+Although the CTRM model possibly overestimates the heaviness of the tail 
+of the inter-arrival distribution, it clearly captures that 
+the inter-arrival times of threshold crossings scale non-linearly with 
+the treshold crossing probability, and follow a clearly non-Poissonian 
+behaviour. 
+Thus we have shown that the CTRM model is a useful tool for the modelling 
+of extremes of bursty events, which requires very little computation and 
+which allows for straightforward ways of checking and criticizing model 
+assumptions. 
+
+
+
 
 \appendix
 
@@ -661,6 +694,9 @@ flares_mrp("is.uncoupled")
 
 
 # TODO: 
+
+* Add some GP plots, to show that interest is actually also in the extreme 
+  value distribution, not just the inter-event times
 
 * Mention that CTRM and OCTRM have the same distribution in the 
   uncoupled case
