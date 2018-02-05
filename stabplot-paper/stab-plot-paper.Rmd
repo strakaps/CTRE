@@ -209,9 +209,11 @@ as $n \to \infty$, the running maximum $M(n)$ converges weakly
 to a *Generalized Extreme Value Distribution* with shape
 parameter
 $\xi$:
-$$[M(n) - d(n)] / a(n) \stackrel{d}{\to} A, 
+\begin{align}
+[M(n) - d(n)] / a(n) \stackrel{d}{\to} A, 
 \quad
-\mathbf P(A \le z) = G(z | \xi) = \exp\left(-[1+\xi z]^{-1/\xi}\right),$$
+\mathbf P(A \le z) = G(z | \xi) = \exp\left(-[1+\xi z]^{-1/\xi}\right),\label{eq:GEV}
+\end{align}
 defined for $z$ such that $1 + \xi z > 0$. 
 This definition extends continuously to $\xi = 0$ via 
 $$G(z | 0) = \exp(-\exp(-x)).$$
