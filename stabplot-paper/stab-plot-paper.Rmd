@@ -95,6 +95,18 @@ and "Shock process"
 In this work, we discuss ideas for methods of inference for this type of 
 model, a problem which has seemingly received little attention by the 
 statistical community.
+We give introduce the CTRM, or max-renewal model, in Section 2, and 
+derive a scaling limit theorem for inter-exceedance times in Sections 3 &
+4. 
+A statistical procedure to estimate model parameters via stability plots 
+is outlined in Section 5, and diagnostic plot for model criticism are 
+discussed in Section 6. 
+In Section 7, we give case studies for simulated data as well as for two
+real-world datasets, with a discussion in Section 8. 
+All statistical computations have been done in R, and all code, data, as 
+well as the source code for this manuscript has been organized into an R 
+software package, available at 
+\url{https://github.com/strakaps/CTRM}. 
 
 
 # CTRMs
@@ -253,7 +265,7 @@ for a scaling function $\tilde b(c) \in {\rm RV}_\infty(\beta)$ which is asympto
 $$
 b(\tilde b(c)) \sim c \sim \tilde b(b(c)).
 $$
-[see e.g. Prop~4.15 in @MeerschaertSikorskii]. 
+[see e.g. Prop 4.15 in @MeerschaertSikorskii]. 
 The limit process $E(t)$ is called the _inverse stable subordinator_ [@invSubord].
 
 ## Magnitudes and Extreme Value Distributions
@@ -584,6 +596,35 @@ Mittag-Leffler distributed as
 $$ T(\ell) \sim {\rm ML}(0.85, 350  k^{-1/0.85})$$
 where time is measured in days. 
 
+
+# Discussion
+
+Comparing the simulated data in Figure \ref{fig:sim} with plots of the 
+empirical data \ref{fig:bitcoin-data} and \ref{fig:solar-flare-data}, 
+it can be seen that the empirical data show long time intervals without 
+*any* event occurring, whereas for real-world data events appear to happen 
+continuously. 
+This discrepancy vanishes, however, when all but the $k_\text{max}$ 
+largest observations are discarded. 
+The CTRM model thus models the extreme events, while ignoring the "noise"
+events of small magnitudes. 
+
+The CTRM model, moreover, assumes a "pure" power-law for the event 
+inter-arrival times. 
+Real datasets, however, are often exponentially 
+tapered or truncated, see e.g. the discussion of tempered power-law 
+distributions by @MeerschaertRoyQin and the truncated Pareto distribution 
+by @Aban06. 
+This means that for a range of time scales, the fit to a power-law
+distribution seems adequate, the power-law character of the distribution 
+seems to disappear. 
+This behaviour seems to appear in both the Bitcoin data and the Solar-Flare
+data: the Hill plot for the tail parameter is increasing towards lighter
+tails as the threshold reaches very high values. 
+This may mean that the CTRM model may overestimate the heaviness of the
+tail of the waiting time distribution. 
+
+
 \appendix
 
 # Model-checking plots
@@ -615,6 +656,8 @@ flares_mrp(what = "hillPlot", hline = 0.85)
 ```{r flares-uncoupled}
 flares_mrp("is.uncoupled")
 ```
+
+
 
 
 # TODO: 
