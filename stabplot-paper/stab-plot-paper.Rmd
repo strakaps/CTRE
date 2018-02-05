@@ -141,6 +141,8 @@ We let $M(0) = x_L$.
 
 ![\label{fig:ctrm} A CTRM sample path.](just-tikz-figure0.pdf)
 
+The case where one considers the maximum of the first $(N(t)+1)$'s event is sometimes also analyzed and called OCTRM (Oracle Continuous Time Random Maxima). By considering that this is the same as just changing the order of waiting times and events from $W_1,J_1,W_2,J_2,..$ to $J_1,W_1,J_2,W_2,...$ it is obvious that the OCTRM has in the uncoupled case the same scaling limit as the CTRM. But in the coupled case the limit processes differ slightly (for detail see @Hees16).
+
 It follows from the definition of the CTRM $V(t)$, that its paths are
 non-decreasing, piece-wise constant and right-continuous, see figure 
 \ref{fig:ctrm}.
