@@ -491,20 +491,9 @@ Heavy tails:
   $\beta \in (0,1)$. A Hill plot can confirm this assumption. 
 
 
-<<<<<<< HEAD
 The aim of a CTRM model is to fit the extreme observations
 and their inter-arrival times. Hence, the above model assumptions need, from a 
 theoretical point of view, only apply to the not discarded data, the $k_\text{max}$-largest observations. We hence propose to produce the above three model-checking plots for the 
-=======
-It is important to observe that our statistics remain the same if all 
-observations smaller than the $k_\text{max}$-largest observation are 
-**discarded**. 
-In the same vein, the above model assumptions need, from a 
-theoretical point of view, only apply to the not discarded data; 
-in other words, the aim of a CTRM model is to fit the extreme observations
-and their inter-arrival times. 
-We hence propose to produce the above three model-checking plots for the 
->>>>>>> a89360c321a5fd7f449bba72046c2176ab307c0f
 dataset containing the $k_\text{max}$ largest observations only. 
 
 
