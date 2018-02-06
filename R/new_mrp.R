@@ -13,15 +13,34 @@
 #' @seealso \link{plot.mrp}
 
 
-new_mrp <- function(TT, JJ) {
+new_mrp <- function(x) {
+  if ("zoo" %in% class(x)) {
+    TT <- zoo::index(x)
+    if (!all(sort(TT) == TT))
+      stop("Strange... time indices not sorted. Please file a bug.")
+    JJ <- zoo::coredata(x)
+    if (!is.vector(JJ))
+      stop("Magnitudes must be a vector.")
+  } else if (any(class(x) == "data.frame")) {
+    TT <- x[[1]]
+    if (!any(class(TT) %in% c("numeric", "Date", "integer", "POSIXct")))
+      stop("First column must be of class numeric or Date.")
+    JJ <- x[[2]]
+    if (length(TT) != length(JJ))
+      stop("Times and magnitudes must have equal length.")
+    # order the pairs (time, magnitude)
+    JJ <- JJ[order(TT)]
+    TT <- TT[order(TT)]
+  } else
+    stop("x must be of class zoo or a data frame with two columns.")
+
+  if (!(class(JJ) %in% c("numeric", "integer")))
+    stop("Magnitudes must be numeric.")
+
   n <- length(TT)
-  if (n != length(JJ))
-    stop("times TT and magnitudes JJ must have equal length")
   if (n < 5)
     stop("need at least 5 observations")
-  # order the pairs (time, magnitude)
-  JJ <- JJ[order(TT)]
-  TT <- TT[order(TT)]
+
   idxJ <- order(JJ, decreasing = TRUE)
   MLestimates <- NULL
   GPestimates <- NULL
@@ -88,7 +107,7 @@ new_mrp <- function(TT, JJ) {
 
   ML_estimates <- function(ks = 5:n) {
     plyr::ldply(.data = ks, function(k) {
-      WW <- diff(sort(TT[idxJ[1:k]]))
+      WW <- as.vector(diff(sort(TT[idxJ[1:k]])))
       est <- MittagLeffleR::logMomentEstimator(WW)
       names(est) <-
         c("tail", "scale", "tailLo", "tailHi", "scaleLo", "scaleHi")
@@ -121,7 +140,7 @@ new_mrp <- function(TT, JJ) {
       MLestimates$tail,
       type = "l",
       ylab = "tail parameter",
-      xlab = "k",
+      xlab = "exceedances",
       ylim = c(0, 1.5),
       main = "ML tail"
     )
@@ -149,7 +168,7 @@ new_mrp <- function(TT, JJ) {
       rescaledScale,
       type = "l",
       ylab = "scale parameter",
-      xlab = "k",
+      xlab = "exceedances",
       ylim = c(0, 2 * max(rescaledScale)),
       main = "ML scale"
     )
@@ -222,7 +241,7 @@ new_mrp <- function(TT, JJ) {
       stop("Can't threshold to ", k, " observations if I only have ", n)
     new_times       <- TT[idxJ[1:k]]
     new_magnitudes  <- JJ[idxJ[1:k]]
-    new_mrp(new_times, new_magnitudes)
+    new_mrp(data.frame(new_times, new_magnitudes))
   }
 
   plot_MLqq <- function(tail, k = n, log_scale = TRUE) {

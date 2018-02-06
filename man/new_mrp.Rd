@@ -4,7 +4,7 @@
 \alias{new_mrp}
 \title{Create a CTRM object}
 \usage{
-new_mrp(TT, JJ)
+new_mrp(x)
 }
 \arguments{
 \item{TT}{a vector of event times.}

@@ -182,7 +182,7 @@ $T(\ell) = W_1 + \ldots + W_{\tau(\ell)}$ are independent.
 library(CTRM)
 times <- cumsum(MittagLeffleR::rml(n = 1000, tail = 0.8, scale = 5))
 magnitudes <- rexp(n = 1000)
-mrp <- new_mrp(times, magnitudes)
+mrp <- new_mrp(data.frame(times, magnitudes))
 plot(mrp)
 ```
 
@@ -509,7 +509,7 @@ rescale <- (n/k_max)^(1/tail)
 sigma <- (cos(pi*tail/2))^(1/tail) / rescale
 times <- cumsum(stabledist::rstable(n, tail, 1, sigma, pm=1))
 magnitudes <- rexp(n)
-mrp <- new_mrp(times, magnitudes)
+mrp <- new_mrp(data.frame(times, magnitudes))
 mrp <- mrp("thin", k = k_max)
 par(mfrow=c(1,2))
 plot(mrp, what = "MLtail", hline = tail)
@@ -534,11 +534,8 @@ right parameters.
 ## Bitcoin trading volumes
 
 ```{r bitcoin-data, fig.cap="\\label{fig:bitcoin-data}Time Series of 'Bitcoin days destroyed', a measure for the traded volume of bitcoins."}
-library(zoo)
-times <- as.double(time(bitcoin))
-mags <- coredata(bitcoin)
-bitcoin_mrp <- new_mrp(times, mags)
-plot(bitcoin_mrp, p = 0.02)
+bitcoin_mrp <- new_mrp(bitcoin)
+plot(bitcoin_mrp, p = 0.02, what = "data")
 ```
 
 
@@ -570,7 +567,7 @@ parameter near the value $1$.
 ## Solar Flare Data
 
 ```{r solar-flare-data, fig.cap="\\label{fig:solar-flare-data}The solar flare time series data."}
-flares_mrp <- new_mrp(flares$times, flares$magnitudes)
+flares_mrp <- new_mrp(flares)
 plot(flares_mrp, p = 0.01)
 ```
 
@@ -589,7 +586,7 @@ variable for event times, and "peak rate" as the variable for event
 magnitudes (Figure \ref{fig:solar-flare-data}). 
 
 ```{r solar-flare-tail-scale, message=FALSE, fig.cap="\\label{fig:flares}Stability plots for the tail and scale parameter of the Mittag-Leffler distribution of the Solar Flare dataset."}
-flares_mrp <- new_mrp(flares$times, flares$magnitudes)
+flares_mrp <- new_mrp(flares)
 flares_mrp <- flares_mrp("thin", k = 300)
 par(mfrow=c(1,2))
 plot(flares_mrp, what = "MLtail", hline = 0.85)

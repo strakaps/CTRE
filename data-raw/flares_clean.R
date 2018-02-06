@@ -1,15 +1,28 @@
 library(readr)
-flares2 <- read_csv("data-raw/flares.csv",
-col_types = cols(PeakTime = col_time(format = "%H%M:%S"),
-StartDate = col_date(format = "%y/%m/%d"),
-StartTime = col_time(format = "%H%M:%S")))
+flares <- read_csv(
+  "data-raw/flares.csv",
+  col_types = cols(
+    PeakTime = col_time(format = "%H%M:%S"),
+    StartDate = col_date(format = "%y/%m/%d"),
+    StartTime = col_time(format = "%H%M:%S")
+  )
+)
 
-## dataset not ordered
+library(lubridate)
+library(dplyr)
+flares <-
+  mutate(flares, when = make_datetime(
+    year(StartDate),
+    month(StartDate),
+    day(StartDate),
+    hour(StartTime),
+    minute(StartTime),
+    second(StartTime)
+  )) %>%
+  select(when, PeakRate)
 
-as.vector(flares2$DOY + flares2$StartTime / (24*60*60)) -> TT
-flares2$PeakRate -> JJ
+## order
 
-JJ[order(TT)] -> JJ
-TT[order(TT)] -> TT
-flares <- data.frame(times = TT, magnitudes = JJ)
+flares <- flares[order(flares[[1]]), ]
+
 devtools::use_data(flares, overwrite = TRUE)
