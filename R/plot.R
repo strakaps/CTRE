@@ -13,7 +13,14 @@
 #' @export
 plot.mrp <-
   function(mrp,
-           what = c("data", "MLtail", "MLscale", "GPshape", "GPscale", "MLqq"),
+           what = c("data",
+                    "estimates",
+                    "diagnostics",
+                    "MLtail",
+                    "MLscale",
+                    "GPshape",
+                    "GPscale",
+                    "MLqq"),
            ...) {
     what <- match.arg(what)
     mrp(what, ...)
