@@ -355,15 +355,15 @@ Let the scaling functions $a(c)$ and $d(c)$ be as in Section
 $\ell = a(n) \ell^* + d(n)$ for some arbitrary but fixed $\ell^*$, out of the support of $A$. 
 We first note that due to \eqref{eq:GEV}
 \begin{equation} 
-F_J (a_n \ell^* + d_n)^n \stackrel{d}{\to} F_A(\ell^*), \text{ as } n \to \infty.
+F_J (a(c) \ell^* + d(c))^c \stackrel{d}{\to} F_A(\ell^*), \text{ as } c \to \infty.
 \end{equation}
 \noindent Taking the logarithm on each side and using the relationship  $z-1 \sim \log(z)$ as $z \to 1$, implies
 \begin{equation}
-n (1-F_J(a_n \ell^*+d_n)) \stackrel{d}{\to} - \log F_A(\ell^*).
+c (1-F_J(a(c) \ell^*+d(c))) \stackrel{d}{\to} - \log F_A(\ell^*).
 \end{equation}
 \noindent Hence we have 
 \begin{equation}
-n \cdot p \stackrel{d}{\to} - \log F_A(\ell^*) \label{eq:np_conv}
+c \cdot p \stackrel{d}{\to} - \log F_A(\ell^*) \label{eq:np_conv}
 \end{equation}
 \noindent as $\ell \uparrow x_R$.
 Now we get
@@ -375,10 +375,37 @@ Now we get
 \end{align}
 where the convergence follows due to Theorem MS1 (with $c$ replaced by $b(c)$) and the fact that
 \begin{equation}
-b(1/p)/b(c) = b(1/cp \cdot c) \to \left( -\log F_A(l)\right)^{-1/\beta} \text{ as } c \to \infty.\label{eq:proofTheo2}
+\frac{b(1/p)}{b(c)} 
+= \frac{b(1/cp \cdot c)}{b(c)} 
+\sim (cp)^{-1/\beta}
+\to \left( -\log F_A(l)\right)^{-1/\beta} 
+\text{ as } c \to \infty.\label{eq:proofTheo2}
 \end{equation}
-In \eqref{eq:proofTheo2} we used \eqref{eq:np_conv} and the fact that since $b \in RV(1/\beta)$, $b(\lambda c) / b(c) \rightarrow \lambda^{1/\beta}$ as $c \rightarrow \infty$ uniformly on each compact subset of $(0,\infty)$. The right side of \eqref{eq:proofTheo} is equal to
+In \eqref{eq:proofTheo2} we used \eqref{eq:np_conv} and the fact that since $b \in RV(1/\beta)$, $b(\lambda c) / b(c) \rightarrow \lambda^{1/\beta}$ as $c \rightarrow \infty$ uniformly in $\lambda$ on each compact subset of $(0,\infty)$. The right side of \eqref{eq:proofTheo} is equal to
 $$\mathbf P \left( \left( -\log(F_A(\ell^{*})) \right)^ {1/\beta} B(\ell^*) > t\right).$$ Due to Theorem MS2 and the scaling proparty of the Mittag Leffler distribution we know that $(-\log F_A (\ell^*))^{1/\beta} B(\ell^*)$ is $ML(\beta,1)$ distributed, hence the assertion follows. 
+
+**Remark:**  
+By the above theorem, the inter-exceedance times are i.i.d. and
+approximately Mittag-Leffler distributed, which means that the exceedance
+times form a *fractional Poisson process* [@Laskin2003]. 
+Since the Mittag-Leffler distribution nests the exponential distribution 
+(the special case where $\beta = 1$), the fractional Poisson process 
+generalizes the standard Poisson process, which models the threshold
+crossing times if times between events are light-tailed. 
+As the threshold height increases, the threshold crossing events are 
+effectively "thinned out", and the thinned (or rarefied) processes retain
+the characteristics of a fractional Poisson process [@Gorenflo2010], 
+with a growing scale parameter $b(1/p)$.
+
+We also note that a fractional Poisson process can be represented as a
+standard Poisson process $N(t)$, time-changed by an inverse stable 
+subordinator $E(t)$ [@Meerschaert2010b]. 
+This pattern can be made sense of in our context: 
+The exceedance times for a standard extreme value process $A(t)$ form a 
+standard Poisson process $N(t)$, and accordingly the exceedance times 
+of the CTRM limit $A(E(t))$ must be $N(E(t))$, a fractional Poisson 
+process. 
+
 
 
 # Inference on Exceedance times
@@ -404,18 +431,22 @@ following estimation procedure for the distribution of $T(\ell)$:
   Mittag-Leffler distribution of exceedance times. 
   
 
-4. Approximating $p \approx |\{k: J_k > \ell\}| / n$, 
+4. Approximate $p \approx |\{k: J_k > \ell\}| / n$. 
+  Recall that $b(c)$ is regularly varying with parameter $1/\beta$, and 
+  hence has the representation $b(c) = L(c) c^{1/\beta}$ for some 
+  slowly varying function $L(c)$. 
+  Assuming that the variation of $L(c)$ is negligible, we hence 
   plot $\ell$ vs.\ $p^{1/\hat \beta} \hat \sigma(\ell)$. 
   Again as $\ell$ increases towards $x_R$, 
-  $p^{1/\hat \beta} \hat \sigma(\ell)$ stabilizes around a constant 
+  $p^{1/\hat \beta} \hat \sigma(\ell)$ is expected to stabilize around a constant 
   $\hat \sigma_0$. 
-  Use $p^{-1/\hat \beta} \hat \sigma_0$ as an estimate of the scale 
+  We then use $p^{-1/\hat \beta} \hat \sigma_0$ as an estimate of the scale 
   parameter of the Mittag-Leffler distribution of exceedance times for
   the level $\ell$. 
-  
 
-For a more practicable algorithm, we make the following adjustments to the
-above four steps: 
+The above, theoretically sound approach to the estimation of the 
+Mittag-Leffler parameters, needs the following adjustments for 
+practicability:
 
 * We choose $\ell$ from the order statistics, i.e. $\ell$ is the $k$-th
   largest of the observations $X_j$, where $k$ runs from 
@@ -426,8 +457,7 @@ above four steps:
   we plot $k^{1/\hat \beta} \hat \sigma(\ell)$. This changes 
   $\hat \sigma_0$ by a multiplicative constant, but has the advantage that
   $\hat \sigma_0$ does not change if one pre-processes the data by 
-  removing all observations below a certain threshold. This is discussed
-  further below. 
+  removing all observations below a certain threshold. 
 
 
 The estimates $\hat \beta$ and $\hat \sigma_0$ give an estimate of the 
@@ -461,9 +491,20 @@ Heavy tails:
   $\beta \in (0,1)$. A Hill plot can confirm this assumption. 
 
 
+<<<<<<< HEAD
 The aim of a CTRM model is to fit the extreme observations
 and their inter-arrival times. Hence, the above model assumptions need, from a 
 theoretical point of view, only apply to the not discarded data, the $k_\text{max}$-largest observations. We hence propose to produce the above three model-checking plots for the 
+=======
+It is important to observe that our statistics remain the same if all 
+observations smaller than the $k_\text{max}$-largest observation are 
+**discarded**. 
+In the same vein, the above model assumptions need, from a 
+theoretical point of view, only apply to the not discarded data; 
+in other words, the aim of a CTRM model is to fit the extreme observations
+and their inter-arrival times. 
+We hence propose to produce the above three model-checking plots for the 
+>>>>>>> a89360c321a5fd7f449bba72046c2176ab307c0f
 dataset containing the $k_\text{max}$ largest observations only. 
 
 
@@ -690,6 +731,6 @@ plot(mrp, what = "diagnostics")
 
 * Mention fractional Poisson Process, cite JStatPlanInf paper by Cahoy
 
-
+* "Graphisch zu vernachlässigen."
 
 
