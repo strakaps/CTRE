@@ -60,6 +60,7 @@ new_mrp <- function(x) {
     switch (
       what,
       data = plot_data(...),
+      diagnostics = plot_diagnostics(...),
       MLtail = plot_MLtail(...),
       MLscale = plot_MLscale(...),
       GPshape = plot_GPshape(...),
@@ -257,11 +258,11 @@ new_mrp <- function(x) {
   }
 
   cross_cor <- function(){
-    acf(cbind(diff(TT), JJ[-1]))
+    ccf(diff(TT), JJ[-1], main = "CrossCor (Exc & Exc Time)")
   }
 
   hillPlot <- function(hline = NULL){
-    fExtremes::hillPlot(diff(TT))
+    fExtremes::hillPlot(diff(TT), main = "Hill Plot")
     if (!is.null(hline))
       abline(h = hline, lty = 3, col = "orange")
   }
@@ -279,7 +280,15 @@ new_mrp <- function(x) {
     n <- length(WW)
     x <- rank(diff(TT))/n
     y <- rank(JJ[-1])/n
-    plot(x,y)
+    plot(x,y, main = "Emp. Copula (Exc & Exc Time)")
+  }
+
+  plot_diagnostics <- function(...){
+    acf(diff(TT), main = "ACF (Exceedance Times)")
+    acf(JJ, main = "ACF (Exceedances)")
+    cross_cor()
+    hillPlot(...)
+    empiCopula()
   }
 
   structure(f, class = 'mrp')
