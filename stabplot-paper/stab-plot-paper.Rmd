@@ -227,7 +227,7 @@ $GP(\xi,\bar \sigma)$.
 ## Waiting times
 
 We will assume that the waiting times $W_k$ have very heavy tails,
-i.e.~a tail parameter $\beta \in (0,1)$ and regularly varying tail probabilities:
+i.e. a tail parameter $\beta \in (0,1)$ and regularly varying tail probabilities:
 $\mathbf P(W > t) \sim L(t) t^{-\beta}$ as $t \uparrow \infty$ for
 some slowly varying function $L(t)$. As usually, $f(t) \sim g(t)$
 means that the quotient of $f(t)$ and $g(t)$ converges to $1$. The
