@@ -107,7 +107,7 @@ new_mrp <- function(x) {
 
   ML_estimates <- function(ks = 5:n) {
     plyr::ldply(.data = ks, function(k) {
-      WW <- as.vector(diff(sort(TT[idxJ[1:k]])))
+      WW <- diff(sort(as.vector(TT[idxJ[1:k]])))
       est <- MittagLeffleR::logMomentEstimator(WW)
       names(est) <-
         c("tail", "scale", "tailLo", "tailHi", "scaleLo", "scaleHi")
