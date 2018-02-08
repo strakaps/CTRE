@@ -122,13 +122,13 @@ new_mrp <- function(x) {
     lines(MLestimates$k,
           MLestimates$tailHi,
           type = "l",
-          lty = 2)
+          col = "blue", lty = 2)
     lines(MLestimates$k,
           MLestimates$tailLo,
           type = "l",
-          lty = 2)
+          col = "blue", lty = 2)
     if (!is.null(hline))
-      abline(h = hline, lty = 3)
+      abline(h = hline, lty = 3, col="orange")
   }
 
   plot_MLscale <- function(tail = NULL, hline = NULL) {
@@ -149,14 +149,14 @@ new_mrp <- function(x) {
     )
     lines(MLestimates$k,
           rescaledScaleLo,
-          type = "l",
+          type = "l", col = "blue",
           lty = 2)
     lines(MLestimates$k,
           rescaledScaleHi,
-          type = "l",
+          type = "l", col = "blue",
           lty = 2)
     if (!is.null(hline))
-      abline(h = hline, lty = 2)
+      abline(h = hline, lty = 3, col = "orange")
   }
 
   plot_GPthreshold <- function(hline = NULL, ...) {

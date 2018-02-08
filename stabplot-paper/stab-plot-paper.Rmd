@@ -757,20 +757,22 @@ The first author was supported by DAAD co-financed by the German Federal Ministr
 
 # Diagnostic Plots
 
+```{r simulated-diag, fig.width=5, fig.height=7.5, fig.cap="\\label{fig:simulated-diag}Diagnostic plots for the simulated data."}
+par(mfrow=c(3,2))
+plot(mrp, what = "diagnostics", hline = params$tail)
+```
+
+
 ```{r bitcoin-diag, fig.width=5, fig.height=7.5, fig.cap="\\label{fig:bitcoin-diag}Diagnostic plots for the Bitcoin data."}
 par(mfrow=c(3,2)) 
-plot(bitcoin_mrp, what = "diagnostics")
+plot(bitcoin_mrp, what = "diagnostics", hline = 0.9)
 ```
 
 ```{r solar-flare-diag, fig.width=5, fig.height=7.5, fig.cap="\\label{fig:solar-flar-diag}Diagnostic plots for the Solar Flare data."}
 par(mfrow=c(3,2))
-plot(flares_mrp, what = "diagnostics")
+plot(flares_mrp, what = "diagnostics", hline = 0.85)
 ```
 
-```{r simulated-diag, fig.width=5, fig.height=7.5, fig.cap="\\label{fig:simulated-diag}Diagnostic plots for the simulated data."}
-par(mfrow=c(3,2))
-plot(mrp, what = "diagnostics")
-```
 
 \newpage
 
