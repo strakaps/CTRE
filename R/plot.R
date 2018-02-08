@@ -18,8 +18,7 @@ plot.mrp <-
                     "diagnostics",
                     "MLtail",
                     "MLscale",
-                    "GPshape",
-                    "GPscale",
+                    "GPthreshold",
                     "MLqq"),
            ...) {
     what <- match.arg(what)

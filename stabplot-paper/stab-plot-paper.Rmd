@@ -196,15 +196,12 @@ preceding intervals marked by blue crosses.
 ```{r thresholdedBursty, message=FALSE, fig.cap="\\label{fig:thresholdedBursty}Exceedances (red) and Times until Exceedance (durations between blue crosses) for a given threshold $\\ell$ (dashed line)."}
 library(CTRM)
 tail <- 0.85
-n <- 10000
-k_max <- 400
-rescale <- (n/k_max)^(1/tail)
-sigma <- (cos(pi*tail/2))^(1/tail) / rescale
+n <- 1E4
+sigma <- (cos(pi*tail/2))^(1/tail)
 times <- cumsum(stabledist::rstable(n, tail, 1, sigma, pm=1))
-magnitudes <- rexp(n)
+magnitudes <- extRemes::revd(n, scale = 1, shape = 0)
 mrp <- new_mrp(data.frame(times, magnitudes))
-mrp <- mrp("thin", k = k_max)
-plot(mrp)
+plot(mrp, p = 0.005)
 ```
 
 A standard result from extreme value theory provides the asymptotic 
@@ -372,12 +369,15 @@ This approach is not appropriate for CTRM data, because maxima in
 same-sized blocks will not be i.i.d.
 As mentioned in Section 2, the POT approach does extract i.i.d. $X(\ell)$ 
 (and $T(\ell)$), and can hence be directly used for the inference on 
-the extreme values of $J_k$.
+the extreme values of $J_k$. 
+Figure \ref{fig:GP-simulated} shows 
 
-```{r GPD-simulated-data}
+```{r GPD-simulated-data, warning=FALSE, fig.cap="\\label{fig:GP-simulated}Stability plot for the shape and scale parameters of the generalized Pareto distribution. Here, the magnitudes are standard Gumbel, hence $\\xi = 0$ and $\\sigma = 1$."}
 par(mfrow = c(1,2))
-plot(mrp, what = "GPshape")
-plot(mrp, what = "GPscale")
+JJ <- mrp("getMags")
+u.range <- quantile(x = JJ, probs = c(0.75, 0.95))
+POT::tcplot(JJ, u.range = u.range)
+# extRemes::threshrange.plot(mrp("getMags"), type = "GP", set.panels = FALSE)
 ```
 
 
@@ -563,9 +563,11 @@ $S_\beta(\cos(\pi \beta/2)^{1/\beta}, +1, 0)$, which is
 implemented in the R package `stabledist` by @stabledist. 
 
 ```{r simulated-example, message=FALSE, fig.cap="\\label{fig:sim}Tail and scale estimates for a simulated simulated data, with waiting times drawn from the stable distribution $S_\\beta(\\cos(\\pi \\beta/2)^{1/\\beta}, +1, 0)$ and unit exponentially distributed magnitudes. Dashed lines are 95% confidence intervals, dotted lines are the known theoretical values."}
+k_max <- 500
+mrp <- mrp("thin", k = k_max)
 par(mfrow=c(1,2))
 plot(mrp, what = "MLtail", hline = tail)
-plot(mrp, what = "MLscale", tail = tail, hline = n)
+plot(mrp, what = "MLscale", tail = tail, hline = n^(1/tail))
 ```
 
 By Theorem \ref{eq:Tellscale}, the distribution 

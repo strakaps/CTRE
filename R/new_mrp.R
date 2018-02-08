@@ -43,7 +43,6 @@ new_mrp <- function(x) {
 
   idxJ <- order(JJ, decreasing = TRUE)
   MLestimates <- NULL
-  GPestimates <- NULL
   f <- function(what, ...) {
     # compute Mittag-Leffler estimates, but only once
     if (is.null(MLestimates) &&
@@ -51,20 +50,14 @@ new_mrp <- function(x) {
       message("Computing Mittag-Leffler estimates for all thresholds.")
       MLestimates <<- ML_estimates(ks = 5:n)
     }
-    # compute Generalized Pareto estimates, but only once
-    if (is.null(GPestimates) &&
-        (what == "GPshape" || what == "GPscale")) {
-      message("Computing Generalized Pareto estimates for all thresholds.")
-      GPestimates <<- GP_estimates(ks = 5:n)
-    }
+
     switch (
       what,
       data = plot_data(...),
       diagnostics = plot_diagnostics(...),
       MLtail = plot_MLtail(...),
       MLscale = plot_MLscale(...),
-      GPshape = plot_GPshape(...),
-      GPscale = plot_GPscale(...),
+      GPthreshold = plot_GPthreshold(...),
       thin    = apply_threshold(...),
       MLqq = plot_MLqq(...),
       hillPlot = hillPlot(...),
@@ -116,25 +109,6 @@ new_mrp <- function(x) {
     })
   }
 
-  GP_estimates <- function(ks = 5:n) {
-    plyr::ldply(.data = ks, function(k) {
-      l <- JJ[idxJ[k]]
-      est <- POT::fitgpd(JJ[idxJ], l, est = "mle")
-      scaleCI = POT::gpd.fiscale(est, 0.95)
-      shapeCI = POT::gpd.fishape(est, 0.95)
-      c(
-        k = k,
-        shape   = est$fitted.values[[2]],
-        scale   = est$fitted.values[[1]],
-        shapeLo = shapeCI[1],
-        shapeHi = shapeCI[2],
-        scaleLo = scaleCI[1],
-        scaleHi = scaleCI[2]
-      )
-    })
-  }
-
-
   plot_MLtail <- function(hline = NULL) {
     plot(
       MLestimates$k,
@@ -185,57 +159,10 @@ new_mrp <- function(x) {
       abline(h = hline, lty = 2)
   }
 
-  plot_GPshape <- function(hline = NULL) {
-    spread <- diff(range(GPestimates$shape))
-    ylim <-
-      c(min(GPestimates$shape) - spread,
-        max(GPestimates$shape) + spread)
-    plot(
-      GPestimates$k,
-      GPestimates$shape,
-      type = "l",
-      ylab = "xi",
-      xlab = "k",
-      main = "GP shape",
-      ylim = ylim
-    )
-    lines(GPestimates$k,
-          GPestimates$shapeLo,
-          type = "l",
-          lty = 2)
-    lines(GPestimates$k,
-          GPestimates$shapeHi,
-          type = "l",
-          lty = 2)
-    if (!is.null(hline))
-      abline(h = hline, lty = 2)
+  plot_GPthreshold <- function(hline = NULL, ...) {
+    POT::tcplot(JJ)
   }
 
-  plot_GPscale <- function(hline = NULL) {
-    spread <- diff(range(GPestimates$scale))
-    ylim <-
-      c(min(GPestimates$scale) - spread,
-        max(GPestimates$scale) + spread)
-    plot(
-      GPestimates$k,
-      GPestimates$scale,
-      type = "l",
-      ylab = "sigma",
-      xlab = "k",
-      main = "GP scale",
-      ylim = ylim
-    )
-    lines(GPestimates$k,
-          GPestimates$scaleLo,
-          type = "l",
-          lty = 2)
-    lines(GPestimates$k,
-          GPestimates$scaleHi,
-          type = "l",
-          lty = 2)
-    if (!is.null(hline))
-      abline(h = hline, lty = 2)
-  }
 
   apply_threshold <- function(k = n) {
     if (k > n)
