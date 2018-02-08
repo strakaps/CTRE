@@ -51,7 +51,9 @@ bibliography: CTRMstats.bib
 
 output: rticles::asa_article
 
-# doesn't seem to work
+params:
+  tail: 0.8
+  n: 10000
 
 ---
 
@@ -195,8 +197,8 @@ preceding intervals marked by blue crosses.
 
 ```{r thresholdedBursty, message=FALSE, fig.cap="\\label{fig:thresholdedBursty}Exceedances (red) and Times until Exceedance (durations between blue crosses) for a given threshold $\\ell$ (dashed line)."}
 library(CTRM)
-tail <- 0.85
-n <- 1E4
+tail <- params$tail
+n <- params$n
 sigma <- (cos(pi*tail/2))^(1/tail)
 times <- cumsum(stabledist::rstable(n, tail, 1, sigma, pm=1))
 magnitudes <- extRemes::revd(n, scale = 1, shape = 0)
@@ -352,9 +354,9 @@ For $\sigma > 0$, we write ${\rm ML}(\beta, \sigma)$ for the distribution
 of $\sigma Y$, where $Y$ has Laplace transform 
 $\mathbf E[\exp(-s Y)] = 1/(1+s^\beta)$. Due to e.g. Theorem 19.1 in 
 @Haubold11, the exceedance time from Theorem MS2 can be written as 
-$$
+\begin{align} \label{eq:hitting-ML}
 B(\ell^*) \sim {\rm ML}\left(\beta, (-\log F_A(\ell^*))^{-1/\beta}\right)
-$$
+\end{align}
 
 
 # Scaling limit of Exceedance Times
@@ -367,10 +369,16 @@ and the maximum of each block is taken as realization of the random
 variable $M_n$. 
 This approach is not appropriate for CTRM data, because maxima in 
 same-sized blocks will not be i.i.d.
-As mentioned in Section 2, the POT approach does extract i.i.d. $X(\ell)$ 
+As mentioned in Section 2, the POT approach *does* extract i.i.d. $X(\ell)$ 
 (and $T(\ell)$), and can hence be directly used for the inference on 
 the extreme values of $J_k$. 
-Figure \ref{fig:GP-simulated} shows 
+Figure \ref{fig:GP-simulated} shows an example for the so-called 
+"threshold-selection" plots for data drawn from the standard Gumbel 
+distribution. 
+For a range of thresholds, maximum likelihood estimators of the shape and 
+scale parameters in the GP distribution are computed and plotted. 
+Note that the scale parameter is transformed so that it appears independent
+of the threshold [see e.g. Section 4.3.4 in @ColesBook]. 
 
 ```{r GPD-simulated-data, warning=FALSE, fig.cap="\\label{fig:GP-simulated}Stability plot for the shape and scale parameters of the generalized Pareto distribution. Here, the magnitudes are standard Gumbel, hence $\\xi = 0$ and $\\sigma = 1$."}
 par(mfrow = c(1,2))
@@ -381,21 +389,19 @@ POT::tcplot(JJ, u.range = u.range)
 ```
 
 
-, one chooses a threshhold $l$ and due to Theorem 3 
-the distribution of the exceedances is known, which is a GPD distribution. 
-So one can then fit data by estimating the parameters of a GPD. The method 
-which we present in this article is similar to the POT approach, except 
-that we have to take the random waiting times between the jumps into 
-account. To do so, we need additionally the assymptotic distribution of the
-exceedance time, which delivers the following theorem.
+For the remainder of this article, we focus on statistical inference 
+for the inter-exceedance times $T(\ell)$ of the threshold crossings. 
+In our setting, the inter-exceedance times follow a fractional 
+Poisson process instead of a standard Poisson process, which is how our
+approach generalizes the standard POT approach. 
 
-**Theorem**  
+**Theorem:**  
 
-Let $b(c)$ be the scaling function \eqref{eq:bScale},
+: Let $b(c)$ be the scaling function \eqref{eq:bScale},
 and let $\ell$ be a threshold from the support $[x_L, x_R]$ of $J$. 
 Furthermore let $p := \mathbf P(J > \ell)$. Under the assumption \eqref{eq:Wscale} and the assumptions of the GEV Theorem, we have 
 \begin{equation} \label{eq:Tellscale}
-T(\ell) / b(1/p) \stackrel{d}{\to} {\rm ML}(\beta, 1), \quad \ell \uparrow x_R.
+T(\ell) / b(1/p) \to {\rm ML}(\beta, 1) \text{ as } \ell \uparrow x_R.
 \end{equation}
 
 *Proof:*
@@ -406,7 +412,7 @@ We first note that due to \eqref{eq:GEV}
 \begin{equation} 
 F_J (a(c) \ell^* + d(c))^c \stackrel{d}{\to} F_A(\ell^*), \text{ as } c \to \infty.
 \end{equation}
-\noindent Taking the logarithm on each side and using the relationship  $z-1 \sim \log(z)$ as $z \to 1$, implies
+\noindent Taking the logarithm on each side and using the relationship  $z-1 \sim \log(z)$ as $z \to 1$, we get
 \begin{equation}
 c (1-F_J(a(c) \ell^*+d(c))) \stackrel{d}{\to} - \log F_A(\ell^*).
 \end{equation}
@@ -417,10 +423,13 @@ c \cdot p \stackrel{d}{\to} - \log F_A(\ell^*) \label{eq:np_conv}
 \noindent as $\ell \uparrow x_R$.
 Now we get
 \begin{align}
-\mathbf P \left(T(\ell)/b(1/p) > t \right) &= \mathbf P(M(b(1/p) t) \leq \ell) \label{eq:proofTheo}
-= \mathbf P(M(b(1/p)) \le a(c) \ell^* + d(c))\\
-&= \mathbf P\left(\frac{V(b(1/p)/b(c) \cdot b(c) \cdot t)-d(c)}{a(c)} \le \ell^*\right) \nonumber\\
-&\stackrel{d}{\to} \mathbf P(A(E(-\log F_A(l))^{-1/\beta} t) \leq \ell^*),\nonumber
+\begin{split}
+\mathbf P \left[T(\ell)/b(1/p) > t \right]
+&= \mathbf P[V(b(1/p) t) \leq \ell] \label{eq:proofTheo}
+= \mathbf P[V(b(1/p)) \le a(c) \ell^* + d(c)]\\
+&= \mathbf P\left(\frac{V(b(1/p)/b(c) \cdot b(c) \cdot t)-d(c)}{a(c)} \le \ell^*\right) \\
+&\stackrel{d}{\to} \mathbf P(A(E(-\log F_A(l))^{-1/\beta} t) \leq \ell^*),
+\end{split}
 \end{align}
 where the convergence follows due to Theorem MS1 (with $c$ replaced by $b(c)$) and the fact that
 \begin{equation}
@@ -430,28 +439,38 @@ where the convergence follows due to Theorem MS1 (with $c$ replaced by $b(c)$) a
 \to \left( -\log F_A(l)\right)^{-1/\beta} 
 \text{ as } c \to \infty.\label{eq:proofTheo2}
 \end{equation}
-In \eqref{eq:proofTheo2} we used \eqref{eq:np_conv} and the fact that since $b \in RV(1/\beta)$, $b(\lambda c) / b(c) \rightarrow \lambda^{1/\beta}$ as $c \rightarrow \infty$ uniformly in $\lambda$ on each compact subset of $(0,\infty)$. The right side of \eqref{eq:proofTheo} is equal to
-$$\mathbf P \left( \left( -\log(F_A(\ell^{*})) \right)^ {1/\beta} B(\ell^*) > t\right).$$ Due to Theorem MS2 and the scaling proparty of the Mittag Leffler distribution we know that $(-\log F_A (\ell^*))^{1/\beta} B(\ell^*)$ is $ML(\beta,1)$ distributed, hence the assertion follows. 
+In \eqref{eq:proofTheo2} we used \eqref{eq:np_conv} and 
+$b \in RV(1/\beta)$, which means that 
+$b(\lambda c) / b(c) \rightarrow \lambda^{1/\beta}$ as 
+$c \rightarrow \infty$ uniformly in $\lambda$ on each compact subset of 
+$(0,\infty)$. 
+The limit in \eqref{eq:proofTheo} is equal to
+$$\mathbf P \left( \left( -\log(F_A(\ell^{*})) \right)^ {1/\beta} B(\ell^*) > t\right).$$ 
+Due to Theorem MS2 and \eqref{eq:hitting-ML}, we know that 
+$(-\log F_A (\ell^*))^{1/\beta} B(\ell^*)$ is $ML(\beta,1)$ distributed, 
+and hence the theorem follows. 
 
-**Remark:**  
-By the above theorem, the inter-exceedance times are i.i.d. and
+**Remark:**
+
+: By the above theorem, the inter-exceedance times are i.i.d. and
 approximately Mittag-Leffler distributed, which means that the exceedance
 times form a *fractional Poisson process* [@Laskin2003]. 
 Since the Mittag-Leffler distribution nests the exponential distribution 
 (the special case where $\beta = 1$), the fractional Poisson process 
-generalizes the standard Poisson process, which models the threshold
-crossing times if times between events are light-tailed. 
+generalizes the standard Poisson process. 
 As the threshold height increases, the threshold crossing events are 
 effectively "thinned out", and the thinned (or rarefied) processes retain
 the characteristics of a fractional Poisson process [@Gorenflo2010], 
 with a growing scale parameter $b(1/p)$.
 
-We also note that a fractional Poisson process can be represented as a
+**Remark:**
+
+: A fractional Poisson process can be represented as a
 standard Poisson process $N(t)$, time-changed by an inverse stable 
 subordinator $E(t)$ [@Meerschaert2010b]. 
 This pattern can be made sense of in our context: 
 The exceedance times for a standard extreme value process $A(t)$ form a 
-standard Poisson process $N(t)$, and accordingly the exceedance times 
+standard Poisson process $N(t)$. Accordingly, the exceedance times 
 of the CTRM limit $A(E(t))$ must be $N(E(t))$, a fractional Poisson 
 process. 
 
@@ -462,7 +481,7 @@ process.
 Equation \eqref{eq:Tellscale} implies that for large $\ell$ we may 
 approximate the distribution of $T(\ell)$ with an 
 ${\rm ML}(\beta, b(1/p))$ distribution.
-Inspired by the POT (points over threshold) method, one may use the 
+Building on the POT (Peaks Over Threshold) method, we propose the 
 following estimation procedure for the distribution of $T(\ell)$: 
 
 1. For varying thresholds $\ell \uparrow x_R$, extract datasets of
@@ -493,9 +512,8 @@ following estimation procedure for the distribution of $T(\ell)$:
   parameter of the Mittag-Leffler distribution of exceedance times for
   the level $\ell$. 
 
-The above, theoretically sound approach to the estimation of the 
-Mittag-Leffler parameters, needs the following adjustments for 
-practicability:
+The above approach, though theoretically sound, benefits from the following
+practical adjustments:
 
 * We choose $\ell$ from the order statistics, i.e. $\ell$ is the $k$-th
   largest of the observations $X_j$, where $k$ runs from 
@@ -504,7 +522,8 @@ practicability:
 * We use $k$ rather than $\ell$ for the horizontal axis of our plots. 
 * In Step 4, rather than plotting $p^{1/\hat \beta} \hat \sigma(\ell)$
   we plot $k^{1/\hat \beta} \hat \sigma(\ell)$. This changes 
-  $\hat \sigma_0$ by a multiplicative constant, but has the advantage that
+  $\hat \sigma_0$ by the multiplicative constant $n^{1/\hat \beta}$, 
+  but has the advantage that
   $\hat \sigma_0$ does not change if one pre-processes the data by 
   removing all observations below a certain threshold. 
 
@@ -525,13 +544,13 @@ below. For each assumption, we suggest one means of checking if it holds:
 
 I.i.d.:
 : The pairs $(W_i, J_i)$ are i.i.d. An indication if this is true is given 
-  by a cross-correlation plot for the two time series.
+  by an auto-correlation plot for the two time series.
   
   
 
 Uncoupled:
 : Each $W_i$ is independent of each $J_i$. We propose an empirical copula
-  plot to test independence. 
+  plot to check for any dependence. 
   
   
 
@@ -540,15 +559,21 @@ Heavy tails:
   $\beta \in (0,1)$. A Hill plot can confirm this assumption. 
 
 
-The aim of a CTRM model is to fit the extreme observations
-and their inter-arrival times. Hence, the above model assumptions need, from a theoretical point of view, only apply to the not discarded data, the $k_\text{max}$-largest observations. We hence propose to produce the above three model-checking plots for the 
-dataset containing the $k_\text{max}$ largest observations only. 
+The motivation behind a CTRM model is to fit extreme observations
+and their inter-arrival times. 
+Observations below a certain threshold may be interpreted as noise and 
+discarded.
+Since the signal rather than the noise needs to satisfy our modelling 
+assumptions, we suggest that the above model assumptions are checked 
+*after* the noisy small observations are discarded. 
+
 
 # Application to data
 
 ## Simulated Data
 
-To test our inference method, we have simulated $n=10000$ independent
+To test our inference method, we have simulated `r params$n` 
+independent
 waiting time and magnitude pairs $(W_k, J_k)$. In order to have exact 
 analytical values available for $\beta$ and $\sigma_0$, a distribution for 
 $W_k$ needs to be chosen for which $b(n)$ from \eqref{eq:Wscale} is known. 
@@ -562,7 +587,7 @@ show that $D$ must have the stable distribution
 $S_\beta(\cos(\pi \beta/2)^{1/\beta}, +1, 0)$, which is 
 implemented in the R package `stabledist` by @stabledist. 
 
-```{r simulated-example, message=FALSE, fig.cap="\\label{fig:sim}Tail and scale estimates for a simulated simulated data, with waiting times drawn from the stable distribution $S_\\beta(\\cos(\\pi \\beta/2)^{1/\\beta}, +1, 0)$ and unit exponentially distributed magnitudes. Dashed lines are 95% confidence intervals, dotted lines are the known theoretical values."}
+```{r simulated-example, message=FALSE, fig.cap="\\label{fig:sim}Tail and scale estimates for simulated data, with waiting times drawn from the stable distribution $S_\\beta(\\cos(\\pi \\beta/2)^{1/\\beta}, +1, 0)$ with $\\beta = 0.8$. Dashed lines are 95% confidence intervals, dotted lines are the known theoretical values ($0.8$ and $10000^{1/0.8}$)."}
 k_max <- 500
 mrp <- mrp("thin", k = k_max)
 par(mfrow=c(1,2))
@@ -570,15 +595,17 @@ plot(mrp, what = "MLtail", hline = tail)
 plot(mrp, what = "MLscale", tail = tail, hline = n^(1/tail))
 ```
 
-By Theorem \ref{eq:Tellscale}, the distribution 
-of $T(\ell)$ is approximately ${\rm ML}(\beta, p^{-1/\beta})$, which means 
-$\sigma_0 = 1$.
+By \eqref{eq:Tellscale}, the distribution 
+of $T(\ell)$ is approximately 
+${\rm ML}(\beta, p^{-1/\beta}) 
+= {\rm ML}(\beta, k^{-1/\beta} n^{1/\beta})$, which means 
+$\sigma_0 = n^{1/\beta}$.
 The distribution of $J_k$ is irrelevant for the inference on $\beta$ and 
-$\sigma_0$; we have chosen unit exponential random variables. 
+$\sigma_0$ (we have chosen unit exponential random variables). 
 Figure \ref{fig:sim} displays plots of $\hat \beta(\ell)$ and 
 $\hat \sigma(\ell)$ vs. $k$, the number of exceedances as $\ell$ traverses 
 the largest observations $J_i$. 
-Dotted lines show 95 % confidence intervals, which are derived from the 
+Dotted lines show 95% confidence intervals, which are derived from the 
 asymptotic normality of the log-moments estimators [@Cahoy2013] and the $\delta$-method [@MittagLeffleR].
 The dashed lines show the actual values of $\beta$ resp.\ $\sigma_0$, 
 showing that our inference method effectively identifies the 
@@ -613,7 +640,8 @@ the tail and scale parameters of the exceedance time distribution.
 That is, exceedances of a threshold $\ell$ at the $k$-th largest observed 
 magnitude are distributed as 
 $$T(\ell) = \text{ML}(0.9, 2000 * k^{-1/0.9}).$$ 
-A Hill plot (not shown) of the exceedance times at the level of the 100th 
+A Hill plot (Figure \ref{fig:bitcoin-diag}) of the exceedance times at the 
+level of the 100th 
 largest event lends credence to a heavy-tailed distribution with tail
 parameter near the value $1$. 
 
@@ -630,11 +658,11 @@ plot(flares_mrp, p = 0.01)
 The "complete Hard X Ray Burst Spectrometer event list" 
 \footnote{\url{https://umbra.nascom.nasa.gov/smm/hxrbs.html}} 
 \cite{HXRBS} is a 
-comprehensive reference for all Hard X ray bursts detected with the Hard X 
+comprehensive reference for all measurements of the Hard X 
 Ray Burst Spectrometer on NASA's Solar Maximum Mission from the time of 
-launch on Feb 14, 1980 to the end of the mission in Dec 1989. Some 12,776 
-events were detected in the energy range 30 to 600 keV with the vast 
-majority being solar flares. The list includes the start time, peak time, 
+launch on Feb 14, 1980 to the end of the mission in Dec 1989. 12,776 
+events were detected, with the "vast 
+majority being solar flares". The list includes the start time, peak time, 
 duration, and peak rate of each event. We have used "start time" as the 
 variable for event times, and "peak rate" as the variable for event 
 magnitudes (Figure \ref{fig:solar-flare-data}). 
@@ -644,31 +672,32 @@ flares_mrp <- new_mrp(flares)
 flares_mrp <- flares_mrp("thin", k = 300)
 par(mfrow=c(1,2))
 plot(flares_mrp, what = "MLtail", hline = 0.85)
-plot(flares_mrp, what = "MLscale", tail = 0.85, hline = 350)
+plot(flares_mrp, what = "MLscale", tail = 0.85, hline = 2.5 * 1E7)
 ```
 
-Figure \ref{fig:flares} shows estimates for the tail and scale parameters 
-of the fitted Mittag-Leffler distribution. The dotted line for the tail 
+Figure \ref{fig:flares} shows the fitted tail and scale parameters 
+of the Mittag-Leffler distribution. The dotted line for the tail 
 parameter is at $\beta = 0.85$, yielding the plot of (transformed) scale 
 estimates $\hat \sigma_0 = k^{1/0.85} \hat \sigma(\ell)$. 
-We suggest the estimate $\sigma_0 = 350$. 
-The exceedance times of a threshold $\ell$ are hence 
-Mittag-Leffler distributed as
-$$ T(\ell) \sim {\rm ML}(0.85, 350  k^{-1/0.85})$$
-where time is measured in days. 
+We suggest the estimate $\sigma_0 = 2.5 \times 10^7$ seconds 
+$\approx 289$ days. 
+The exceedance times of a threshold $\ell$ as high as the $k$-measurement 
+are hence Mittag-Leffler distributed as
+$$ T(\ell) \sim {\rm ML}(0.85, 289  k^{-1/0.85} \text{ days}).$$
 
 
 # Discussion
 
-Comparing the simulated data in Figure \ref{fig:sim} with plots of the 
+Comparing plots of the simulated data in Figure \ref{fig:thresholdedBursty}
+with plots of the 
 empirical data \ref{fig:bitcoin-data} and \ref{fig:solar-flare-data}, 
 it can be seen that the empirical data show long time intervals without 
 *any* event occurring, whereas for real-world data events appear to happen 
 continuously. 
-This discrepancy vanishes, however, when all but the $k_\text{max}$ 
+This seeming discrepancy vanishes, however, when all but the $k_\text{max}$
 largest observations are discarded. 
-The CTRM model thus models the extreme events, while ignoring the "noise"
-events of small magnitudes. 
+We repeat that the CTRM model focuses on extreme events and interprets 
+smaller events as noise. 
 
 The CTRM model, moreover, assumes a "pure" power-law for the event 
 inter-arrival times. 
@@ -676,14 +705,16 @@ Real datasets, however, are often exponentially
 tapered or truncated, see e.g. the discussion of tempered power-law 
 distributions by @MeerschaertRoyQin and the truncated Pareto distribution 
 by @Aban06. 
-This means that for a range of time scales, the fit to a power-law
-distribution seems adequate, the power-law character of the distribution 
-seems to disappear. 
+This means that the fit to a power-law
+distribution may seem adequate for medium-size time scales, 
+but that at very large time-scales the power-law character of the 
+distribution can weaken or disappear.
 This behaviour seems to appear in both the Bitcoin data and the Solar-Flare
 data: the Hill plot for the tail parameter is increasing towards lighter
 tails as the threshold reaches very high values. 
 This may mean that the CTRM model may overestimate the heaviness of the
-tail of the waiting time distribution. 
+tail of the waiting time distribution; or that a CTRM base on a *tempered* 
+power-law renewal process might be a more realistic model. 
 
 # Conclusion
 
@@ -739,27 +770,4 @@ plot(flares_mrp, what = "diagnostics")
 par(mfrow=c(3,2))
 plot(mrp, what = "diagnostics")
 ```
-
-
-
-# TODO: 
-
-* Add some GP plots, to show that interest is actually also in the extreme 
-  value distribution, not just the inter-event times
-
-* Mention that CTRM and OCTRM have the same distribution in the 
-  uncoupled case
-  
-
-* Show that the scaling limit for $T(\ell)$ is the same for CTRM and OCTRM
-
-
-* give a method that jointly estimates beta and sigma
-
-
-
-* Mention fractional Poisson Process, cite JStatPlanInf paper by Cahoy
-
-* "Graphisch zu vernachlässigen."
-
 
