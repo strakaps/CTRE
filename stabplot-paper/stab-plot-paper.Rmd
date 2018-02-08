@@ -749,7 +749,8 @@ assumptions.
 The analyses from this paper are readily reproduced via the R package 
 `CTRM`, available at \url{https://github.com/strakaps/CTRM}. 
 
-
+#Acknowledgements
+The first author was supported by DAAD co-financed by the German Federal Ministry of Education and Research (BMBF). We also would like to thank Peter Scheffler, who laid the foundation of this work and Gurtek Gill who helped to create the MittagLeffleR R-package. 
 
 
 \appendix
@@ -770,4 +771,8 @@ plot(flares_mrp, what = "diagnostics")
 par(mfrow=c(3,2))
 plot(mrp, what = "diagnostics")
 ```
+
+\newpage
+
+#References
 
