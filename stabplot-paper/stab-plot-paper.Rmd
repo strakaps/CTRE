@@ -6,7 +6,6 @@ blinded: 0
 
 authors: 
 - name: "Katharina Hees"
-  thanks: The authors gratefully acknowledge ...
   affiliation: University of Dortmund
   
 - name: "Smarak Nayak"
@@ -197,10 +196,15 @@ preceding intervals marked by blue crosses.
 
 ```{r thresholdedBursty, message=FALSE, fig.cap="\\label{fig:thresholdedBursty}Exceedances (red) and Times until Exceedance (durations between blue crosses) for a given threshold $\\ell$ (dashed line)."}
 library(CTRM)
+#rpareto <- function(n,tail){
+#          if(tail<=0) stop("tail must be positive")
+#          rp <- (runif(n)/gamma(1-tail))^(-1/tail)
+#          rp}
 tail <- params$tail
 n <- params$n
 sigma <- (cos(pi*tail/2))^(1/tail)
 times <- cumsum(stabledist::rstable(n, tail, 1, sigma, pm=1))
+#times<-cumsum(rpareto(n,tail))
 magnitudes <- extRemes::revd(n, scale = 1, shape = 0)
 mrp <- new_mrp(data.frame(times, magnitudes))
 plot(mrp, p = 0.005)
