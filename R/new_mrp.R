@@ -214,7 +214,7 @@ new_mrp <- function(x) {
     acf(diff(TT), main = "ACF (Exceedance Times)")
     acf(JJ, main = "ACF (Exceedances)")
     cross_cor()
-    plot_MLqq(...)
+    plot_MLqq(tail)
     empiCopula()
   }
 
