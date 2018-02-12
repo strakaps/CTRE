@@ -6,14 +6,11 @@ blinded: 0
 
 authors: 
 - name: "Katharina Hees"
-<<<<<<< HEAD
-=======
-  thanks: Katharina Hees was supported by the DAAD and co-financed by the
+  thanks: Katharina Hees was supported by the DAAD co-financed by the
    German Federal Ministry of Education and Research (BMBF). 
    The authors would like to thank Peter Scheffler for insights on 
    stochastic process limits for CTRMs, and Gurtek Gill who helped create
    the MittagLeffleR R-package. 
->>>>>>> 6bbd3f9e7af1da7de5ec7270e5de87e435696410
   affiliation: University of Dortmund
   
 - name: "Smarak Nayak"
