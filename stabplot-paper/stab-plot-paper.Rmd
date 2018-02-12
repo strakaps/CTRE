@@ -6,12 +6,24 @@ blinded: 0
 
 authors: 
 - name: "Katharina Hees"
+<<<<<<< HEAD
+=======
+  thanks: Katharina Hees was supported by the DAAD and co-financed by the
+   German Federal Ministry of Education and Research (BMBF). 
+   The authors would like to thank Peter Scheffler for insights on 
+   stochastic process limits for CTRMs, and Gurtek Gill who helped create
+   the MittagLeffleR R-package. 
+>>>>>>> 6bbd3f9e7af1da7de5ec7270e5de87e435696410
   affiliation: University of Dortmund
   
 - name: "Smarak Nayak"
   affiliation: National Australia Bank
   
 - name: "Peter Straka"
+  thanks: Corresponding author. Peter Straka was supported by the 
+    Discovery Early Career Research Award DE160101147 on the Project 
+    "Predicting Extremes when Events Occur in Bursts" by the Australian
+    Research Council.
   affiliation: UNSW Sydney
   
 keywords:
@@ -36,13 +48,18 @@ abstract: |
   
   This article provides a statistical model for the exceedances $X(\ell)$
   and inter-exceedance times $T(\ell)$ of events whose magnitude exceeds a
-  given threshold $\ell$. It derives limit theorems for the distribution of
-  $X(\ell)$ and $T(\ell)$ as $\ell$ approaches very high values: as is
-  well-known, $X(\ell)$ approaches a generalized Pareto distributions; we
-  moreover show that $T(\ell)$ approaches a Mittag-Leffler distribution
-  whose scale parameter increases as $p^{1/\beta}$, where 
+  given threshold $\ell$. We derive limit theorems for the distribution of
+  $X(\ell)$ and $T(\ell)$ as $\ell$ approaches extreme values. 
+  The standard Peaks Over Threshold inference approach in extreme value
+  theory is based on the fact 
+  that $X(\ell)$ is approximately generalized Pareto distributed, and 
+  models the threshold crossing times as a standard Poisson process.
+  We show that for waiting times with infinite mean, the threshold 
+  crossing times approach a *fractional* Poisson process in the limit 
+  of high thresholds. The inter-arrival times of threshold crossings
+  scale with $p^{1/\beta}$, where 
   $p$ is the threshold crossing probability and $\beta \in (0,1)$
-  is the exponent of the inter-arrival distribution of events. We provide
+  is the tail parameter for the waiting times. We provide
   graphical means of estimating model parameters, and show that these
   methods provide useful results on simulated and real-world datasets.
 
@@ -90,7 +107,7 @@ Often a magnitude, or mark can be assigned to each event in the renewal process,
 such as for earthquakes, sun flares or neuron voltages. 
 Extreme value theory provides models for the distribution of the events
 with the largest magnitude. 
-A commonly taken assumption is that times between events are either fixed 
+A commonly made assumption is that times between events are either fixed 
 or light-tailed, and this entails that the times at which a (high) 
 threshold is crossed form a Poisson process [@beirlantBook]. 
 In the heavy-tailed waiting time scenario, as we will see, threshold 
@@ -159,7 +176,7 @@ In the coupled case, however, their distributions
 can be dramatically different [@Hees16].
 
 The main purpose of this article is to introduce and discuss a method for 
-fitting data to a CTRM. The following two quantities are our main 
+fitting data to an uncoupled CTRM. The following two quantities are our main 
 ingredients.
 
 Definition: 
@@ -170,7 +187,7 @@ T(\ell) = \inf\{t: V(t) > \ell\},
 \quad \ell \in (x_L, x_R)$$
 are called the *exceedance* resp. *time until exceedance* of level $\ell$.
 
-**POT-like approach.**
+#### POT-like approach.
 Since we assume the uncoupled case, $X(\ell)$ and $T(\ell)$ are 
 independent. 
 To see this, note that $X(\ell)$ is, in distribution, simply equal to
@@ -201,7 +218,7 @@ library(CTRM)
 #          rp <- (runif(n)/gamma(1-tail))^(-1/tail)
 #          rp}
 tail <- params$tail
-n <- params$n
+n <- params$n 
 sigma <- (cos(pi*tail/2))^(1/tail)
 times <- cumsum(stabledist::rstable(n, tail, 1, sigma, pm=1))
 #times<-cumsum(rpareto(n,tail))
@@ -214,9 +231,9 @@ A standard result from extreme value theory provides the asymptotic
 distribution of $X(\ell)$ as $\ell \uparrow x_R$. For later use, we also 
 include the scaling limit of the cumulative maximum $M(n)$. 
 
-**Theorem GEV** [e.g. Chapter 2 & Section 5.3, @beirlantBook]:
+Theorem GEV (e.g. Chapter 2 & Section 5.3, @beirlantBook):
 
-Suppose the distribution of $J_k$ is continuous. Then there
+: Suppose the distribution of $J_k$ is continuous. Then there
 exist non-decreasing norming functions $a(c)$ and $d(c)$ such that
 as $c \to \infty$, the running maximum\footnote{We extend $M(n)$ 
 continuously to $[0, +\infty)$ via $M(c) := M(\lfloor c \rfloor)$ where 
@@ -237,7 +254,7 @@ $$G(z | 0) = \exp(-\exp(-x)).$$
 For $\mu$ and $\sigma > 0$, we write ${\rm GEV}(\xi, \mu, \sigma)$ for the 
 probability distribution of the random variable $\sigma A + \mu$. 
 
-Moreover, asymptotically as $\ell \uparrow x_R$,
+    Moreover, asymptotically as $\ell \uparrow x_R$,
 $$\mathbf P(J - \ell > y | J > \ell) 
 \sim 1 - H(y),$$
 where 
@@ -247,7 +264,7 @@ $$H(y) = \begin{cases}
 1 - (1+ \xi y / \tilde \sigma)^{-1/\xi}, & y \in (0, -\sigma / \xi) \text{ if } \xi < 0
 \end{cases}$$
 
-where $\tilde \sigma := \sigma + \xi(\ell-\mu)$.
+    and where $\tilde \sigma := \sigma + \xi(\ell-\mu)$.
 The CDF $H(y)$ is said to belong to the *Generalised Pareto family*
 $GP(\xi,\bar \sigma)$.
 
@@ -384,7 +401,7 @@ scale parameters in the GP distribution are computed and plotted.
 Note that the scale parameter is transformed so that it appears independent
 of the threshold [see e.g. Section 4.3.4 in @ColesBook]. 
 
-```{r GPD-simulated-data, warning=FALSE, fig.cap="\\label{fig:GP-simulated}Stability plot for the shape and scale parameters of the generalized Pareto distribution. Here, the magnitudes are standard Gumbel, hence $\\xi = 0$ and $\\sigma = 1$."}
+```{r GPD-simulated-data, warning=FALSE, fig.cap="\\label{fig:GP-simulated}Stability plot for the shape and scale parameters of the generalized Pareto distribution. Here, the magnitudes are standard Gumbel, hence $\\xi = 0$ and $\\sigma = 1$. Plots were generated using the POT package in R \\citep{R-POT}."}
 par(mfrow = c(1,2))
 JJ <- mrp("getMags")
 u.range <- quantile(x = JJ, probs = c(0.75, 0.95))
@@ -548,7 +565,8 @@ below. For each assumption, we suggest one means of checking if it holds:
 
 I.i.d.:
 : The pairs $(W_i, J_i)$ are i.i.d. An indication if this is true is given 
-  by an auto-correlation plot for the two time series.
+  by an auto-correlation plot for the logarithms (to ensure finite moments) 
+  of the two time series.
   
   
 
@@ -592,7 +610,7 @@ $S_\beta(\cos(\pi \beta/2)^{1/\beta}, +1, 0)$, which is
 implemented in the R package `stabledist` by @stabledist. 
 
 ```{r simulated-example, message=FALSE, fig.cap="\\label{fig:sim}Tail and scale estimates for simulated data, with waiting times drawn from the stable distribution $S_\\beta(\\cos(\\pi \\beta/2)^{1/\\beta}, +1, 0)$ with $\\beta = 0.8$. Dashed lines are 95% confidence intervals, dotted lines are the known theoretical values ($0.8$ and $10000^{1/0.8}$)."}
-k_max <- 500
+k_max <- 500 
 mrp <- mrp("thin", k = k_max)
 par(mfrow=c(1,2))
 plot(mrp, what = "MLtail", hline = tail)
@@ -753,8 +771,6 @@ assumptions.
 The analyses from this paper are readily reproduced via the R package 
 `CTRM`, available at \url{https://github.com/strakaps/CTRM}. 
 
-#Acknowledgements
-The first author was supported by DAAD co-financed by the German Federal Ministry of Education and Research (BMBF). We also would like to thank Peter Scheffler, who laid the foundation of this work and Gurtek Gill who helped to create the MittagLeffleR R-package. 
 
 
 \appendix
@@ -779,6 +795,4 @@ plot(flares_mrp, what = "diagnostics", hline = 0.85)
 
 
 \newpage
-
-#References
 

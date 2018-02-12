@@ -128,7 +128,7 @@ new_mrp <- function(x) {
           type = "l",
           col = "blue", lty = 2)
     if (!is.null(hline))
-      abline(h = hline, lty = 3, col="orange")
+      abline(h = hline, lty = 3, col=2)
   }
 
   plot_MLscale <- function(tail = NULL, hline = NULL) {
@@ -156,7 +156,7 @@ new_mrp <- function(x) {
           type = "l", col = "blue",
           lty = 2)
     if (!is.null(hline))
-      abline(h = hline, lty = 3, col = "orange")
+      abline(h = hline, lty = 3, col = 2)
   }
 
   plot_GPthreshold <- function(hline = NULL, ...) {
@@ -191,7 +191,7 @@ new_mrp <- function(x) {
   hillPlot <- function(hline = NULL){
     fExtremes::hillPlot(diff(TT), main = "Hill Plot")
     if (!is.null(hline))
-      abline(h = hline, lty = 3, col = "orange")
+      abline(h = hline, lty = 3, col = 2)
   }
 
   getTimes <- function() {
