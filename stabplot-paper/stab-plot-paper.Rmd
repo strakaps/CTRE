@@ -300,7 +300,7 @@ Moreover, the following functional limit theorem holds
 (W_1 + \ldots + W_{\lfloor ct \rfloor})/b(c) \overset{d}{\longrightarrow} D(t), \quad c \to \infty
 \] 
 with convergence in the Skorokhod $J_1$ topology. The limit
-$D(t)$ is a stable subordinator, i.e. an increasing Lévy process with
+$D(t)$ is a stable subordinator, i.e. an increasing L\'evy process with
 Laplace transform $\exp(-t s^\beta)$.
 
 
@@ -424,7 +424,7 @@ T(\ell) / b(1/p) \to {\rm ML}(\beta, 1) \text{ as } \ell \uparrow x_R.
 
 *Proof:*
 Let the scaling functions $a(c)$ and $d(c)$ be as in Section 
-\ref{magnitudes-and-extreme-value-distributions}, and assume WLOG 
+\ref{magnitudes-and-extreme-value-distributions}, and assume WLOG that there exists an $n$ such that
 $\ell = a(n) \ell^* + d(n)$ for some arbitrary but fixed $\ell^*$, out of the support of $A$. 
 We first note that due to \eqref{eq:GEV}
 \begin{equation} 
@@ -776,18 +776,18 @@ The analyses from this paper are readily reproduced via the R package
 
 ```{r simulated-diag, fig.width=5, fig.height=7.5, fig.cap="\\label{fig:simulated-diag}Diagnostic plots for the simulated data."}
 par(mfrow=c(3,2))
-plot(mrp, what = "diagnostics", hline = params$tail)
+plot(mrp, what = "diagnostics", tail = params$tail)
 ```
 
 
 ```{r bitcoin-diag, fig.width=5, fig.height=7.5, fig.cap="\\label{fig:bitcoin-diag}Diagnostic plots for the Bitcoin data."}
 par(mfrow=c(3,2)) 
-plot(bitcoin_mrp, what = "diagnostics", hline = 0.9)
+plot(bitcoin_mrp, what = "diagnostics", tail = 0.9)
 ```
 
 ```{r solar-flare-diag, fig.width=5, fig.height=7.5, fig.cap="\\label{fig:solar-flar-diag}Diagnostic plots for the Solar Flare data."}
 par(mfrow=c(3,2))
-plot(flares_mrp, what = "diagnostics", hline = 0.85)
+plot(flares_mrp, what = "diagnostics", tail = 0.85)
 ```
 
 
