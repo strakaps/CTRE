@@ -659,8 +659,8 @@ the tail and scale parameters of the exceedance time distribution.
 That is, exceedances of a threshold $\ell$ at the $k$-th largest observed 
 magnitude are distributed as 
 $$T(\ell) = \text{ML}(0.9, 2000 * k^{-1/0.9}).$$ 
-A Hill plot (Figure \ref{fig:bitcoin-diag}) of the exceedance times at the 
-level of the 100th 
+A QQ plot (Figure \ref{fig:bitcoin-diag}) of the exceedance times at the 
+level of the 200th 
 largest event lends credence to a heavy-tailed distribution with tail
 parameter near the value $1$. 
 
@@ -688,7 +688,7 @@ magnitudes (Figure \ref{fig:solar-flare-data}).
 
 ```{r solar-flare-tail-scale, message=FALSE, fig.cap="\\label{fig:flares}Stability plots for the tail and scale parameter of the Mittag-Leffler distribution of the Solar Flare dataset."}
 flares_mrp <- new_mrp(flares)
-flares_mrp <- flares_mrp("thin", k = 300)
+flares_mrp <- flares_mrp("thin", k = 150)
 par(mfrow=c(1,2))
 plot(flares_mrp, what = "MLtail", hline = 0.85)
 plot(flares_mrp, what = "MLscale", tail = 0.85, hline = 2.5 * 1E7)
@@ -776,7 +776,7 @@ The analyses from this paper are readily reproduced via the R package
 
 ```{r simulated-diag, fig.width=5, fig.height=7.5, fig.cap="\\label{fig:simulated-diag}Diagnostic plots for the simulated data."}
 par(mfrow=c(3,2))
-plot(mrp, what = "diagnostics", hline = params$tail, tail=0.8)
+plot(mrp, what = "diagnostics", hline = params$tail , tail=0.8)
 ```
 
 

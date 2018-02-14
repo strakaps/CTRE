@@ -216,6 +216,7 @@ new_mrp <- function(x) {
     cross_cor()
     plot_MLqq(tail)
     empiCopula()
+    hillPlot()
   }
 
   structure(f, class = 'mrp')
