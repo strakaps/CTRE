@@ -1,5 +1,5 @@
 ---
-title: Inference for Heavy-Tailed Max-Renewal Processes
+title: Inference for Continuous Time Random Maxima with Heavy-Tailed Waiting Times 
 
 # to produce blinded version set to 1
 blinded: 0
@@ -33,32 +33,30 @@ keywords:
 - peaks over threshold
 
 abstract: |
-  Max-renewal processes, or Continuous Time Random Maxima, assume that
-  events arrive according to a renewal process, and track the running
-  maximum of the magnitudes of events up to time $t$.  In many complex
-  systems of interest, notably earthquakes, trades and neuron voltages,
-  inter-arrival times exhibit heavy-tailed distributions. The dynamics of
-  events then exhibits memory, which affects the rate at which events
-  occur: rates are highly variable in some time intervals, while other
-  intervals have long quiescent periods, a behaviour which has been dubbed 
+  In many complex
+  systems of interest, inter-arrival times between events such as 
+  earthquakes, trades and neuron voltages have a heavy-tailed 
+  distribution. 
+  The set of event times is fractal-like, being dense in some 
+  time windows and empty in others, a phenomenon dubbed 
   "bursty" in the physics literature. 
+  Renewal processes with heavy-tailed waiting times reproduce this bursty 
+  behaviour. 
   
-  This article provides a statistical model for the exceedances $X(\ell)$
-  and inter-exceedance times $T(\ell)$ of events whose magnitude exceeds a
-  given threshold $\ell$. We derive limit theorems for the distribution of
-  $X(\ell)$ and $T(\ell)$ as $\ell$ approaches extreme values. 
-  The standard Peaks Over Threshold inference approach in extreme value
-  theory is based on the fact 
-  that $X(\ell)$ is approximately generalized Pareto distributed, and 
-  models the threshold crossing times as a standard Poisson process.
-  We show that for waiting times with infinite mean, the threshold 
-  crossing times approach a *fractional* Poisson process in the limit 
-  of high thresholds. The inter-arrival times of threshold crossings
-  scale with $p^{1/\beta}$, where 
-  $p$ is the threshold crossing probability and $\beta \in (0,1)$
-  is the tail parameter for the waiting times. We provide
-  graphical means of estimating model parameters, and show that these
-  methods provide useful results on simulated and real-world datasets.
+  This article develops an inference method for 
+  "Continuous Time Random Maxima" (also called "Max-renewal processes"), 
+  which
+  assume i.i.d. magnitudes at the renewal events and model the largest
+  cumulative magnitude.
+  For high thresholds and infinite-mean waiting times, we show that the 
+  times between threshold crossings 
+  are Mittag-Leffler distributed, i.e. form a fractional Poisson Process. 
+  Exceedances of thresholds are known to be Generalized Pareto distributed,
+  according to the Peaks Over Threshold approach. 
+  We model threshold crossing times and threshold exceedances jointly and
+  provide graphical means of estimating model parameters.
+  We show that these methods yield meaningful insights on real-world 
+  datasets.
 
 bibliography: CTRMstats.bib
 
