@@ -6,7 +6,7 @@ blinded: 0
 
 authors: 
 - name: "Katharina Hees"
-  thanks: Katharina Hees was supported by the DAAD co-financed by the
+  thanks: Katharina Hees (`Hees@statistik.uni-dortmund.de`) was supported by the DAAD co-financed by the
    German Federal Ministry of Education and Research (BMBF). 
    The authors would like to thank Peter Scheffler for insights on 
    stochastic process limits for CTRMs, and Gurtek Gill who helped create
@@ -15,9 +15,10 @@ authors:
   
 - name: "Smarak Nayak"
   affiliation: National Australia Bank
+  thanks: (`smarak@live.com.au`)
   
 - name: "Peter Straka"
-  thanks: Corresponding author. Peter Straka was supported by the 
+  thanks: Corresponding author (`p.straka@unsw.edu.au`). Peter Straka was supported by the 
     Discovery Early Career Research Award DE160101147 on the Project 
     "Predicting Extremes when Events Occur in Bursts" by the Australian
     Research Council.
