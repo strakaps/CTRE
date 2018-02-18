@@ -15,7 +15,7 @@ authors:
   
 - name: "Smarak Nayak"
   affiliation: National Australia Bank
-  thanks: (`smarak@live.com.au`)
+  thanks: (`smarak.nayak@nab.com.au`)
   
 - name: "Peter Straka"
   thanks: Corresponding author (`p.straka@unsw.edu.au`). Peter Straka was supported by the 
