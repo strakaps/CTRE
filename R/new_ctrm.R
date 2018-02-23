@@ -63,7 +63,6 @@ ctrm <- function(x, y = NULL) {
   f <- function(what, ...) {
     switch (
       what,
-      data = plot_data(...),
       diagnostics = plot_diagnostics(...),
       computeMLestimates = compute_MLestimates(...),
       MLtail = plot_MLtail(...),
@@ -75,36 +74,6 @@ ctrm <- function(x, y = NULL) {
       getMags = getMags(),
       stop("unknown plot type: ", what)
     )
-  }
-
-  # "methods" for the mrp "object"
-  plot_data <- function(p = 0.05) {
-    plot(
-      TT,
-      JJ,
-      type = 'h',
-      col = 'gray',
-      ylim = c(0, max(JJ)),
-      xlab = "times",
-      ylab = "magnitudes"
-    )
-    k <- ceiling(n * p)
-    idxJ <- order(JJ, decreasing = TRUE)
-    ell <- JJ[idxJ][k]
-    ell <- ifelse(is.na(ell), 0, ell)
-    abline(h = ell, lty = 2)
-    ii <- which(JJ > ell)
-    n <- length(ii)
-    points(TT[ii],
-           rep(0, n),
-           col = 4,
-           pch = 3,
-           lwd = 3)
-    for (i in ii) {
-      xx = c(TT[i], TT[i])
-      yy = c(ell, JJ[i])
-      lines(xx, yy, col = 2)
-    }
   }
 
   compute_MLestimates <- function(ks = 5:n) {

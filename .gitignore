@@ -4,6 +4,7 @@
 .Ruserdata
 
 stabplot-paper/*
+communications
 
 !stab-plot-paper.Rmd
 !CTRMstats.bib
