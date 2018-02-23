@@ -60,9 +60,8 @@ ctrm <- function(x, y = NULL) {
   idxJ <- order(JJ, decreasing = TRUE)
 
   # the closure to be returned:
-  f <- function(what, ...) {
-    switch (what,
-            computeMLestimates = compute_MLestimates(...))
+  f <- function() {
+    compute_MLestimates()
   }
 
   compute_MLestimates <- function(ks = 5:n) {

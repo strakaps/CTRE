@@ -12,7 +12,7 @@ MLestimates <- function(ctrm,
                         tail = NULL,
                         scale = NULL) {
   if (is.null(environment(ctrm)$MLestimates))
-    ctrm("computeMLestimates")
+    ctrm()
   est <- environment(ctrm)$MLestimates
   if (!plot_me)
     return(est)
