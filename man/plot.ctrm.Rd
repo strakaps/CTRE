@@ -2,12 +2,15 @@
 % Please edit documentation in R/plot.R
 \name{plot.ctrm}
 \alias{plot.ctrm}
-\title{Plot a CTRM.}
+\title{Plot a CTRM}
 \usage{
 \method{plot}{ctrm}(ctrm, p = 0.05)
 }
 \arguments{
 \item{ctrm}{An object of class \code{\link{ctrm}}.}
+
+\item{p}{The fraction of largest magnitudes at which the threshold
+is plotted.}
 
 \item{...}{Additional parameters, see details.}
 }

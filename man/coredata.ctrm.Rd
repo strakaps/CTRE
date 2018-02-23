@@ -7,7 +7,7 @@
 coredata.ctrm(ctrm)
 }
 \arguments{
-\item{ctrm}{a \code{\link{ctrm}} object}
+\item{ctrm}{A \code{\link{ctrm}} object}
 }
 \value{
 A numeric vector of event magnitudes

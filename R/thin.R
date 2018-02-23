@@ -1,6 +1,10 @@
-#' Threshold a CTRM process
+#' Apply a higher threshold to a CTRM process
 #'
 #' Drop all but the \code{k} largest observations.
+#'
+#' @param ctrm A \code{\link{ctrm}} object.
+#'        k    Discard all but the \code{k} largest magnitudes.
+#' @return A \code{\link{ctrm}} object, with fewer observations.
 #' @export
 
 thin <- function(ctrm, k) {

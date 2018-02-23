@@ -3,7 +3,6 @@
 #' The constructor for the class \code{'ctrm'} (Continuous Time Random
 #' Maxima).
 #'
-#' @return An object of class 'ctrm' (Continuous Time Random Maxima).
 #' @param x Either
 #'     \itemize{
 #'       \item a \code{data.frame} with two columns, or
@@ -14,12 +13,14 @@
 #'     of class "numeric", "Date" or "POSIXct";
 #'     the second component/column must contain the event magnitudes and
 #'     be of type "numeric".
+#' @return An object of class \code{'ctrm'} based on a time series of
+#'         magnitudes.
 #' @examples
 #' times <- cumsum(MittagLeffleR::rml(n = 1000, tail = 0.8, scale = 5))
 #' magnitudes <- rexp(n = 1000)
-#' mrp <- new_mrp(times, magnitudes)
+#' sim_ctrm <- ctrm(times, magnitudes)
 #' @export
-#' @seealso \link{plot.ctrm}
+#' @seealso \link{CTRM}
 
 
 ctrm <- function(x, y = NULL) {

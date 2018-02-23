@@ -6,6 +6,12 @@
 \usage{
 \method{time}{ctrm}(ctrm)
 }
+\arguments{
+\item{ctrm}{A \code{\link{ctrm}} object.}
+}
+\value{
+A numeric vector of event times, or a time series.
+}
 \description{
 Extract event times from a \code{ctrm} object
 }

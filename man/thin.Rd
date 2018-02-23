@@ -2,9 +2,16 @@
 % Please edit documentation in R/thin.R
 \name{thin}
 \alias{thin}
-\title{Threshold a CTRM process}
+\title{Apply a higher threshold to a CTRM process}
 \usage{
 thin(ctrm, k)
+}
+\arguments{
+\item{ctrm}{A \code{\link{ctrm}} object.
+k    Discard all but the \code{k} largest magnitudes.}
+}
+\value{
+A \code{\link{ctrm}} object, with fewer observations.
 }
 \description{
 Drop all but the \code{k} largest observations.

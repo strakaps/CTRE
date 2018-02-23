@@ -19,7 +19,8 @@ the second component/column must contain the event magnitudes and
 be of type "numeric".}
 }
 \value{
-An object of class 'ctrm' (Continuous Time Random Maxima).
+An object of class \code{'ctrm'} based on a time series of
+        magnitudes.
 }
 \description{
 The constructor for the class \code{'ctrm'} (Continuous Time Random
@@ -28,8 +29,8 @@ Maxima).
 \examples{
 times <- cumsum(MittagLeffleR::rml(n = 1000, tail = 0.8, scale = 5))
 magnitudes <- rexp(n = 1000)
-mrp <- new_mrp(times, magnitudes)
+sim_ctrm <- ctrm(times, magnitudes)
 }
 \seealso{
-\link{plot.ctrm}
+\link{CTRM}
 }
