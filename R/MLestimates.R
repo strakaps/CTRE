@@ -4,6 +4,10 @@
 #' distribution fitted to the threshold exceedance times.
 #'
 #' If \code{plot_me = TRUE}, the estimates are returned invisibly.
+#' @param ctrm A \code{\link{ctrm}} object
+#' @return A \code{data.frame} of Mittag-Leffler parameter estimates,
+#'         one row for each threshold, which is returned invisibly
+#'         unless \code{plot_me = FALSE}.
 #' @export
 #'
 

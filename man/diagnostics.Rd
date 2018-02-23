@@ -2,12 +2,12 @@
 % Please edit documentation in R/diagnostics.R
 \name{diagnostics}
 \alias{diagnostics}
-\title{Diagnostic Plots for Exceedance Times.}
+\title{Diagnostic Plots for Exceedance Times}
 \usage{
 diagnostics(ctrm, tail, log_scale = TRUE)
 }
 \arguments{
-\item{ctrm}{An object of class \code{\link{ctrm}}}
+\item{ctrm}{A \code{\link{ctrm}} object}
 }
 \description{
 Generate the following plots:

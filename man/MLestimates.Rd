@@ -6,6 +6,14 @@
 \usage{
 MLestimates(ctrm, plot_me = TRUE, tail = NULL, scale = NULL)
 }
+\arguments{
+\item{ctrm}{A \code{\link{ctrm}} object}
+}
+\value{
+A \code{data.frame} of Mittag-Leffler parameter estimates,
+        one row for each threshold, which is returned invisibly
+        unless \code{plot_me = FALSE}.
+}
 \description{
 For a range of thresholds, return the parameters of the Mittag-Leffler
 distribution fitted to the threshold exceedance times.

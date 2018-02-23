@@ -6,6 +6,12 @@
 \usage{
 coredata.ctrm(ctrm)
 }
+\arguments{
+\item{ctrm}{a \code{\link{ctrm}} object}
+}
+\value{
+A numeric vector of event magnitudes
+}
 \description{
 Return the event magnitudes of a \code{ctrm} object.
 }

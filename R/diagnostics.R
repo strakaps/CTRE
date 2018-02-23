@@ -1,4 +1,4 @@
-#' Diagnostic Plots for Exceedance Times.
+#' Diagnostic Plots for Exceedance Times
 #'
 #' Generate the following plots:
 #' \enumerate{
@@ -9,7 +9,7 @@
 #'   \item Empirical compula (exceedances & exceedance times)
 #'   \item Hill plot for exceedance times
 #' }
-#' @param ctrm An object of class \code{\link{ctrm}}
+#' @param ctrm A \code{\link{ctrm}} object
 #' @export
 #'
 
