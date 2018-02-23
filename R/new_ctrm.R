@@ -8,7 +8,7 @@
 #'     \itemize{
 #'       \item a \code{data.frame} with two columns, or
 #'       \item a vector; then y must be a vector of same length, or
-#'       \item a \cood{zoo} object.
+#'       \item a \code{zoo} object.
 #'     }
 #'     The first component/column must contain the event times and be
 #'     of class "numeric", "Date" or "POSIXct";
@@ -61,19 +61,8 @@ ctrm <- function(x, y = NULL) {
 
   # the closure to be returned:
   f <- function(what, ...) {
-    switch (
-      what,
-      diagnostics = plot_diagnostics(...),
-      computeMLestimates = compute_MLestimates(...),
-      MLtail = plot_MLtail(...),
-      MLscale = plot_MLscale(...),
-      MLqq = plot_MLqq(...),
-      hillPlot = hillPlot(...),
-      iidTest = cross_cor(),
-      is.uncoupled = empiCopula(),
-      getMags = getMags(),
-      stop("unknown plot type: ", what)
-    )
+    switch (what,
+            computeMLestimates = compute_MLestimates(...))
   }
 
   compute_MLestimates <- function(ks = 5:n) {
@@ -85,53 +74,6 @@ ctrm <- function(x, y = NULL) {
         c("tail", "scale", "tailLo", "tailHi", "scaleLo", "scaleHi")
       c(k = k, est)
     })
-  }
-
-  plot_GPthreshold <- function(hline = NULL, ...) {
-    POT::tcplot(JJ)
-  }
-
-  plot_MLqq <- function(tail, k = n, log_scale = TRUE) {
-    WW <- diff(sort(TT[idxJ[1:k]]))
-    qqplot(
-      WW,
-      MittagLeffleR::qml(p = ppoints(k - 1), tail = tail),
-      xlab = "Sample Quantiles",
-      ylab = "Population Quantiles",
-      main = "Mittag-Leffler QQ Plot",
-      log = ifelse(log_scale, 'xy', '')
-    )
-  }
-
-  cross_cor <- function(){
-    ccf(diff(TT), JJ[-1], main = "CrossCor (Exc & Exc Time)")
-  }
-
-  hillPlot <- function(hline = NULL){
-    fExtremes::hillPlot(diff(TT), main = "Hill Plot")
-    if (!is.null(hline))
-      abline(h = hline, lty = 3, col = 2)
-  }
-
-  getMags <- function() {
-    JJ
-  }
-
-  empiCopula <- function(){
-    WW <- diff(TT)
-    n <- length(WW)
-    x <- rank(diff(TT))/n
-    y <- rank(JJ[-1])/n
-    plot(x,y, main = "Emp. Copula (Exc & Exc Time)")
-  }
-
-  plot_diagnostics <- function(...){
-    acf(diff(TT), main = "ACF (Exceedance Times)")
-    acf(JJ, main = "ACF (Exceedances)")
-    cross_cor()
-    plot_MLqq(tail)
-    empiCopula()
-    hillPlot()
   }
 
   structure(f, class = 'ctrm')

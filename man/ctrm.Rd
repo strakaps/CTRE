@@ -11,7 +11,7 @@ ctrm(x, y = NULL)
 \itemize{
   \item a \code{data.frame} with two columns, or
   \item a vector; then y must be a vector of same length, or
-  \item a \cood{zoo} object.
+  \item a \code{zoo} object.
 }
 The first component/column must contain the event times and be
 of class "numeric", "Date" or "POSIXct";
