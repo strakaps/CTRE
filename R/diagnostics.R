@@ -16,7 +16,7 @@
 diagnostics <- function(ctrm, tail, log_scale = TRUE) {
   TT <- time(ctrm)
   WW <- diff(TT)
-  JJ <- coredata(ctrm)
+  JJ <- coredata.ctrm(ctrm)
   n <- length(JJ)
   # Plot 1
   acf(diff(TT), main = "ACF (Exceedance Times)")

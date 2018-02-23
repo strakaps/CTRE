@@ -11,7 +11,7 @@
 
 plot.ctrm <- function(ctrm, p = 0.05) {
   TT <- time(ctrm)
-  JJ <- coredata(ctrm)
+  JJ <- coredata.ctrm(ctrm)
   idxJ <- environment(ctrm)$idxJ
   n <- length(JJ)
   plot(

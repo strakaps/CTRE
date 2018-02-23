@@ -76,6 +76,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   fig.height = 3.5
   )
+library(CTRM)
 ```
 
 
@@ -208,7 +209,6 @@ $X(\ell, i)$ in red and the times until exceedance $T(\ell, i)$ as the
 preceding intervals marked by blue crosses. 
 
 ```{r thresholdedBursty, message=FALSE, fig.cap="\\label{fig:thresholdedBursty}Exceedances (red) and Times until Exceedance (durations between blue crosses) for a given threshold $\\ell$ (dashed line)."}
-library(CTRM)
 #rpareto <- function(n,tail){
 #          if(tail<=0) stop("tail must be positive")
 #          rp <- (runif(n)/gamma(1-tail))^(-1/tail)
@@ -399,7 +399,7 @@ of the threshold [see e.g. Section 4.3.4 in @ColesBook].
 
 ```{r GPD-simulated-data, warning=FALSE, fig.cap="\\label{fig:GP-simulated}Stability plot for the shape and scale parameters of the generalized Pareto distribution. Here, the magnitudes are standard Gumbel, hence $\\xi = 0$ and $\\sigma = 1$. Plots were generated using the POT package in R \\citep{R-POT}."}
 par(mfrow = c(1,2))
-JJ <- coredata(sim_ctrm)
+JJ <- coredata.ctrm(sim_ctrm)
 u.range <- quantile(x = JJ, probs = c(0.75, 0.95))
 POT::tcplot(JJ, u.range = u.range)
 # extRemes::threshrange.plot(mrp("getMags"), type = "GP", set.panels = FALSE)

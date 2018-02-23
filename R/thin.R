@@ -4,10 +4,10 @@
 #' @export
 
 thin <- function(ctrm, k) {
-  n <- length(coredata(ctrm))
+  n <- length(coredata.ctrm(ctrm))
   if (k > n)
     stop("Can't threshold to ", k, " observations if I only have ", n)
-  JJ <- coredata(ctrm)
+  JJ <- coredata.ctrm(ctrm)
   idxJ <- order(JJ, decreasing = TRUE)
   new_magnitudes  <- JJ[idxJ[1:k]]
   TT <- time(ctrm)
