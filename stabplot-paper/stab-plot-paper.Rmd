@@ -219,8 +219,8 @@ sigma <- (cos(pi*tail/2))^(1/tail)
 times <- cumsum(stabledist::rstable(n, tail, 1, sigma, pm=1))
 #times<-cumsum(rpareto(n,tail))
 magnitudes <- extRemes::revd(n, scale = 1, shape = 0)
-mrp <- new_mrp(data.frame(times, magnitudes))
-plot(mrp, p = 0.005)
+sim_ctrm <- ctrm(data.frame(times, magnitudes))
+plot(sim_ctrm, p = 0.005)
 ```
 
 A standard result from extreme value theory provides the asymptotic 
@@ -399,7 +399,7 @@ of the threshold [see e.g. Section 4.3.4 in @ColesBook].
 
 ```{r GPD-simulated-data, warning=FALSE, fig.cap="\\label{fig:GP-simulated}Stability plot for the shape and scale parameters of the generalized Pareto distribution. Here, the magnitudes are standard Gumbel, hence $\\xi = 0$ and $\\sigma = 1$. Plots were generated using the POT package in R \\citep{R-POT}."}
 par(mfrow = c(1,2))
-JJ <- mrp("getMags")
+JJ <- coredata(sim_ctrm)
 u.range <- quantile(x = JJ, probs = c(0.75, 0.95))
 POT::tcplot(JJ, u.range = u.range)
 # extRemes::threshrange.plot(mrp("getMags"), type = "GP", set.panels = FALSE)
@@ -607,10 +607,9 @@ implemented in the R package `stabledist` by @stabledist.
 
 ```{r simulated-example, message=FALSE, fig.cap="\\label{fig:sim}Tail and scale estimates for simulated data, with waiting times drawn from the stable distribution $S_\\beta(\\cos(\\pi \\beta/2)^{1/\\beta}, +1, 0)$ with $\\beta = 0.8$. Dashed lines are 95% confidence intervals, dotted lines are the known theoretical values ($0.8$ and $10000^{1/0.8}$)."}
 k_max <- 500 
-mrp <- mrp("thin", k = k_max)
+thin_sim_ctrm <- thin(ctrm = sim_ctrm, k = k_max)
 par(mfrow=c(1,2))
-plot(mrp, what = "MLtail", hline = tail)
-plot(mrp, what = "MLscale", tail = tail, hline = n^(1/tail))
+MLestimates(ctrm = thin_sim_ctrm, tail = tail, scale = n^(1/tail))
 ```
 
 By \eqref{eq:Tellscale}, the distribution 
@@ -633,8 +632,8 @@ right parameters.
 ## Bitcoin trading volumes
 
 ```{r bitcoin-data, fig.cap="\\label{fig:bitcoin-data}Time Series of 'Bitcoin days destroyed', a measure for the traded volume of bitcoins."}
-bitcoin_mrp <- new_mrp(bitcoin)
-plot(bitcoin_mrp, p = 0.02, what = "data")
+bitcoin_ctrm <- ctrm(bitcoin)
+plot(bitcoin_ctrm, p = 0.02)
 ```
 
 
@@ -646,10 +645,9 @@ occur in bursts, which can be seen over timescales of months and years
 (Figure \ref{fig:bitcoin-data}). 
 
 ```{r bitcoin-data-tail-scale, message=FALSE, fig.cap="\\label{fig:bitcoin-tail-scale}Tail and scale plot of the bitcoin data."}
-bitcoin_mrp <- bitcoin_mrp("thin", k = 250)
+thin_bitcoin_ctrm <- thin(ctrm = bitcoin_ctrm, k = 250)
 par(mfrow=c(1,2))
-plot(bitcoin_mrp, what = "MLtail", hline = 0.9)
-plot(bitcoin_mrp, what = "MLscale", tail = 0.9, hline = 2 * 1E3)
+MLestimates(thin_bitcoin_ctrm, tail = 0.9, scale = 2 * 1E3)
 ```
 
 Figure \ref{fig:bitcoin-tail-scale} shows plots identifying the candidates
@@ -667,8 +665,8 @@ parameter near the value $1$.
 ## Solar Flare Data
 
 ```{r solar-flare-data, fig.cap="\\label{fig:solar-flare-data}The solar flare time series data."}
-flares_mrp <- new_mrp(flares)
-plot(flares_mrp, p = 0.01)
+flares_ctrm <- ctrm(flares)
+plot(flares_ctrm, p = 0.01)
 ```
 
 
@@ -686,11 +684,9 @@ variable for event times, and "peak rate" as the variable for event
 magnitudes (Figure \ref{fig:solar-flare-data}). 
 
 ```{r solar-flare-tail-scale, message=FALSE, fig.cap="\\label{fig:flares}Stability plots for the tail and scale parameter of the Mittag-Leffler distribution of the Solar Flare dataset."}
-flares_mrp <- new_mrp(flares)
-flares_mrp <- flares_mrp("thin", k = 150)
+thin_flares_ctrm <- thin(ctrm = flares_ctrm, k = 150)
 par(mfrow=c(1,2))
-plot(flares_mrp, what = "MLtail", hline = 0.85)
-plot(flares_mrp, what = "MLscale", tail = 0.85, hline = 2.5 * 1E7)
+MLestimates(thin_flares_ctrm, tail = tail, scale = 2.5 * 1E7)
 ```
 
 Figure \ref{fig:flares} shows the fitted tail and scale parameters 

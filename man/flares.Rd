@@ -4,7 +4,7 @@
 \name{flares}
 \alias{flares}
 \title{Solar flare data}
-\format{An object of class \code{data.frame} with 2488 rows and 2 columns.}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2488 rows and 2 columns.}
 \source{
 The Hard X-Ray Burst Spectrometer (HXRBS) on the Solar Maximum
 Mission, 14 February 1980 - 2 December 1989.

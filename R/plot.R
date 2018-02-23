@@ -1,26 +1,11 @@
-#' Stability plots for CTRMs.
+#' Plot a CTRM.
 #'
-#' Generate plots of the data and of the parameter estimates of the
-#' Mittag-Leffler and Generalized Pareto distributions vs the threshold
-#' height.
+#' Generate a plot of the data highlighting a threshold, the threshold
+#' exceedances and threshold exceedance times.
 #'
-#' More details here.
-#'
-#' @name plot.mrp
-#' @param mrp An object of class \code{mrp}, see \link{new_mrp}.
-#' @param what What to plot.
+#' @name plot.ctrm
+#' @param ctrm An object of class \code{\link{ctrm}}.
 #' @param ... Additional parameters, see details.
 #' @export
-plot.mrp <-
-  function(mrp,
-           what = c("data",
-                    "estimates",
-                    "diagnostics",
-                    "MLtail",
-                    "MLscale",
-                    "GPthreshold",
-                    "MLqq"),
-           ...) {
-    what <- match.arg(what)
-    mrp(what, ...)
-  }
+plot.ctrm <- function(ctrm, ...)
+  ctrm(what = "data", ...)
