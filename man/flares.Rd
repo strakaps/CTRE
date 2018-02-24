@@ -16,4 +16,8 @@ flares
 \description{
 A time series of peak rates of solar eruptions.
 }
+\seealso{
+Other bursty-data: \code{\link{bitcoin}},
+  \code{\link{seaquakes}}
+}
 \keyword{datasets}

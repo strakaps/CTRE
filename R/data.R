@@ -2,6 +2,7 @@
 #'
 #' A time series of peak rates of solar eruptions.
 #'
+#' @family bursty-data
 #' @source The Hard X-Ray Burst Spectrometer (HXRBS) on the Solar Maximum
 #' Mission, 14 February 1980 - 2 December 1989.
 #' \url{https://umbra.nascom.nasa.gov/smm/hxrbs.html}
@@ -12,6 +13,7 @@
 #' A time series of earthquake magnitudes measured within the bounding box
 #' [166'E, 167'E] x [13.5'S, 12.4'S]
 #'
+#' @family bursty-data
 #' @source \url{http://seismicportal.eu/}
 "seaquakes"
 
@@ -22,6 +24,7 @@
 #' measured in "Bitcoin days destroyed", from
 #' 2010-12-04 until 2016-07-07.
 #'
+#' @family bursty-data
 #' @source
 #' \url{https://datamarket.com/data/set/4aq9/various-bitcoin-currency-statistics}
 #'

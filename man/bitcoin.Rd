@@ -16,4 +16,8 @@ A time series of trading volume of bitcoins,
 measured in "Bitcoin days destroyed", from
 2010-12-04 until 2016-07-07.
 }
+\seealso{
+Other bursty-data: \code{\link{flares}},
+  \code{\link{seaquakes}}
+}
 \keyword{datasets}

@@ -15,4 +15,8 @@ seaquakes
 A time series of earthquake magnitudes measured within the bounding box
 [166'E, 167'E] x [13.5'S, 12.4'S]
 }
+\seealso{
+Other bursty-data: \code{\link{bitcoin}},
+  \code{\link{flares}}
+}
 \keyword{datasets}
