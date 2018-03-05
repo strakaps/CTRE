@@ -13,7 +13,7 @@
 #' @export
 #'
 
-diagnostics <- function(ctrm, tail, log_scale = TRUE) {
+diagnostics <- function(ctrm, tail = 1, log_scale = TRUE, OCTRM = FALSE) {
   TT <- time(ctrm)
   WW <- diff(TT)
   JJ <- coredata.ctrm(ctrm)
@@ -35,8 +35,11 @@ diagnostics <- function(ctrm, tail, log_scale = TRUE) {
   )
   # Plot 5
   x <- rank(WW) / n
-  y <- rank(JJ[-1]) / n
-  plot(x, y, main = "Emp. Copula (Exc & Exc Time)")
+  if(OCTRM)
+    y <- rank(JJ[-n]) / n
+  else
+    y <- rank(JJ[-1]) / n
+  plot(x, y, main = "Emp. Copula (Exc & Exc Time)", pch = '.')
   # Plot 6
   fExtremes::hillPlot(WW, main = "Hill Plot")
   abline(h = tail, lty = 3, col = 2)
