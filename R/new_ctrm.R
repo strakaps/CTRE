@@ -23,7 +23,7 @@
 #' @seealso \link{CTRM}
 
 
-ctrm <- function(x, y = NULL) {
+ctrm <- function(x, y = NULL, drop.duplicate.times = FALSE) {
   MLestimates <- NULL
   if (!is.null(y)) {
     TT <- x
@@ -43,8 +43,15 @@ ctrm <- function(x, y = NULL) {
     # order the pairs (time, magnitude)
   JJ <- JJ[order(TT)]
   TT <- TT[order(TT)]
-
-
+  if (length(TT) > length(unique(TT))){
+    if (!drop.duplicate.times)
+      stop("Non-unique event times.")
+    else {
+      keep <- !duplicated(TT)
+      JJ <- JJ[keep]
+      TT <- TT[keep]
+    }
+  }
   if (!is.vector(JJ))
     stop("Magnitudes must be a vector.")
   if (!(class(JJ) %in% c("numeric", "integer")))
