@@ -3,7 +3,6 @@
 .RData
 .Ruserdata
 
-stabplot-paper/*
 communications
 
 !stab-plot-paper.Rmd

@@ -1,9 +1,6 @@
 ---
 title: Inference for Continuous Time Random Maxima with Heavy-Tailed Waiting Times 
 
-# to produce blinded version set to 1
-blinded: 0
-
 authors: 
 - name: "Katharina Hees"
   thanks: Katharina Hees (`Hees@statistik.uni-dortmund.de`) was supported by the DAAD co-financed by the
@@ -61,7 +58,7 @@ abstract: |
 
 bibliography: CTRMstats.bib
 
-output: rticles::asa_article
+output: rticles::springer_article
 
 params:
   tail: 0.8
