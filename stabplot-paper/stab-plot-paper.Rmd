@@ -394,7 +394,7 @@ scale parameters in the GP distribution are computed and plotted.
 Note that the scale parameter is transformed so that it appears independent
 of the threshold [see e.g. Section 4.3.4 in @ColesBook]. 
 
-```{r GPD-simulated-data, warning=FALSE, fig.cap="\\label{fig:GP-simulated}Stability plot for the shape and scale parameters of the generalized Pareto distribution. Here, the magnitudes are standard Gumbel, hence $\\xi = 0$ and $\\sigma = 1$. Plots were generated using the POT package in R \\citep{R-POT}."}
+```{r GPD-simulated-data, warning=FALSE, fig.cap="\\label{fig:GP-simulated}Stability plot for the shape and scale parameters of the generalized Pareto distribution. Here, the magnitudes are standard Gumbel, hence $\\xi = 0$ and $\\sigma = 1$. Plots were generated using the POT package in R [@R-POT]."}
 par(mfrow = c(1,2))
 JJ <- coredata.ctrm(sim_ctrm)
 u.range <- quantile(x = JJ, probs = c(0.75, 0.95))
@@ -670,7 +670,7 @@ plot(flares_ctrm, p = 0.01)
 
 The "complete Hard X Ray Burst Spectrometer event list" 
 \footnote{\url{https://umbra.nascom.nasa.gov/smm/hxrbs.html}} 
-\cite{HXRBS} is a 
+@HXRBS is a 
 comprehensive reference for all measurements of the Hard X 
 Ray Burst Spectrometer on NASA's Solar Maximum Mission from the time of 
 launch on Feb 14, 1980 to the end of the mission in Dec 1989. 12,776 
