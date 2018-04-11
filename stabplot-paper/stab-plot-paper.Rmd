@@ -69,6 +69,13 @@ params:
 
 ---
 
+```{r get-rticles, eval=FALSE, include=FALSE}
+# use this rticles version: 
+devtools::install_github("strakaps/rticles", 
+                         ref = "724aeb88d005e2f7befc37328633e7cb2bc1cce0")
+```
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   echo = FALSE,
