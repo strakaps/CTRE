@@ -1,6 +1,6 @@
 ---
-title: Inference for Continuous Time Random Maxima with Heavy-Tailed Waiting Times 
-titlerunning: Inference for Heavy-Tailed CTRMs
+title: Inference for Threshold Crossing Times of Bursty Time Series
+# titlerunning: Inference for Heavy-Tailed CTRMs
 thanks: |
     Peter Straka was supported by the 
     Discovery Early Career Research Award DE160101147 on the Project 
@@ -23,7 +23,7 @@ authors:
   address: UNSW Sydney
   email: p.straka@unsw.edu.au 
   
-authorrunning: Hees, Nayak & Straka
+authorrunning: K. Hees, S. Nayak & P. Straka
 
 keywords:
 - heavy tails
@@ -32,30 +32,23 @@ keywords:
 - peaks over threshold
 
 abstract: |
-  In many complex
-  systems of interest, inter-arrival times between events such as 
-  earthquakes, trades and neuron voltages have a heavy-tailed 
-  distribution. 
-  The set of event times is fractal-like, being dense in some 
-  time windows and empty in others, a phenomenon dubbed 
-  "bursty" in the physics literature. 
-  Renewal processes with heavy-tailed waiting times reproduce this bursty 
-  behaviour. 
+  In many complex systems studied in statistical physics, 
+  inter-arrival times between events such as solar flares, trades and 
+  neuron voltages follow a heavy-tailed 
+  distribution. The set of event times is fractal-like, being dense in some 
+  time windows and empty in others, a phenomenon which has been dubbed 
+  "bursty". 
   
-  This article develops an inference method for 
-  "Continuous Time Random Maxima" (also called "Max-renewal processes"), 
-  which
-  assume i.i.d. magnitudes at the renewal events and model the largest
-  cumulative magnitude.
-  For high thresholds and infinite-mean waiting times, we show that the 
-  times between threshold crossings 
-  are Mittag-Leffler distributed, i.e. form a fractional Poisson Process. 
-  Exceedances of thresholds are known to be Generalized Pareto distributed,
-  according to the Peaks Over Threshold approach. 
-  We model threshold crossing times and threshold exceedances jointly and
-  provide graphical means of estimating model parameters.
-  We show that these methods yield meaningful insights on real-world 
-  datasets.
+  This article generalizes the Peaks Over Threshold (POT) model to the setting 
+  where inter-event times are heavy-tailed and i.i.d.. For high thresholds and 
+  infinite-mean waiting times, we show that the times between threshold 
+  crossings are Mittag-Leffler distributed, and thus form a "fractional 
+  Poisson Process" which generalizes the standard Poisson Process.
+  We model threshold crossing times and threshold exceedances jointly, and
+  provide graphical means of estimating model parameters and assessing 
+  model fit. Finally, we study two real-world, bursty time series, and 
+  show how to extract parameter estimates as well as estimates for the time 
+  of the next threshold crossing. 
 
 bibliography: CTRMstats.bib
 
