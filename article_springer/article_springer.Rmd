@@ -78,7 +78,7 @@ knitr::opts_chunk$set(
   echo = FALSE,
   cache = TRUE,
   message = FALSE,
-  fig.height = 3.5
+  fig.height = 3, out.width = '\\textwidth'
   )
 library(CTRM)
 ```
@@ -609,7 +609,19 @@ show that $D$ must have the stable distribution
 $S_\beta(\cos(\pi \beta/2)^{1/\beta}, +1, 0)$, which is 
 implemented in the R package `stabledist` by @stabledist. 
 
-```{r simulated-example, message=FALSE, fig.cap="\\label{fig:sim}Tail and scale estimates for simulated data, with waiting times drawn from the stable distribution $S_\\beta(\\cos(\\pi \\beta/2)^{1/\\beta}, +1, 0)$ with $\\beta = 0.8$. Dashed lines are 95% confidence intervals, dotted lines are the known theoretical values ($0.8$ and $10000^{1/0.8}$)."}
+```{r make-caption}
+caption = "
+Tail and scale estimates for simulated data, with waiting times drawn from 
+the stable distribution $S_\\beta(\\cos(\\pi \\beta/2)^{1/\\beta}, +1, 0)$ 
+with $\\beta = 0.8$. Dashed lines are 95\\% 
+confidence intervals, dotted 
+lines are the known theoretical values ($0.8$ and $10000^{1/0.8}$).
+\\label{fig:sim}
+"
+```
+
+
+```{r simulated-example, message=FALSE, fig.cap=caption}
 k_max <- 500 
 thin_sim_ctrm <- thin(ctrm = sim_ctrm, k = k_max)
 par(mfrow=c(1,2))
