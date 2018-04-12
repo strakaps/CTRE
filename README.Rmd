@@ -45,3 +45,70 @@ Run `foo.R` line by line.
 - [ ] allow for input of class 'zoo' and 'irts'
 - [ ] Maximum Likelihood estimators for Mittag-Leffler distribution
 
+
+## The Datasets
+
+```{r}
+# ctrm_data <- flares
+ctrm_data <- seaquakes
+```
+
+
+Magnitudes of the ctrm_data, static qqplot:
+
+```{r}
+ctrm_data %>% ctrm() %>% thin(k = 300) %>% coredata() %>% qqestplot(static = TRUE)
+```
+
+Magnitudes of ctrm_data, dynamic qqplot:
+
+```{r}
+ctrm_data %>% ctrm() %>% thin(k = 500) %>% coredata() %>% qqestplot(static = FALSE)
+```
+
+
+Threshold crossing times of ctrm_data, static qqplot:
+
+```{r}
+ctrm_data %>% ctrm() %>% thin(k = 500) %>% time() %>% diff() %>% as.vector() %>% 
+  qqestplot(static = TRUE, ylim = c(2,10), log = 'xy')
+```
+
+Compare the above with a static qqplot for Mittag-Leffler random variables: 
+
+```{r}
+MittagLeffleR::rml(n = 1000, tail = 0.9) %>% qqestplot(static=TRUE, ylim=c(-4,4))
+```
+
+The fit looks almost equally bad. Compare with the 'fit' of an exponential distribution: 
+```{r}
+rexp(1000) %>% qqestplot(static = TRUE, ylim = c(-6,2))
+```
+
+It should be clear that the qqplot estimator is unsuitable to assess the 
+tail exponent of a Mittag-Leffler distribution. For the same reason, the 
+Hill estimator is unsuitable for the Mittag-Leffler distribution. 
+
+
+How is the Mittag-Leffler log-moment estimator doing on exponential data?
+
+```{r}
+MittagLeffleR::logMomentEstimator(rexp(500))
+```
+
+Let's look at Mittag-Leffler QQ plots: 
+
+```{r}
+ctrm_data %>% ctrm() %>% thin(k=200) %>% interarrival() %>%
+  mlqqplot(tail = 1, asp = 1, log = 'xy')
+```
+
+
+Compare this with a Mittag-Leffler QQ plot for an exponential distribution: 
+
+```{r}
+rexp(100) %>% mlqqplot(tail = 0.8, log = 'xy')
+```
+
+
+

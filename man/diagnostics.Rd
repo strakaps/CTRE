@@ -4,7 +4,7 @@
 \alias{diagnostics}
 \title{Diagnostic Plots for Exceedance Times}
 \usage{
-diagnostics(ctrm, tail, log_scale = TRUE)
+diagnostics(ctrm, tail = 1, log_scale = TRUE, OCTRM = FALSE)
 }
 \arguments{
 \item{ctrm}{A \code{\link{ctrm}} object}

@@ -4,7 +4,7 @@
 \alias{ctrm}
 \title{Create a CTRM object}
 \usage{
-ctrm(x, y = NULL)
+ctrm(x, y = NULL, drop.duplicate.times = FALSE)
 }
 \arguments{
 \item{x}{Either

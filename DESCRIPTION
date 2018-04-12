@@ -13,4 +13,6 @@ License: GPS (>=2)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
-Imports: MittagLeffleR, fExtremes, zoo, plyr
+Imports: MittagLeffleR, 
+    plyr, 
+    zoo
