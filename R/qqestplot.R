@@ -3,24 +3,37 @@
 #' Generates static and dynamic QQ plots for threshold crossing times.
 #'
 #' @export
+qqestplot <- function(x, ...) UseMethod("qqestplot", x)
 
-qqestplot <- function(data, static = FALSE, conf.int = FALSE, k = NULL, ...) {
+#' @export
+qqestplot.default <- function(data, static = FALSE, conf.int = FALSE, top_k = NULL, ...) {
   if (!static)
-    return (tea::qqestplot(data = data, conf.int = conf.int))
+    return (tea::qqestplot(data = data, kmin = top_k, conf.int = conf.int))
   else
-    return (qqestplot_static(data, k = k, ...))
+    return (qqestplot_static(data, top_k = top_k, ...))
 }
 
-qqestplot_static <- function(data, k = NULL, ...) {
+#' @export
+qqestplot.ctrm <- function(ctrm, top_k = NULL, static = FALSE, what = "magnitudes", ...){
+  if (what == "magnitudes")
+    qqestplot(coredata(ctrm), static = static, top_k = top_k, ...)
+  else if (what == "interarrivals")
+    qqestplot(interarrival(ctrm), static = static, top_k = top_k, ...)
+  else
+    stop("Can only plot 'magnitudes' and 'interarrivals'.")
+}
+
+qqestplot_static <- function(data, top_k = NULL, ...) {
   n <- length(data)
-  if (is.null(k))
-    k <- n
-  if (k > n)
+  if (is.null(top_k))
+    top_k <- n
+  else if (top_k > n)
     stop("Can't choose top k order statistics, only have", n)
-  x <- -log(1 - (k:1) / k)
-  y <- log(sort(data, decreasing = TRUE)[1:k])
+  x <- -log(sort(ppoints(top_k)))
+  y <- log(sort(data, decreasing = TRUE)[1:top_k])
   plot(x, y, ...)
-  l <- line(x, y)
-  abline(l)
+  l <- lm(y~x)
+  abline(l, col = 2)
   1 / l$coefficients[2]
 }
+

@@ -4,7 +4,7 @@
 \alias{mlqqplot}
 \title{Mittag-Leffler QQ Plot of threshold waiting times}
 \usage{
-mlqqplot(data, tail = 1, ...)
+mlqqplot(x, ...)
 }
 \description{
 Generates a QQ plot for assessing the fit of a Mittag-Leffler

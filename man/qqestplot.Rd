@@ -4,7 +4,7 @@
 \alias{qqestplot}
 \title{QQ Plot estimator of tail exponent}
 \usage{
-qqestplot(data, static = FALSE, conf.int = FALSE, k = NULL, ...)
+qqestplot(x, ...)
 }
 \description{
 Generates static and dynamic QQ plots for threshold crossing times.

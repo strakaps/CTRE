@@ -4,9 +4,9 @@
 #' distribution.
 #'
 #' @export
-#'
+mlqqplot <- function(x, ...) UseMethod("mlqqplot", x)
 
-mlqqplot <- function(data,
+mlqqplot.default <- function(data,
                      tail = 1,
                      ...) {
   n <- length(data)
@@ -19,4 +19,9 @@ mlqqplot <- function(data,
     main = "Mittag-Leffler QQ Plot",
     ...
   )
+}
+
+#' @export
+mlqqplot.ctrm <- function(ctrm, tail = 1, ...){
+  mlqqplot(interarrival(ctrm), tail = tail, ...)
 }
