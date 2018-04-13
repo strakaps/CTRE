@@ -4,7 +4,7 @@
 \alias{plot.ctrm}
 \title{Plot a CTRM}
 \usage{
-\method{plot}{ctrm}(ctrm, p = 0.05)
+\method{plot}{ctrm}(ctrm, p = 0.05, ...)
 }
 \arguments{
 \item{ctrm}{An object of class \code{\link{ctrm}}.}

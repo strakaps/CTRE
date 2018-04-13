@@ -11,7 +11,7 @@
 #' @export
 #'
 
-plot.ctrm <- function(ctrm, p = 0.05) {
+plot.ctrm <- function(ctrm, p = 0.05, ...) {
   TT <- time(ctrm)
   JJ <- coredata.ctrm(ctrm)
   idxJ <- environment(ctrm)$idxJ
@@ -21,9 +21,10 @@ plot.ctrm <- function(ctrm, p = 0.05) {
     JJ,
     type = 'h',
     col = 'gray',
-    ylim = c(0, max(JJ)),
+    ylim = c(min(JJ), max(JJ)),
     xlab = "times",
-    ylab = "magnitudes"
+    ylab = "magnitudes",
+    ...
   )
   k <- ceiling(n * p)
   idxJ <- order(JJ, decreasing = TRUE)
@@ -33,7 +34,7 @@ plot.ctrm <- function(ctrm, p = 0.05) {
   ii <- which(JJ > ell)
   n <- length(ii)
   points(TT[ii],
-         rep(0, n),
+         rep(min(JJ), n),
          col = 4,
          pch = 3,
          lwd = 3)
