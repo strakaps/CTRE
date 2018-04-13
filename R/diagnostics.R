@@ -1,46 +1,59 @@
-#' Diagnostic Plots for Exceedance Times
+#' Mittag-Leffler QQ Plot of threshold waiting times
 #'
-#' Generate the following plots:
-#' \enumerate{
-#'   \item auto-correlation of waiting times
-#'   \item auto-correlation of magnitudes
-#'   \item cross-correlation of waiting times and magnitudes
-#'   \item Mittag-Leffler QQ-plot for exceedance times
-#'   \item Empirical compula (exceedances & exceedance times)
-#'   \item Hill plot for exceedance times
-#' }
-#' @param ctrm A \code{\link{ctrm}} object
+#' Generates a QQ plot for assessing the fit of a Mittag-Leffler
+#' distribution.
+#'
 #' @export
-#'
+mlqqplot <- function(x, ...) UseMethod("mlqqplot", x)
 
-diagnostics <- function(ctrm, tail = 1, log_scale = TRUE, OCTRM = FALSE) {
-  TT <- time(ctrm)
-  WW <- diff(TT)
-  JJ <- coredata.ctrm(ctrm)
-  n <- length(JJ)
-  # Plot 1
-  acf(diff(TT), main = "ACF (Exceedance Times)")
-  # Plot 2
-  acf(JJ, main = "ACF (Exceedances)")
-  # Plot 3
-  ccf(diff(TT), JJ[-1], main = "CrossCor (Exc & Exc Time)")
-  # Plot 4
-  qqplot(
-    WW,
-    MittagLeffleR::qml(p = ppoints(n - 1), tail = tail),
-    xlab = "Sample Quantiles",
-    ylab = "Population Quantiles",
+mlqqplot.default <- function(data,
+                     tail = 1,
+                     ...) {
+  n <- length(data)
+  x <- MittagLeffleR::qml(p = ppoints(n), tail = tail)
+  plot(
+    x,
+    sort(data),
+    xlab = "Population Quantiles",
+    ylab = "Sample Quantiles",
     main = "Mittag-Leffler QQ Plot",
-    log = ifelse(log_scale, 'xy', '')
+    ...
   )
-  # Plot 5
-  x <- rank(WW) / n
-  if(OCTRM)
-    y <- rank(JJ[-n]) / n
+}
+
+#' @export
+mlqqplot.ctrm <- function(ctrm, tail = 1, ...){
+  mlqqplot(interarrival(ctrm), tail = tail, ...)
+}
+
+#' @export
+acf <- function(x, ...) UseMethod("acf", x)
+
+#' @export
+acf.default <- stats::acf
+
+#' @export
+acf.ctrm <- function(ctrm, OCTRM = FALSE){
+  WW <- interarrival(ctrm)
+  JJ <- coredata(ctrm)
+  n <- length(ctrm)
+  assertthat::are_equal(length(JJ), n)
+  if (OCTRM)
+    JJ <- JJ[-1]
   else
-    y <- rank(JJ[-1]) / n
-  plot(x, y, main = "Emp. Copula (Exc & Exc Time)", pch = '.')
-  # Plot 6
-  fExtremes::hillPlot(WW, main = "Hill Plot")
-  abline(h = tail, lty = 3, col = 2)
+    JJ <- JJ[-n]
+  acf(cbind(WW, JJ))
+}
+
+#' @export
+empcopula <- function(ctrm, OCTRM = FALSE){
+  WW <- interarrival(ctrm)
+  JJ <- coredata(ctrm)
+  n <- length(ctrm)
+  assertthat::are_equal(length(JJ), n)
+  if (OCTRM)
+    JJ <- JJ[-1]
+  else
+    JJ <- JJ[-n]
+  plot(rank(WW)/n, rank(JJ)/n, main = "Emp. Copula (Exc & Exc Time)", pch = '.')
 }
