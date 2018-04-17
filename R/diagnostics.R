@@ -6,6 +6,7 @@
 #' @export
 mlqqplot <- function(x, ...) UseMethod("mlqqplot", x)
 
+#' @export
 mlqqplot.default <- function(data,
                      tail = 1,
                      ...) {
@@ -16,7 +17,6 @@ mlqqplot.default <- function(data,
     sort(data),
     xlab = "Population Quantiles",
     ylab = "Sample Quantiles",
-    main = "Mittag-Leffler QQ Plot",
     ...
   )
 }

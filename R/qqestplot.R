@@ -1,18 +1,19 @@
-#' QQ Plot estimator of tail exponent
-#'
-#' Generates static and dynamic QQ plots for threshold crossing times.
-#'
 #' @export
 qqestplot <- function(x, ...) UseMethod("qqestplot", x)
 
 #' @export
-qqestplot.default <- function(data, static = FALSE, conf.int = FALSE, top_k = NULL, ...) {
+qqestplot.default <- function(data, static = FALSE, conf.int = FALSE, top_k = NULL, kmin=5, ...) {
   if (!static)
-    return (tea::qqestplot(data = data, kmin = top_k, conf.int = conf.int))
+    return (tea::qqestplot(data = data, kmin = kmin, conf.int = conf.int))
   else
     return (qqestplot_static(data, top_k = top_k, ...))
 }
 
+#' QQ Plot estimator of tail exponent
+#'
+#' Generates static and dynamic QQ plots for threshold crossing times.
+#'
+#' @name qqestplot
 #' @export
 qqestplot.ctrm <- function(ctrm, top_k = NULL, static = FALSE, what = "magnitudes", ...){
   if (what == "magnitudes")

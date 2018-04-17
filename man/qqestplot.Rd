@@ -2,9 +2,11 @@
 % Please edit documentation in R/qqestplot.R
 \name{qqestplot}
 \alias{qqestplot}
+\alias{qqestplot.ctrm}
 \title{QQ Plot estimator of tail exponent}
 \usage{
-qqestplot(x, ...)
+\method{qqestplot}{ctrm}(ctrm, top_k = NULL, static = FALSE,
+  what = "magnitudes", ...)
 }
 \description{
 Generates static and dynamic QQ plots for threshold crossing times.

@@ -4,7 +4,7 @@
 \alias{coredata.ctrm}
 \title{Extract event magnitudes}
 \usage{
-coredata.ctrm(ctrm)
+\method{coredata}{ctrm}(ctrm)
 }
 \arguments{
 \item{ctrm}{A \code{\link{ctrm}} object}
