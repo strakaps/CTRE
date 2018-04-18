@@ -9,9 +9,12 @@ mlqqplot <- function(x, ...) UseMethod("mlqqplot", x)
 #' @export
 mlqqplot.default <- function(data,
                      tail = 1,
+                     scale = NULL,
                      ...) {
   n <- length(data)
-  x <- MittagLeffleR::qml(p = ppoints(n), tail = tail)
+  if (is.null(scale))
+    scale <- 1
+  x <- MittagLeffleR::qml(p = ppoints(n), tail = tail, scale = scale)
   plot(
     x,
     sort(data),
