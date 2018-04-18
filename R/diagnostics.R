@@ -36,20 +36,20 @@ acf <- function(x, ...) UseMethod("acf", x)
 acf.default <- stats::acf
 
 #' @export
-acf.ctrm <- function(ctrm, OCTRM = FALSE){
-  WW <- interarrival(ctrm)
-  JJ <- coredata(ctrm)
+acf.ctrm <- function(ctrm, OCTRM = FALSE, ...){
+  T_ell <- interarrival(ctrm)
+  X_ell <- coredata(ctrm)
   n <- length(ctrm)
-  assertthat::are_equal(length(JJ), n)
+  assertthat::are_equal(length(T_ell), n)
   if (OCTRM)
-    JJ <- JJ[-1]
+    T_ell <- T_ell[-1]
   else
-    JJ <- JJ[-n]
-  acf(cbind(WW, JJ))
+    X_ell <- X_ell[-n]
+  acf(cbind(T_ell, X_ell), ...)
 }
 
 #' @export
-empcopula <- function(ctrm, OCTRM = FALSE){
+empcopula <- function(ctrm, OCTRM = FALSE, ...){
   WW <- interarrival(ctrm)
   JJ <- coredata(ctrm)
   n <- length(ctrm)
@@ -58,5 +58,5 @@ empcopula <- function(ctrm, OCTRM = FALSE){
     JJ <- JJ[-1]
   else
     JJ <- JJ[-n]
-  plot(rank(WW)/n, rank(JJ)/n, main = "Emp. Copula (Exc & Exc Time)", pch = '.')
+  plot(rank(WW)/n, rank(JJ)/n, main = "Emp. Copula (Exc & Exc Time)", pch = '.', ...)
 }
