@@ -50,13 +50,13 @@ acf.ctrm <- function(ctrm, OCTRM = FALSE, ...){
 
 #' @export
 empcopula <- function(ctrm, OCTRM = FALSE, ...){
-  WW <- interarrival(ctrm)
-  JJ <- coredata(ctrm)
+  T_ell <- interarrival(ctrm)
+  X_ell <- coredata(ctrm)
   n <- length(ctrm)
-  assertthat::are_equal(length(JJ), n)
+  assertthat::are_equal(length(X_ell), n)
   if (OCTRM)
-    JJ <- JJ[-1]
+    X_ell <- X_ell[-1]
   else
-    JJ <- JJ[-n]
-  plot(rank(WW)/n, rank(JJ)/n, main = "Emp. Copula (Exc & Exc Time)", pch = '.', ...)
+    X_ell <- X_ell[-n]
+  plot(rank(T_ell)/n, rank(X_ell)/n, main = "Emp. Copula (Exc & Exc Time)", pch = '.', ...)
 }
