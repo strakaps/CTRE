@@ -4,7 +4,7 @@
 \alias{length.ctrm}
 \title{Get size of dataset}
 \usage{
-\method{length}{ctrm}(ctrm)
+\method{length}{ctrm}(x)
 }
 \description{
 Extract length of underlying time series.

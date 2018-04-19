@@ -42,9 +42,16 @@ interarrival <- function(ctrm){
 #' @param ctrm A \code{\link{ctrm}} object
 #' @return A numeric vector of event magnitudes
 #' @export
-coredata.ctrm <- function(ctrm) {
+coredata.ctrm <- function(ctrm)
   environment(ctrm)$JJ
-}
+
+#' @export
+time <- function(x, ...)
+  UseMethod("time")
+
+#' @export
+time.default <- function(x, ...)
+  stats::time(x, ...)
 
 #' Get event times
 #'
@@ -53,15 +60,13 @@ coredata.ctrm <- function(ctrm) {
 #' @param ctrm A \code{\link{ctrm}} object.
 #' @return A numeric vector of event times, or a time series.
 #' @export
-time.ctrm <- function(ctrm){
-  environment(ctrm)$TT
-}
+time.ctrm <- function(x)
+  environment(x)$TT
 
 #' Get size of dataset
 #'
 #' Extract length of underlying time series.
 #'
 #' @export
-length.ctrm <- function(ctrm){
-  length(time(ctrm))
-}
+length.ctrm <- function(x)
+  length(time(x))

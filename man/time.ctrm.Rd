@@ -4,7 +4,7 @@
 \alias{time.ctrm}
 \title{Get event times}
 \usage{
-\method{time}{ctrm}(ctrm)
+\method{time}{ctrm}(x)
 }
 \arguments{
 \item{ctrm}{A \code{\link{ctrm}} object.}

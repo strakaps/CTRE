@@ -5,6 +5,7 @@
 #'
 #' If \code{plot_me = TRUE}, the estimates are returned invisibly.
 #' @param ctrm A \code{\link{ctrm}} object
+#' @param tail
 #' @return A \code{data.frame} of Mittag-Leffler parameter estimates,
 #'         one row for each threshold, which is returned invisibly
 #'         unless \code{plot_me = FALSE}.
@@ -12,9 +13,9 @@
 #'
 
 MLestimates <- function(ctrm,
-                        plot_me = TRUE,
                         tail = NULL,
-                        scale = NULL) {
+                        scale = NULL,
+                        plot_me = TRUE) {
   if (is.null(environment(ctrm)$MLestimates))
     ctrm()
   est <- environment(ctrm)$MLestimates

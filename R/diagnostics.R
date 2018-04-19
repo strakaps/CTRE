@@ -33,7 +33,7 @@ mlqqplot.ctrm <- function(ctrm, tail = 1, ...){
 acf <- function(x, ...) UseMethod("acf", x)
 
 #' @export
-acf.default <- stats::acf
+acf.default <- function(x, ...) stats::acf(x)
 
 #' @export
 acf.ctrm <- function(ctrm, OCTRM = FALSE, ...){
