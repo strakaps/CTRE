@@ -4,9 +4,9 @@ qqestplot <- function(x, ...) UseMethod("qqestplot", x)
 #' @export
 qqestplot.default <- function(x, static = FALSE, conf.int = FALSE, top_k = NULL, kmin=5, ...) {
   if (!static)
-    return (tea::qqestplot(x = x, kmin = kmin, conf.int = conf.int))
+    return (tea::qqestplot(data = x, kmin = kmin, conf.int = conf.int))
   else
-    return (qqestplot_static(x, top_k = top_k, ...))
+    return (qqestplot_static(data = x, top_k = top_k, ...))
 }
 
 #' QQ Plot estimator of tail exponent
