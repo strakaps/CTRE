@@ -72,12 +72,12 @@ plot_MLtail <- function(est, tail = NULL) {
     ylim = c(0, 1.5),
     main = "ML tail"
   )
-  lines(est$k,
+  graphics::lines(est$k,
         est$tailHi,
         type = "l",
         col = "blue",
         lty = 2)
-  lines(est$k,
+  graphics::lines(est$k,
         est$tailLo,
         type = "l",
         col = "blue",
@@ -105,14 +105,14 @@ plot_MLscale <- function(est, tail = NULL, scale = NULL) {
     ylim = c(0, 2 * max(rescaledScale)),
     main = "ML scale"
   )
-  lines(
+  graphics::lines(
     est$k,
     rescaledScaleLo,
     type = "l",
     col = "blue",
     lty = 2
   )
-  lines(
+  graphics::lines(
     est$k,
     rescaledScaleHi,
     type = "l",

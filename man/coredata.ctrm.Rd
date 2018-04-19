@@ -4,10 +4,12 @@
 \alias{coredata.ctrm}
 \title{Extract event magnitudes}
 \usage{
-\method{coredata}{ctrm}(ctrm)
+\method{coredata}{ctrm}(x, ...)
 }
 \arguments{
-\item{ctrm}{A \code{\link{ctrm}} object}
+\item{x}{A \code{\link{ctrm}} object}
+
+\item{...}{Additional arguments passed to future methods.}
 }
 \value{
 A numeric vector of event magnitudes

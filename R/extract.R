@@ -54,11 +54,12 @@ coredata.default <- function(x, ...)
 #'
 #' Return the event magnitudes of a \code{ctrm} object.
 #'
-#' @param ctrm A \code{\link{ctrm}} object
+#' @param x A \code{\link{ctrm}} object
+#' @param ... Additional arguments passed to future methods.
 #' @return A numeric vector of event magnitudes
 #' @export
-coredata.ctrm <- function(ctrm)
-  environment(ctrm)$JJ
+coredata.ctrm <- function(x, ...)
+  environment(x)$JJ
 
 #' Sampling Times of Time Series
 #'

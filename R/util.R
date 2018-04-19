@@ -30,7 +30,7 @@ plot.ctrm <- function(x, p = 0.05, ...) {
   graphics::abline(h = ell, lty = 2)
   ii <- which(JJ > ell)
   n <- length(ii)
-  points(TT[ii],
+  graphics::points(TT[ii],
          rep(min(JJ), n),
          col = 4,
          pch = 3,
@@ -38,7 +38,7 @@ plot.ctrm <- function(x, p = 0.05, ...) {
   for (i in ii) {
     xx = c(TT[i], TT[i])
     yy = c(ell, JJ[i])
-    lines(xx, yy, col = 2)
+    graphics::lines(xx, yy, col = 2)
   }
 }
 

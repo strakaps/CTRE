@@ -5,3 +5,5 @@
 ^foo$
 ^stabplot-paper$
 ^data-raw$
+
+.travis.yml
