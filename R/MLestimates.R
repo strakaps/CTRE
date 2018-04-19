@@ -5,7 +5,24 @@
 #'
 #' If \code{plot_me = TRUE}, the estimates are returned invisibly.
 #' @param ctrm A \code{\link{ctrm}} object
+#' @param plot_me Should the estimates be plotted?
 #' @param tail
+#'     Tail parameter of the Mittag-Leffler distribution, if known.
+#'     Appears as a
+#'     dashed line in the plot of the tail parameter estimates, and
+#'     transforms the scale parameter estimates. If not known,
+#'     scale parameter estimates are untransformed (tail is set to 1).
+#' @param scale
+#'     Scale parameter of the Mittag-Leffler distribution, if known.
+#'     Appears as a dashed line in the plot of scale parameter
+#'     estimates.
+#' @param ks
+#'     The values of k at for which estimates are computed.
+#'     If e.g. k=10, then the threshold is set at the 10th order statistic
+#'     (10th largest magnitude), and Mittag-Leffler parameter estimates
+#'     are coputed for the threshold exceedance times.
+#'     By default, all order statistics are used except the 5 largest,
+#'     and the estimates are returned in a data frame.
 #' @return A \code{data.frame} of Mittag-Leffler parameter estimates,
 #'         one row for each threshold, which is returned invisibly
 #'         unless \code{plot_me = FALSE}.
@@ -13,10 +30,10 @@
 #'
 
 MLestimates <- function(ctrm,
+                        plot_me = TRUE,
                         tail = NULL,
                         scale = NULL,
-                        plot_me = TRUE,
-                        ks = NULL) {
+                        ks = 5:length(ctrm)) {
   if (is.null(environment(ctrm)$MLestimates))
     update_MLestimates(ctrm, ks)
   est <- environment(ctrm)$MLestimates
@@ -29,8 +46,6 @@ MLestimates <- function(ctrm,
 
 
 update_MLestimates <- function(ctrm, ks = ks) {
-  if (is.null(ks))
-    ks <- 5:length(ctrm)
   message("Computing Mittag-Leffler estimates for all thresholds.")
   idxJ <- environment(ctrm)$idxJ
   TT   <- environment(ctrm)$TT
@@ -48,7 +63,7 @@ update_MLestimates <- function(ctrm, ks = ks) {
 
 
 plot_MLtail <- function(est, tail = NULL) {
-  plot(
+  graphics::plot(
     est$k,
     est$tail,
     type = "l",
@@ -68,7 +83,7 @@ plot_MLtail <- function(est, tail = NULL) {
         col = "blue",
         lty = 2)
   if (!is.null(tail))
-    abline(h = tail, lty = 3, col = 2)
+    graphics::abline(h = tail, lty = 3, col = 2)
 }
 
 plot_MLscale <- function(est, tail = NULL, scale = NULL) {
@@ -81,7 +96,7 @@ plot_MLscale <- function(est, tail = NULL, scale = NULL) {
     est$scaleLo * est$k ^ (1 / tail)
   rescaledScaleHi <-
     est$scaleHi * est$k ^ (1 / tail)
-  plot(
+  graphics::plot(
     est$k,
     rescaledScale,
     type = "l",
@@ -105,5 +120,5 @@ plot_MLscale <- function(est, tail = NULL, scale = NULL) {
     lty = 2
   )
   if (!is.null(scale))
-    abline(h = scale, lty = 3, col = 2)
+    graphics::abline(h = scale, lty = 3, col = 2)
 }

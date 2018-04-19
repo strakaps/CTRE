@@ -1,6 +1,6 @@
-#' Create a CTRM object
+#' CTRM model
 #'
-#' The constructor for the class \code{'ctrm'} (Continuous Time Random
+#' Creates an object of class \code{'ctrm'} (Continuous Time Random
 #' Maxima).
 #'
 #' @param x Either
@@ -13,6 +13,11 @@
 #'     of class "numeric", "Date" or "POSIXct";
 #'     the second component/column must contain the event magnitudes and
 #'     be of type "numeric".
+#' @param drop.duplicate.times
+#'     If there are duplicate time stamps present, should duplicates be
+#'     dropped?
+#' @param y
+#'     If x is a vector, y needs to be supplied as a vector of same length.
 #' @return An object of class \code{'ctrm'} based on a time series of
 #'         magnitudes.
 #' @examples
@@ -69,8 +74,15 @@ ctrm <- function(x, y = NULL, drop.duplicate.times = FALSE) {
 
   # the closure to be returned:
   print <- function() {
-    str(TT)
-    str(JJ)
+    cat("'ctrm' object with", length(JJ), "timestamps and magnitudes.\n")
+    cat("Timestamps:\n")
+    utils::str(TT)
+    cat("Magnitudes:\n")
+    utils::str(JJ)
+    if(!is.null(MLestimates)){
+      cat("Mittag-Leffler parameter estimates:\n")
+      utils::str(MLestimates[c("tail", "scale")])
+    }
   }
 
   structure(print, class = 'ctrm')

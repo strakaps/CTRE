@@ -5,8 +5,23 @@
 \alias{qqestplot.ctrm}
 \title{QQ Plot estimator of tail exponent}
 \usage{
-\method{qqestplot}{ctrm}(ctrm, top_k = NULL, static = FALSE,
+\method{qqestplot}{ctrm}(x, top_k = NULL, static = FALSE,
   what = "magnitudes", ...)
+}
+\arguments{
+\item{x}{The ctrm object whose data ("magnitudes" or "interarrivals")
+should be used for the QQ-estimator}
+
+\item{top_k}{Only use the top_k largest values (in the tail) for the plot}
+
+\item{static}{Should the QQ-estimator plot be dynamic? (The dynamic QQ-Estimator
+plot plots the estimate of the static plot for all values k from
+top_k down to 5.)}
+
+\item{what}{Which of "magnitudes" or "interarrivals" should be used for the
+QQ-estimator?}
+
+\item{...}{Additional plotting arguments}
 }
 \description{
 Generates static and dynamic QQ plots for threshold crossing times.

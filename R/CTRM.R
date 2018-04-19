@@ -9,20 +9,26 @@
 #'   \item Create a \code{\link{ctrm}} object
 #'   \item Read off the fitted Mittag-Leffler parameters via
 #'         \code{\link{MLestimates}}
-#'   \item Criticize the model with \code{\link{diagnostics}}
+#'   \item Criticize the model (with \code{\link{acf}},
+#'   \code{\link{mlqqplot}}, \code{\link{empcopula}}).
 #' }
 #'
-#' See arXiv paper "Inference for Continuous Time Random Maxima with
-#' Heavy-Tailed Waiting Times" for the theory.
+#' See arXiv paper https://arxiv.org/abs/1802.05218 for the theory.
 #'
 #' @examples
-#'
-#' tail <- 0.8
-#' times <- cumsum(MittagLeffleR::rml(n = 1000, tail = tail, scale = 5))
-#' magnitudes <- rexp(n = 1000)
-#' sim_ctrm <- ctrm(times, magnitudes)
-#' MLestimates(sim_ctrm, tail = tail)
-#' diagnostics(sim_ctrm, tail = tail)
+#' library(CTRM)
+#' library(magrittr)
+#' ctrm_mod <- ctrm(flares)
+#' ctrm_mod
+#' length(ctrm_mod)
+#' ctrm_mod <- thin(ctrm_mod, k = 500)
+#' coredata(ctrm_mod)
+#' time(ctrm_mod)
+#' interarrival(ctrm_mod)
+#' MLestimates(ctrm_mod, tail = 0.8, scale = 3E7)
+#' mlqqplot(ctrm_mod, tail = 0.8, log = 'xy')
+#' acf(ctrm_mod)
+#' empcopula(ctrm_mod)
 #'
 
 "_PACKAGE"

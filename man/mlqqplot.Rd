@@ -6,6 +6,12 @@
 \usage{
 mlqqplot(x, ...)
 }
+\arguments{
+\item{x}{Object for which a QQ-Plot against the Mittag-Leffler
+distribution is to be created.}
+
+\item{...}{Additional plotting arguments}
+}
 \description{
 Generates a QQ plot for assessing the fit of a Mittag-Leffler
 distribution.

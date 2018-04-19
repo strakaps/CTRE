@@ -7,11 +7,12 @@
 thin(ctrm, k)
 }
 \arguments{
-\item{ctrm}{A \code{\link{ctrm}} object.
-k    Discard all but the \code{k} largest magnitudes.}
+\item{ctrm}{A \code{\link{ctrm}} object.}
+
+\item{k}{Discard all but the \code{k} largest magnitudes.}
 }
 \value{
-A \code{\link{ctrm}} object, with fewer observations.
+A \code{\link{ctrm}} object, with fewer (k) observations.
 }
 \description{
 Drop all but the \code{k} largest observations.

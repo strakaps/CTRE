@@ -6,6 +6,9 @@
 \usage{
 interarrival(ctrm)
 }
+\arguments{
+\item{ctrm}{The underlying ctrm object}
+}
 \description{
-Extract inter-arrival times from a ctrm object
+Extract inter-arrival times of threshold crossings from a ctrm object
 }

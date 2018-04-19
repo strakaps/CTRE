@@ -2,7 +2,7 @@
 % Please edit documentation in R/new_ctrm.R
 \name{ctrm}
 \alias{ctrm}
-\title{Create a CTRM object}
+\title{CTRM model}
 \usage{
 ctrm(x, y = NULL, drop.duplicate.times = FALSE)
 }
@@ -17,13 +17,18 @@ The first component/column must contain the event times and be
 of class "numeric", "Date" or "POSIXct";
 the second component/column must contain the event magnitudes and
 be of type "numeric".}
+
+\item{y}{If x is a vector, y needs to be supplied as a vector of same length.}
+
+\item{drop.duplicate.times}{If there are duplicate time stamps present, should duplicates be
+dropped?}
 }
 \value{
 An object of class \code{'ctrm'} based on a time series of
         magnitudes.
 }
 \description{
-The constructor for the class \code{'ctrm'} (Continuous Time Random
+Creates an object of class \code{'ctrm'} (Continuous Time Random
 Maxima).
 }
 \examples{

@@ -3,8 +3,8 @@
 #' Drop all but the \code{k} largest observations.
 #'
 #' @param ctrm A \code{\link{ctrm}} object.
-#'        k    Discard all but the \code{k} largest magnitudes.
-#' @return A \code{\link{ctrm}} object, with fewer observations.
+#' @param k    Discard all but the \code{k} largest magnitudes.
+#' @return A \code{\link{ctrm}} object, with fewer (k) observations.
 #' @export
 
 thin <- function(ctrm, k) {
@@ -27,13 +27,28 @@ thin <- function(ctrm, k) {
 
 #' Get inter-arrival times
 #'
-#' Extract inter-arrival times from a ctrm object
+#' Extract inter-arrival times of threshold crossings from a ctrm object
 #'
 #' @export
+#' @param ctrm The underlying ctrm object
 interarrival <- function(ctrm){
   TT <- time(ctrm)
   as.vector(diff(TT))
 }
+
+#' Extracting/Replacing the Core Data of Objects
+#'
+#' Generic functions for extracting the core data contained in a (more complex) object and replacing it.
+#'
+#' @param x an object.
+#' @param ... further arguments passed to methods.
+#' @export
+#' @aliases coredata.default
+coredata <- function(x, ...)
+  UseMethod("coredata")
+
+coredata.default <- function(x, ...)
+  zoo::coredata(x, ...)
 
 #' Extract event magnitudes
 #'
@@ -45,6 +60,10 @@ interarrival <- function(ctrm){
 coredata.ctrm <- function(ctrm)
   environment(ctrm)$JJ
 
+#' Sampling Times of Time Series
+#'
+#' @param x A time series or ctrm object
+#' @param ... Extra arguments for future methods
 #' @export
 time <- function(x, ...)
   UseMethod("time")
@@ -57,16 +76,17 @@ time.default <- function(x, ...)
 #'
 #' Extract event times from a \code{ctrm} object.
 #'
-#' @param ctrm A \code{\link{ctrm}} object.
+#' @name time
 #' @return A numeric vector of event times, or a time series.
 #' @export
-time.ctrm <- function(x)
+time.ctrm <- function(x, ...)
   environment(x)$TT
 
-#' Get size of dataset
+#' Get length of underlying time series
 #'
 #' Extract length of underlying time series.
 #'
 #' @export
+#' @param x The ctrm object containing the time series
 length.ctrm <- function(x)
   length(time(x))

@@ -1,27 +1,19 @@
-#' Plot a CTRM
-#'
-#' Generate a plot of the data highlighting a threshold, the threshold
-#' exceedances and threshold exceedance times.
-#'
-#' @name plot.ctrm
-#' @param ctrm An object of class \code{\link{ctrm}}.
-#' @param p    The fraction of largest magnitudes at which the threshold
-#'             is plotted.
-#' @param ... Additional parameters, see details.
 #' @export
-#'
+print.ctrm <- function(x, ...)
+  x()
 
+#' Plot a ctrm object
+#'
+#' @param x The ctrm object whose time series should be plotted
+#' @param p The fraction of magnitudes that exceed the threshold to be plotted
+#' @param ... Additional plotting parameters
 #' @export
-print.ctrm <- function(ctrm)
-  ctrm()
-
-#' @export
-plot.ctrm <- function(ctrm, p = 0.05, ...) {
-  TT <- time(ctrm)
-  JJ <- coredata.ctrm(ctrm)
-  idxJ <- environment(ctrm)$idxJ
+plot.ctrm <- function(x, p = 0.05, ...) {
+  TT <- time(x)
+  JJ <- coredata.ctrm(x)
+  idxJ <- environment(x)$idxJ
   n <- length(JJ)
-  plot(
+  graphics::plot(
     TT,
     JJ,
     type = 'h',
@@ -35,7 +27,7 @@ plot.ctrm <- function(ctrm, p = 0.05, ...) {
   idxJ <- order(JJ, decreasing = TRUE)
   ell <- JJ[idxJ][k]
   ell <- ifelse(is.na(ell), 0, ell)
-  abline(h = ell, lty = 2)
+  graphics::abline(h = ell, lty = 2)
   ii <- which(JJ > ell)
   n <- length(ii)
   points(TT[ii],

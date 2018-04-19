@@ -2,20 +2,17 @@
 % Please edit documentation in R/util.R
 \name{plot.ctrm}
 \alias{plot.ctrm}
-\alias{print.ctrm}
-\title{Plot a CTRM}
+\title{Plot a ctrm object}
 \usage{
-\method{print}{ctrm}(ctrm)
+\method{plot}{ctrm}(x, p = 0.05, ...)
 }
 \arguments{
-\item{ctrm}{An object of class \code{\link{ctrm}}.}
+\item{x}{The ctrm object whose time series should be plotted}
 
-\item{p}{The fraction of largest magnitudes at which the threshold
-is plotted.}
+\item{p}{The fraction of magnitudes that exceed the threshold to be plotted}
 
-\item{...}{Additional parameters, see details.}
+\item{...}{Additional plotting parameters}
 }
 \description{
-Generate a plot of the data highlighting a threshold, the threshold
-exceedances and threshold exceedance times.
+Plot a ctrm object
 }

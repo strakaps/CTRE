@@ -2,9 +2,12 @@
 % Please edit documentation in R/extract.R
 \name{length.ctrm}
 \alias{length.ctrm}
-\title{Get size of dataset}
+\title{Get length of underlying time series}
 \usage{
 \method{length}{ctrm}(x)
+}
+\arguments{
+\item{x}{The ctrm object containing the time series}
 }
 \description{
 Extract length of underlying time series.

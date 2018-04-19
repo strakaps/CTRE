@@ -4,10 +4,30 @@
 \alias{MLestimates}
 \title{Mittag-Leffler estimates for varying thresholds}
 \usage{
-MLestimates(ctrm, tail = NULL, scale = NULL, plot_me = TRUE, ks = NULL)
+MLestimates(ctrm, plot_me = TRUE, tail = NULL, scale = NULL,
+  ks = 5:length(ctrm))
 }
 \arguments{
 \item{ctrm}{A \code{\link{ctrm}} object}
+
+\item{plot_me}{Should the estimates be plotted?}
+
+\item{tail}{Tail parameter of the Mittag-Leffler distribution, if known.
+Appears as a
+dashed line in the plot of the tail parameter estimates, and
+transforms the scale parameter estimates. If not known,
+scale parameter estimates are untransformed (tail is set to 1).}
+
+\item{scale}{Scale parameter of the Mittag-Leffler distribution, if known.
+Appears as a dashed line in the plot of scale parameter
+estimates.}
+
+\item{ks}{The values of k at for which estimates are computed.
+If e.g. k=10, then the threshold is set at the 10th order statistic
+(10th largest magnitude), and Mittag-Leffler parameter estimates
+are coputed for the threshold exceedance times.
+By default, all order statistics are used except the 5 largest,
+and the estimates are returned in a data frame.}
 }
 \value{
 A \code{data.frame} of Mittag-Leffler parameter estimates,
