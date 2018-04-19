@@ -11,6 +11,11 @@
 #' @export
 #'
 
+#' @export
+print.ctrm <- function(ctrm)
+  ctrm()
+
+#' @export
 plot.ctrm <- function(ctrm, p = 0.05, ...) {
   TT <- time(ctrm)
   JJ <- coredata.ctrm(ctrm)

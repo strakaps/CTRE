@@ -68,20 +68,10 @@ ctrm <- function(x, y = NULL, drop.duplicate.times = FALSE) {
   idxJ <- order(JJ, decreasing = TRUE)
 
   # the closure to be returned:
-  f <- function() {
-    compute_MLestimates()
+  print <- function() {
+    str(TT)
+    str(JJ)
   }
 
-  compute_MLestimates <- function(ks = 5:n) {
-    message("Computing Mittag-Leffler estimates for all thresholds.")
-    MLestimates <<- plyr::ldply(.data = ks, function(k) {
-      WW <- diff(sort(as.vector(TT[idxJ[1:k]])))
-      est <- MittagLeffleR::logMomentEstimator(WW)
-      names(est) <-
-        c("tail", "scale", "tailLo", "tailHi", "scaleLo", "scaleHi")
-      c(k = k, est)
-    })
-  }
-
-  structure(f, class = 'ctrm')
+  structure(print, class = 'ctrm')
 }
