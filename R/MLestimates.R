@@ -15,9 +15,10 @@
 MLestimates <- function(ctrm,
                         tail = NULL,
                         scale = NULL,
-                        plot_me = TRUE) {
+                        plot_me = TRUE,
+                        ks = NULL) {
   if (is.null(environment(ctrm)$MLestimates))
-    ctrm()
+    update_MLestimates(ctrm, ks)
   est <- environment(ctrm)$MLestimates
   if (!plot_me)
     return(est)
@@ -25,6 +26,26 @@ MLestimates <- function(ctrm,
   plot_MLscale(est, tail, scale)
   invisible(est)
 }
+
+
+update_MLestimates <- function(ctrm, ks = ks) {
+  if (is.null(ks))
+    ks <- 5:length(ctrm)
+  message("Computing Mittag-Leffler estimates for all thresholds.")
+  idxJ <- environment(ctrm)$idxJ
+  TT   <- environment(ctrm)$TT
+  MLestimate_k <- function(k) {
+    WW <- diff(sort(as.vector(TT[idxJ[1:k]])))
+    est <- MittagLeffleR::logMomentEstimator(WW)
+    names(est) <-
+      c("tail", "scale", "tailLo", "tailHi", "scaleLo", "scaleHi")
+    c(k = k, est)
+  }
+  MLestimates <- plyr::ldply(.data = ks, MLestimate_k)
+  environment(ctrm)$MLestimates <- MLestimates
+  invisible(MLestimates)
+}
+
 
 plot_MLtail <- function(est, tail = NULL) {
   plot(

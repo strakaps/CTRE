@@ -4,7 +4,7 @@
 \alias{MLestimates}
 \title{Mittag-Leffler estimates for varying thresholds}
 \usage{
-MLestimates(ctrm, plot_me = TRUE, tail = NULL, scale = NULL)
+MLestimates(ctrm, tail = NULL, scale = NULL, plot_me = TRUE, ks = NULL)
 }
 \arguments{
 \item{ctrm}{A \code{\link{ctrm}} object}
