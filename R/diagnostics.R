@@ -60,9 +60,9 @@ acf.default <- function(x, ...) stats::acf(x)
 #'     Additional arguments passed to \code{\link[stats]{acf}}
 #' @export
 acf.ctrm <- function(x, OCTRM = FALSE, ...){
-  T_ell <- interarrival(ctrm)
-  X_ell <- coredata.ctrm(ctrm)
-  n <- length(ctrm)
+  T_ell <- interarrival(x)
+  X_ell <- coredata.ctrm(x)
+  n <- length(x)
   assertthat::are_equal(length(T_ell), n)
   if (OCTRM)
     T_ell <- T_ell[-1]
