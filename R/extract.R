@@ -43,7 +43,6 @@ interarrival <- function(ctrm){
 #' @param x an object.
 #' @param ... further arguments passed to methods.
 #' @export
-#' @aliases coredata.default
 coredata <- function(x, ...)
   UseMethod("coredata")
 

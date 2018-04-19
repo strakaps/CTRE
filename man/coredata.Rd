@@ -2,7 +2,6 @@
 % Please edit documentation in R/extract.R
 \name{coredata}
 \alias{coredata}
-\alias{coredata.default}
 \title{Extracting/Replacing the Core Data of Objects}
 \usage{
 coredata(x, ...)
