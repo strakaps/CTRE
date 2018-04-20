@@ -83,6 +83,8 @@ ctrm <- function(x, y = NULL, drop.duplicate.times = FALSE) {
       cat("Mittag-Leffler parameter estimates:\n")
       utils::str(MLestimates[c("tail", "scale")])
     }
+    self <- parent.env(environment())$print
+    invisible(structure(self, class = 'ctrm'))
   }
 
   structure(print, class = 'ctrm')
