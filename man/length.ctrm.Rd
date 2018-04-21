@@ -12,3 +12,6 @@
 \description{
 Extract length of underlying time series.
 }
+\examples{
+  flares \%>\% ctrm() \%>\% thin(k=200) \%>\% length()
+}

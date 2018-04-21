@@ -24,6 +24,12 @@
 #' times <- cumsum(MittagLeffleR::rml(n = 1000, tail = 0.8, scale = 5))
 #' magnitudes <- rexp(n = 1000)
 #' sim_ctrm <- ctrm(times, magnitudes)
+#' sim_ctrm
+#' plot(sim_ctrm)
+#'
+#' library(magrittr)
+#' bitcoin_ctrm <- bitcoin %>% ctrm() %>% thin(k = 400)
+#' plot(bitcoin_ctrm, log = 'y')
 #' @export
 #' @seealso \link{CTRM}
 

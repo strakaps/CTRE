@@ -12,3 +12,7 @@ interarrival(ctrm)
 \description{
 Extract inter-arrival times of threshold crossings from a ctrm object
 }
+\examples{
+  library(magrittr)
+  bitcoin \%>\% ctrm() \%>\% thin(k=100) \%>\% interarrival
+}

@@ -71,6 +71,7 @@ qqestplot_static <- function(data, top_k = NULL, plot_me = TRUE, ...) {
 #'
 #' @param x time series or ctrm object.
 #' @param ... Additional arguments passed to \code{stats::\link[stats]{acf}}
+#' @seealso \code{\link{acf.ctrm}}
 #' @export
 acf <- function(x, ...)
   UseMethod("acf", x)
@@ -117,6 +118,9 @@ acf.ctrm <- function(x, OCTRM = FALSE, ...){
 #'     Shall each magnitude be matched with the preceding interarrival
 #'     time (FALSE) or the succeeding interarrival time (TRUE)?
 #' @param ... Additional plotting arguments
+#' @examples
+#'   library(magrittr)
+#'   flares %>% ctrm() %>% thin(k = 300) %>% empcopula(pch = '*')
 #' @export
 empcopula <- function(ctrm, OCTRM = FALSE, ...){
   T_ell <- interarrival(ctrm)
@@ -127,5 +131,5 @@ empcopula <- function(ctrm, OCTRM = FALSE, ...){
     X_ell <- X_ell[-1]
   else
     X_ell <- X_ell[-n]
-  graphics::plot(rank(T_ell)/n, rank(X_ell)/n, main = "Emp. Copula (Exc & Exc Time)", pch = '.', ...)
+  graphics::plot(rank(T_ell)/n, rank(X_ell)/n, main = "Emp. Copula (Exc & Exc Time)", ...)
 }

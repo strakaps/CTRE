@@ -23,3 +23,10 @@ Sampling Times of Time Series
 
 Extract event times from a \code{ctrm} object.
 }
+\examples{
+  library(magrittr)
+  seaquakes \%>\% ctrm() \%>\% thin(k=200) \%>\% time()
+}
+\seealso{
+\code{\link{time.ctrm}}
+}

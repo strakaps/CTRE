@@ -17,3 +17,8 @@ A \code{\link{ctrm}} object, with fewer (k) observations.
 \description{
 Drop all but the \code{k} largest observations.
 }
+\examples{
+  library(magrittr)
+  flares \%>\% ctrm() \%>\% plot(log = 'y')
+  flares \%>\% ctrm() \%>\% thin(k=500) \%>\% plot(log = 'y')
+}

@@ -14,3 +14,6 @@ acf(x, ...)
 \description{
 Autocorrelation function
 }
+\seealso{
+\code{\link{acf.ctrm}}
+}

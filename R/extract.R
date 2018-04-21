@@ -5,6 +5,10 @@
 #' @param ctrm A \code{\link{ctrm}} object.
 #' @param k    Discard all but the \code{k} largest magnitudes.
 #' @return A \code{\link{ctrm}} object, with fewer (k) observations.
+#' @examples
+#'   library(magrittr)
+#'   flares %>% ctrm() %>% plot(log = 'y')
+#'   flares %>% ctrm() %>% thin(k=500) %>% plot(log = 'y')
 #' @export
 
 thin <- function(ctrm, k) {
@@ -31,6 +35,9 @@ thin <- function(ctrm, k) {
 #'
 #' @export
 #' @param ctrm The underlying ctrm object
+#' @examples
+#'   library(magrittr)
+#'   bitcoin %>% ctrm() %>% thin(k=100) %>% interarrival
 interarrival <- function(ctrm){
   TT <- time(ctrm)
   as.vector(diff(TT))
@@ -44,6 +51,7 @@ interarrival <- function(ctrm){
 #' @param ... Additional arguments passed to future methods.
 #' @return A numeric vector of event magnitudes
 #' @examples
+#'   library(magrittr)
 #'   bitcoin %>% ctrm() %>% magnitudes()
 #' @export
 magnitudes <- function(ctrm, ...)
@@ -54,6 +62,7 @@ magnitudes <- function(ctrm, ...)
 #' @param x A time series or ctrm object
 #' @param ... Extra arguments for future methods
 #' @export
+#' @seealso \code{\link{time.ctrm}}
 time <- function(x, ...)
   UseMethod("time")
 
@@ -68,6 +77,9 @@ time.default <- function(x, ...)
 #' @name time
 #' @return A numeric vector of event times, or a time series.
 #' @export
+#' @examples
+#'   library(magrittr)
+#'   seaquakes %>% ctrm() %>% thin(k=200) %>% time()
 time.ctrm <- function(x, ...)
   environment(x)$TT
 
@@ -77,5 +89,7 @@ time.ctrm <- function(x, ...)
 #'
 #' @export
 #' @param x The ctrm object containing the time series
+#' @examples
+#'   flares %>% ctrm() %>% thin(k=200) %>% length()
 length.ctrm <- function(x)
   length(time(x))

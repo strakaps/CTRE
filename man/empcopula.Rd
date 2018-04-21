@@ -18,3 +18,7 @@ time (FALSE) or the succeeding interarrival time (TRUE)?}
 Plots the ranks of the magnitudes against the ranks of the preceding
 (or succeeding) interarrival times.
 }
+\examples{
+  library(magrittr)
+  flares \%>\% ctrm() \%>\% thin(k = 300) \%>\% empcopula(pch = '*')
+}

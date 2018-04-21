@@ -41,3 +41,7 @@ distribution fitted to the threshold exceedance times.
 \details{
 If \code{plot_me = TRUE}, the estimates are returned invisibly.
 }
+\examples{
+  par(mfrow = c(1,2))
+  flares \%>\% ctrm() \%>\% thin(k=1000) \%>\% MLestimates(tail = 0.9)
+}

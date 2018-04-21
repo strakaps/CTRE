@@ -18,5 +18,6 @@ A numeric vector of event magnitudes
 Return the event magnitudes of a \code{ctrm} object.
 }
 \examples{
+  library(magrittr)
   bitcoin \%>\% ctrm() \%>\% magnitudes()
 }

@@ -26,6 +26,9 @@
 #' @return A \code{data.frame} of Mittag-Leffler parameter estimates,
 #'         one row for each threshold, which is returned invisibly
 #'         unless \code{plot_me = FALSE}.
+#' @examples
+#'   par(mfrow = c(1,2))
+#'   flares %>% ctrm() %>% thin(k=1000) %>% MLestimates(tail = 0.9)
 #' @export
 #'
 
