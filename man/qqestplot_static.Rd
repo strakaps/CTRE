@@ -11,13 +11,13 @@ qqestplot_static(data, top_k = NULL, plot_me = TRUE, ...)
 
 \item{top_k}{Only use the top_k largest values (in the tail) for the plot}
 
-\item{plot_me}{Should a plot be produced? If not, only the estimate is produced.}
+\item{plot_me}{Should a plot be produced? If not, only the estimate is returned.}
 
 \item{...}{Additional plotting arguments}
 }
 \value{
-An estimate of the Pareto tail exponent.
+An estimate of the Pareto tail exponent (invisible if plotted).
 }
 \description{
-Generates a static QQ plot for Pareto tail estimate
+Generates a static QQ plot for Pareto tail estimates
 }

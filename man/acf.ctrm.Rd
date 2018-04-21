@@ -19,3 +19,7 @@ succeeding interarrival time.}
 Calculates and plots the autocorrelation function for the bivariate
 time series of interarrival times and magnitudes.
 }
+\examples{
+  library(magrittr)
+  flares \%>\% ctrm() \%>\% thin(k=150) \%>\% acf()
+}

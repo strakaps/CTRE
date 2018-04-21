@@ -9,8 +9,7 @@ acf(x, ...)
 \arguments{
 \item{x}{time series or ctrm object.}
 
-\item{...}{Additional arguments passed to \code{\link[stats]{acf}} or
-\code{\link[CTRM]{acf}}}
+\item{...}{Additional arguments passed to \code{stats::\link[stats]{acf}}}
 }
 \description{
 Autocorrelation function
