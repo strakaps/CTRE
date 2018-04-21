@@ -33,7 +33,7 @@ coredata(ctrm_mod)
 time(ctrm_mod)
 interarrival(ctrm_mod)
 MLestimates(ctrm_mod, tail = 0.8, scale = 3E7)
-mlqqplot(ctrm_mod, tail = 0.8, log = 'xy')
+mlqqplot(ctrm_mod \%>\% interarrival(), tail = 0.8, log = 'xy')
 acf(ctrm_mod)
 empcopula(ctrm_mod)
 

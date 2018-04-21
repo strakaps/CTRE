@@ -1,37 +1,71 @@
-#' Mittag-Leffler QQ Plot of threshold waiting times
+#' Mittag-Leffler QQ Plot
 #'
 #' Generates a QQ plot for assessing the fit of a Mittag-Leffler
 #' distribution.
 #'
-#' @export
-#' @param x Object for which a QQ-Plot against the Mittag-Leffler
-#'     distribution is to be created.
+#' @param x
+#'     A vector of data to be compared against the Mittag-Leffler
+#'     distribution.
+#' @param tail
+#'    Tail parameter of the Mittag-Leffler population. Default is
+#'    \code{1}, i.e. the exponential distribution.
+#' @param scale
+#'    Scale parameter of the Mittag-Leffler population, if known.
 #' @param ...
-#'     Additional plotting arguments
-mlqqplot <- function(x, ...) UseMethod("mlqqplot", x)
-
+#'     Additional plotting arguments, e.g. \code{log = 'xy'}.
 #' @export
-mlqqplot.default <- function(x,
+mlqqplot <- function(x,
                      tail = 1,
                      scale = NULL,
                      ...) {
   n <- length(x)
   if (is.null(scale))
     scale <- 1
-  pop <- MittagLeffleR::qml(p = stats::ppoints(n), tail = tail, scale = scale)
-  graphics::plot(
-    pop,
-    sort(x),
-    xlab = "Population Quantiles",
-    ylab = "Sample Quantiles",
-    ...
-  )
+  pop <-
+    MittagLeffleR::qml(p = stats::ppoints(n),
+                       tail = tail,
+                       scale = scale)
+  graphics::plot(pop,
+                 sort(x),
+                 xlab = "Population Quantiles",
+                 ylab = "Sample Quantiles",
+                 ...)
 }
 
+#' Static QQ Plot estimator
+#'
+#' Generates a static QQ plot for Pareto tail estimate
+#'
+#' @param data
+#'     A vector of data.
+#' @param top_k
+#'     Only use the top_k largest values (in the tail) for the plot
+#' @param plot_me
+#'     Should a plot be produced? If not, only the estimate is produced.
+#' @param ...
+#'     Additional plotting arguments
+#' @return
+#'     An estimate of the Pareto tail exponent.
 #' @export
-mlqqplot.ctrm <-
-  function(x, tail = 1, ...)
-    mlqqplot(interarrival(x), tail = tail, ...)
+
+qqestplot_static <- function(data, top_k = NULL, plot_me = TRUE, ...) {
+  n <- length(data)
+  if (is.null(top_k))
+    top_k <- n
+  else if (top_k > n)
+    stop("Can't choose top k order statistics, only have", n)
+  x <- -log(sort(stats::ppoints(top_k)))
+  y <- log(sort(data, decreasing = TRUE)[1:top_k])
+  l <- stats::lm(y~x)
+  if (plot_me) {
+    graphics::plot(x, y, ...)
+    graphics::abline(l, col = 2)
+    return (1 / l$coefficients[2])
+  } else
+    invisible(1 / l$coefficients[2])
+}
+
+
 
 #' Autocorrelation function
 #'

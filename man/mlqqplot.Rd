@@ -2,15 +2,20 @@
 % Please edit documentation in R/diagnostics.R
 \name{mlqqplot}
 \alias{mlqqplot}
-\title{Mittag-Leffler QQ Plot of threshold waiting times}
+\title{Mittag-Leffler QQ Plot}
 \usage{
-mlqqplot(x, ...)
+mlqqplot(x, tail = 1, scale = NULL, ...)
 }
 \arguments{
-\item{x}{Object for which a QQ-Plot against the Mittag-Leffler
-distribution is to be created.}
+\item{x}{A vector of data to be compared against the Mittag-Leffler
+distribution.}
 
-\item{...}{Additional plotting arguments}
+\item{tail}{Tail parameter of the Mittag-Leffler population. Default is
+\code{1}, i.e. the exponential distribution.}
+
+\item{scale}{Scale parameter of the Mittag-Leffler population, if known.}
+
+\item{...}{Additional plotting arguments, e.g. \code{log = 'xy'}.}
 }
 \description{
 Generates a QQ plot for assessing the fit of a Mittag-Leffler
