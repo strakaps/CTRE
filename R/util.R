@@ -10,7 +10,7 @@ print.ctrm <- function(x, ...)
 #' @export
 plot.ctrm <- function(x, p = 0.05, ...) {
   TT <- time(x)
-  JJ <- coredata.ctrm(x)
+  JJ <- magnitudes(x)
   idxJ <- environment(x)$idxJ
   n <- length(JJ)
   graphics::plot(

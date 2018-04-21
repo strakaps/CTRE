@@ -34,18 +34,18 @@ mlqqplot <- function(x,
 
 #' Static QQ Plot estimator
 #'
-#' Generates a static QQ plot for Pareto tail estimate
+#' Generates a static QQ plot for Pareto tail estimates
 #'
 #' @param data
 #'     A vector of data.
 #' @param top_k
 #'     Only use the top_k largest values (in the tail) for the plot
 #' @param plot_me
-#'     Should a plot be produced? If not, only the estimate is produced.
+#'     Should a plot be produced? If not, only the estimate is returned.
 #' @param ...
 #'     Additional plotting arguments
 #' @return
-#'     An estimate of the Pareto tail exponent.
+#'     An estimate of the Pareto tail exponent (invisible if plotted).
 #' @export
 
 qqestplot_static <- function(data, top_k = NULL, plot_me = TRUE, ...) {
@@ -70,8 +70,7 @@ qqestplot_static <- function(data, top_k = NULL, plot_me = TRUE, ...) {
 #' Autocorrelation function
 #'
 #' @param x time series or ctrm object.
-#' @param ... Additional arguments passed to \code{\link[stats]{acf}} or
-#'     \code{\link[CTRM]{acf}}
+#' @param ... Additional arguments passed to \code{stats::\link[stats]{acf}}
 #' @export
 acf <- function(x, ...)
   UseMethod("acf", x)
@@ -92,10 +91,13 @@ acf.default <- function(x, ...) stats::acf(x)
 #'     succeeding interarrival time.
 #' @param ...
 #'     Additional arguments passed to \code{\link[stats]{acf}}
+#' @examples
+#'   library(magrittr)
+#'   flares %>% ctrm() %>% thin(k=150) %>% acf()
 #' @export
 acf.ctrm <- function(x, OCTRM = FALSE, ...){
   T_ell <- interarrival(x)
-  X_ell <- coredata.ctrm(x)
+  X_ell <- magnitudes(x)
   n <- length(x)
   assertthat::are_equal(length(T_ell), n)
   if (OCTRM)
@@ -118,7 +120,7 @@ acf.ctrm <- function(x, OCTRM = FALSE, ...){
 #' @export
 empcopula <- function(ctrm, OCTRM = FALSE, ...){
   T_ell <- interarrival(ctrm)
-  X_ell <- coredata.ctrm(ctrm)
+  X_ell <- magnitudes(ctrm)
   n <- length(ctrm)
   assertthat::are_equal(length(X_ell), n)
   if (OCTRM)

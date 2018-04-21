@@ -8,10 +8,10 @@
 #' @export
 
 thin <- function(ctrm, k) {
-  n <- length(coredata.ctrm(ctrm))
+  n <- length(magnitudes(ctrm))
   if (k > n)
     stop("Can't threshold to ", k, " observations if I only have ", n)
-  JJ <- coredata.ctrm(ctrm)
+  JJ <- magnitudes(ctrm)
   idxJ <- order(JJ, decreasing = TRUE)
   new_magnitudes  <- JJ[idxJ[1:k]]
   TT <- time(ctrm)
@@ -36,29 +36,18 @@ interarrival <- function(ctrm){
   as.vector(diff(TT))
 }
 
-#' Extracting/Replacing the Core Data of Objects
-#'
-#' Generic functions for extracting the core data contained in a (more complex) object and replacing it.
-#'
-#' @param x an object.
-#' @param ... further arguments passed to methods.
-#' @export
-coredata <- function(x, ...)
-  UseMethod("coredata")
-
-coredata.default <- function(x, ...)
-  zoo::coredata(x, ...)
-
 #' Extract event magnitudes
 #'
 #' Return the event magnitudes of a \code{ctrm} object.
 #'
-#' @param x A \code{\link{ctrm}} object
+#' @param ctrm A \code{\link{ctrm}} object
 #' @param ... Additional arguments passed to future methods.
 #' @return A numeric vector of event magnitudes
+#' @examples
+#'   bitcoin %>% ctrm() %>% magnitudes()
 #' @export
-coredata.ctrm <- function(x, ...)
-  environment(x)$JJ
+magnitudes <- function(ctrm, ...)
+  environment(ctrm)$JJ
 
 #' Sampling Times of Time Series
 #'

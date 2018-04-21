@@ -22,7 +22,7 @@
 #' ctrm_mod
 #' length(ctrm_mod)
 #' ctrm_mod <- thin(ctrm_mod, k = 500)
-#' coredata(ctrm_mod)
+#' magnitudes(ctrm_mod)
 #' time(ctrm_mod)
 #' interarrival(ctrm_mod)
 #' MLestimates(ctrm_mod, tail = 0.8, scale = 3E7)
