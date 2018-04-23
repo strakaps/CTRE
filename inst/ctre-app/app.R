@@ -1,5 +1,6 @@
 library(shiny)
 library(CTRE)
+library(MittagLeffleR)
 library(magrittr)
 library(markdown)
 
@@ -13,11 +14,10 @@ ui <- fluidPage(
         choiceNames = list(
           "Solar Flares",
           "Bitcoin trades",
-          "Earthquakes",
           "Simulated",
           "Uploaded*"
         ),
-        choiceValues = list("flares", "bitcoin", "seaquakes", "simulated", "upload")
+        choiceValues = list("flares", "bitcoin", "simulated", "upload")
       ),
       actionButton("simButton", label = "Re-simulate"),
       fileInput(
@@ -56,10 +56,15 @@ ui <- fluidPage(
   ))
 
 server <- function(input, output) {
-  simData <- eventReactive(input$simButton, {
-    simMLdata(n = num_sim, tail = input$shape, cutT)
-  },
-  ignoreNULL = FALSE)
+  simData <- eventReactive(
+      input$simButton, {
+        data.frame(
+          cumsum(MittagLeffleR::rml(n = 1000, tail = 0.8, scale = 5)),
+          rexp(n = 1000)
+        )
+      },
+      ignoreNULL = FALSE
+    )
 
   upData <- reactive({
     inFile <- input$file1
@@ -80,12 +85,8 @@ server <- function(input, output) {
     )
   })
 
-  ctre_model <- reactive({
-    ctre(useData())
-  })
-
   output$dataPlot <- renderPlot({
-    plot(1:10, 1:10)
+    useData() %>% ctre() %>% plot()
   })
 
 }
