@@ -19,6 +19,12 @@ ui <- fluidPage(
         ),
         choiceValues = list("flares", "bitcoin", "simulated", "upload")
       ),
+      radioButtons(
+        "yscale",
+        label = "Scale of magnitudes",
+        choiceNames = list("linear", "log"),
+        choiceValues = list("", "y")
+      ),
       actionButton("simButton", label = "Re-simulate"),
       fileInput(
         'file1',
@@ -74,7 +80,7 @@ server <- function(input, output) {
     return(df)
   })
 
-  useData <- reactive({
+  base_ctre <- reactive({
     switch(
       input$dataChoice,
       "flares" = CTRE::flares,
@@ -82,11 +88,16 @@ server <- function(input, output) {
       "bitcoin" = CTRE::bitcoin,
       "simulated" = simData(),
       "upload" = upData()
-    )
+    ) %>% ctre()
   })
 
   output$dataPlot <- renderPlot({
-    useData() %>% ctre() %>% plot()
+    k <- input$num_exceedances
+    n <- length(base_ctre())
+    ylim <- NULL
+    if (input$yscale == 'y')
+      ylim <- c(0.01, max(base_ctre() %>% magnitudes()))
+    base_ctre() %>% plot(p = k/n, log = input$yscale, ylim = ylim)
   })
 
 }

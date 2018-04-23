@@ -18,7 +18,6 @@ plot.ctre <- function(x, p = 0.05, ...) {
     JJ,
     type = 'h',
     col = 'gray',
-    ylim = c(min(JJ), max(JJ)),
     xlab = "times",
     ylab = "magnitudes",
     ...
