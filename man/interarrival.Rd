@@ -4,15 +4,15 @@
 \alias{interarrival}
 \title{Get inter-arrival times}
 \usage{
-interarrival(ctrm)
+interarrival(ctre)
 }
 \arguments{
-\item{ctrm}{The underlying ctrm object}
+\item{ctre}{The underlying ctre object}
 }
 \description{
-Extract inter-arrival times of threshold crossings from a ctrm object
+Extract inter-arrival times of threshold crossings from a ctre object
 }
 \examples{
   library(magrittr)
-  bitcoin \%>\% ctrm() \%>\% thin(k=100) \%>\% interarrival
+  bitcoin \%>\% ctre() \%>\% thin(k=100) \%>\% interarrival
 }

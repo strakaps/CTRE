@@ -4,7 +4,7 @@
 #' distribution fitted to the threshold exceedance times.
 #'
 #' If \code{plot_me = TRUE}, the estimates are returned invisibly.
-#' @param ctrm A \code{\link{ctrm}} object
+#' @param ctre A \code{\link{ctre}} object
 #' @param plot_me Should the estimates be plotted?
 #' @param tail
 #'     Tail parameter of the Mittag-Leffler distribution, if known.
@@ -27,19 +27,23 @@
 #'         one row for each threshold, which is returned invisibly
 #'         unless \code{plot_me = FALSE}.
 #' @examples
+#'   library(magrittr)
 #'   par(mfrow = c(1,2))
-#'   flares %>% ctrm() %>% thin(k=1000) %>% MLestimates(tail = 0.9)
+#'   flares %>% ctre() %>% thin(k=1000) %>% MLestimates(tail = 0.9, scale = 3E7)
+#'
+#'   bitcoin %>% ctre() %>% thin(k=500) %>% MLestimates(tail = 0.9, scale = 2.5E3)
+#'   bitcoin %>% ctre() %>% thin(k=500) %>% MLestimates(plot_me = FALSE) %>% str()
 #' @export
 #'
 
-MLestimates <- function(ctrm,
+MLestimates <- function(ctre,
                         plot_me = TRUE,
                         tail = NULL,
                         scale = NULL,
-                        ks = 5:length(ctrm)) {
-  if (is.null(environment(ctrm)$MLestimates))
-    update_MLestimates(ctrm, ks)
-  est <- environment(ctrm)$MLestimates
+                        ks = 5:length(ctre)) {
+  if (is.null(environment(ctre)$MLestimates))
+    update_MLestimates(ctre, ks)
+  est <- environment(ctre)$MLestimates
   if (!plot_me)
     return(est)
   plot_MLtail(est, tail)
@@ -48,10 +52,10 @@ MLestimates <- function(ctrm,
 }
 
 
-update_MLestimates <- function(ctrm, ks = ks) {
+update_MLestimates <- function(ctre, ks = ks) {
   message("Computing Mittag-Leffler estimates for all thresholds.")
-  idxJ <- environment(ctrm)$idxJ
-  TT   <- environment(ctrm)$TT
+  idxJ <- environment(ctre)$idxJ
+  TT   <- environment(ctre)$TT
   MLestimate_k <- function(k) {
     WW <- diff(sort(as.vector(TT[idxJ[1:k]])))
     est <- MittagLeffleR::logMomentEstimator(WW)
@@ -60,7 +64,7 @@ update_MLestimates <- function(ctrm, ks = ks) {
     c(k = k, est)
   }
   MLestimates <- plyr::ldply(.data = ks, MLestimate_k)
-  environment(ctrm)$MLestimates <- MLestimates
+  environment(ctre)$MLestimates <- MLestimates
   invisible(MLestimates)
 }
 

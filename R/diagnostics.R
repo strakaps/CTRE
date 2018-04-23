@@ -13,6 +13,12 @@
 #'    Scale parameter of the Mittag-Leffler population, if known.
 #' @param ...
 #'     Additional plotting arguments, e.g. \code{log = 'xy'}.
+#' @examples
+#'   library(magrittr)
+#'   flares %>% ctre() %>% thin(k=200) %>% interarrival() %>% mlqqplot(tail = 1, log = 'xy')
+#'   flares %>% ctre() %>% thin(k=200) %>% interarrival() %>% mlqqplot(tail = 0.8, log = 'xy')
+#'
+#'   seaquakes %>% ctre() %>% thin(k=150) %>% interarrival() %>% mlqqplot(tail = 0.9, log = 'xy')
 #' @export
 mlqqplot <- function(x,
                      tail = 1,
@@ -69,9 +75,9 @@ qqestplot_static <- function(data, top_k = NULL, plot_me = TRUE, ...) {
 
 #' Autocorrelation function
 #'
-#' @param x time series or ctrm object.
+#' @param x time series or ctre object.
 #' @param ... Additional arguments passed to \code{stats::\link[stats]{acf}}
-#' @seealso \code{\link{acf.ctrm}}
+#' @seealso \code{\link{acf.ctre}}
 #' @export
 acf <- function(x, ...)
   UseMethod("acf", x)
@@ -85,8 +91,8 @@ acf.default <- function(x, ...) stats::acf(x)
 #' Calculates and plots the autocorrelation function for the bivariate
 #' time series of interarrival times and magnitudes.
 #'
-#' @param x An object of class \code{\link[CTRM]{ctrm}}
-#' @param OCTRM
+#' @param x An object of class \code{\link[CTRE]{ctre}}
+#' @param OCTRE
 #'     If FALSE (default), each magnitude is matched with its preceding
 #'     interarrival time. If TRUE, each magnitude is matched with its
 #'     succeeding interarrival time.
@@ -94,14 +100,14 @@ acf.default <- function(x, ...) stats::acf(x)
 #'     Additional arguments passed to \code{\link[stats]{acf}}
 #' @examples
 #'   library(magrittr)
-#'   flares %>% ctrm() %>% thin(k=150) %>% acf()
+#'   flares %>% ctre() %>% thin(k=150) %>% acf()
 #' @export
-acf.ctrm <- function(x, OCTRM = FALSE, ...){
+acf.ctre <- function(x, OCTRE = FALSE, ...){
   T_ell <- interarrival(x)
   X_ell <- magnitudes(x)
   n <- length(x)
   assertthat::are_equal(length(T_ell), n)
-  if (OCTRM)
+  if (OCTRE)
     T_ell <- T_ell[-1]
   else
     X_ell <- X_ell[-n]
@@ -113,21 +119,21 @@ acf.ctrm <- function(x, OCTRM = FALSE, ...){
 #' Plots the ranks of the magnitudes against the ranks of the preceding
 #' (or succeeding) interarrival times.
 #'
-#' @param ctrm A \code{\link{ctrm}} object
-#' @param OCTRM
+#' @param ctre A \code{\link{ctre}} object
+#' @param OCTRE
 #'     Shall each magnitude be matched with the preceding interarrival
 #'     time (FALSE) or the succeeding interarrival time (TRUE)?
 #' @param ... Additional plotting arguments
 #' @examples
 #'   library(magrittr)
-#'   flares %>% ctrm() %>% thin(k = 300) %>% empcopula(pch = '*')
+#'   flares %>% ctre() %>% thin(k = 300) %>% empcopula(pch = '*')
 #' @export
-empcopula <- function(ctrm, OCTRM = FALSE, ...){
-  T_ell <- interarrival(ctrm)
-  X_ell <- magnitudes(ctrm)
-  n <- length(ctrm)
+empcopula <- function(ctre, OCTRE = FALSE, ...){
+  T_ell <- interarrival(ctre)
+  X_ell <- magnitudes(ctre)
+  n <- length(ctre)
   assertthat::are_equal(length(X_ell), n)
-  if (OCTRM)
+  if (OCTRE)
     X_ell <- X_ell[-1]
   else
     X_ell <- X_ell[-n]

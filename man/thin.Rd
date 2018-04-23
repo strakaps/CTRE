@@ -2,23 +2,23 @@
 % Please edit documentation in R/extract.R
 \name{thin}
 \alias{thin}
-\title{Apply a higher threshold to a CTRM process}
+\title{Apply a higher threshold to a CTRE process}
 \usage{
-thin(ctrm, k)
+thin(ctre, k)
 }
 \arguments{
-\item{ctrm}{A \code{\link{ctrm}} object.}
+\item{ctre}{A \code{\link{ctre}} object.}
 
 \item{k}{Discard all but the \code{k} largest magnitudes.}
 }
 \value{
-A \code{\link{ctrm}} object, with fewer (k) observations.
+A \code{\link{ctre}} object, with fewer (k) observations.
 }
 \description{
 Drop all but the \code{k} largest observations.
 }
 \examples{
   library(magrittr)
-  flares \%>\% ctrm() \%>\% plot(log = 'y')
-  flares \%>\% ctrm() \%>\% thin(k=500) \%>\% plot(log = 'y')
+  flares \%>\% ctre() \%>\% plot(log = 'y')
+  flares \%>\% ctre() \%>\% thin(k=500) \%>\% plot(log = 'y')
 }

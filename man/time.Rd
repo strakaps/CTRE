@@ -3,15 +3,15 @@
 \name{time}
 \alias{time}
 \alias{time}
-\alias{time.ctrm}
+\alias{time.ctre}
 \title{Sampling Times of Time Series}
 \usage{
 time(x, ...)
 
-\method{time}{ctrm}(x, ...)
+\method{time}{ctre}(x, ...)
 }
 \arguments{
-\item{x}{A time series or ctrm object}
+\item{x}{A time series or ctre object}
 
 \item{...}{Extra arguments for future methods}
 }
@@ -21,12 +21,12 @@ A numeric vector of event times, or a time series.
 \description{
 Sampling Times of Time Series
 
-Extract event times from a \code{ctrm} object.
+Extract event times from a \code{ctre} object.
 }
 \examples{
   library(magrittr)
-  seaquakes \%>\% ctrm() \%>\% thin(k=200) \%>\% time()
+  seaquakes \%>\% ctre() \%>\% thin(k=200) \%>\% time()
 }
 \seealso{
-\code{\link{time.ctrm}}
+\code{\link{time.ctre}}
 }

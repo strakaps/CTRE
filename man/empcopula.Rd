@@ -4,12 +4,12 @@
 \alias{empcopula}
 \title{Plot empirical copula}
 \usage{
-empcopula(ctrm, OCTRM = FALSE, ...)
+empcopula(ctre, OCTRE = FALSE, ...)
 }
 \arguments{
-\item{ctrm}{A \code{\link{ctrm}} object}
+\item{ctre}{A \code{\link{ctre}} object}
 
-\item{OCTRM}{Shall each magnitude be matched with the preceding interarrival
+\item{OCTRE}{Shall each magnitude be matched with the preceding interarrival
 time (FALSE) or the succeeding interarrival time (TRUE)?}
 
 \item{...}{Additional plotting arguments}
@@ -20,5 +20,5 @@ Plots the ranks of the magnitudes against the ranks of the preceding
 }
 \examples{
   library(magrittr)
-  flares \%>\% ctrm() \%>\% thin(k = 300) \%>\% empcopula(pch = '*')
+  flares \%>\% ctre() \%>\% thin(k = 300) \%>\% empcopula(pch = '*')
 }

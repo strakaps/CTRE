@@ -1,6 +1,6 @@
-#' CTRM model
+#' CTRE model
 #'
-#' Creates an object of class \code{'ctrm'} (Continuous Time Random
+#' Creates an object of class \code{'ctre'} (Continuous Time Random
 #' Maxima).
 #'
 #' @param x Either
@@ -18,23 +18,23 @@
 #'     dropped?
 #' @param y
 #'     If x is a vector, y needs to be supplied as a vector of same length.
-#' @return An object of class \code{'ctrm'} based on a time series of
+#' @return An object of class \code{'ctre'} based on a time series of
 #'         magnitudes.
 #' @examples
 #' times <- cumsum(MittagLeffleR::rml(n = 1000, tail = 0.8, scale = 5))
 #' magnitudes <- rexp(n = 1000)
-#' sim_ctrm <- ctrm(times, magnitudes)
-#' sim_ctrm
-#' plot(sim_ctrm)
+#' sim_ctre <- ctre(times, magnitudes)
+#' sim_ctre
+#' plot(sim_ctre)
 #'
 #' library(magrittr)
-#' bitcoin_ctrm <- bitcoin %>% ctrm() %>% thin(k = 400)
-#' plot(bitcoin_ctrm, log = 'y')
+#' bitcoin_ctre <- bitcoin %>% ctre() %>% thin(k = 400)
+#' plot(bitcoin_ctre, log = 'y')
 #' @export
-#' @seealso \link{CTRM}
+#' @seealso \link{CTRE}
 
 
-ctrm <- function(x, y = NULL, drop.duplicate.times = FALSE) {
+ctre <- function(x, y = NULL, drop.duplicate.times = FALSE) {
   MLestimates <- NULL
   if (!is.null(y)) {
     TT <- x
@@ -80,7 +80,7 @@ ctrm <- function(x, y = NULL, drop.duplicate.times = FALSE) {
 
   # the closure to be returned:
   print <- function() {
-    cat("'ctrm' object with", length(JJ), "timestamps and magnitudes.\n")
+    cat("'ctre' object with", length(JJ), "timestamps and magnitudes.\n")
     cat("Timestamps:\n")
     utils::str(TT)
     cat("Magnitudes:\n")
@@ -90,8 +90,8 @@ ctrm <- function(x, y = NULL, drop.duplicate.times = FALSE) {
       utils::str(MLestimates[c("tail", "scale")])
     }
     self <- parent.env(environment())$print
-    invisible(structure(self, class = 'ctrm'))
+    invisible(structure(self, class = 'ctre'))
   }
 
-  structure(print, class = 'ctrm')
+  structure(print, class = 'ctre')
 }

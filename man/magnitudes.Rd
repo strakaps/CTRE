@@ -4,10 +4,10 @@
 \alias{magnitudes}
 \title{Extract event magnitudes}
 \usage{
-magnitudes(ctrm, ...)
+magnitudes(ctre, ...)
 }
 \arguments{
-\item{ctrm}{A \code{\link{ctrm}} object}
+\item{ctre}{A \code{\link{ctre}} object}
 
 \item{...}{Additional arguments passed to future methods.}
 }
@@ -15,9 +15,9 @@ magnitudes(ctrm, ...)
 A numeric vector of event magnitudes
 }
 \description{
-Return the event magnitudes of a \code{ctrm} object.
+Return the event magnitudes of a \code{ctre} object.
 }
 \examples{
   library(magrittr)
-  bitcoin \%>\% ctrm() \%>\% magnitudes()
+  bitcoin \%>\% ctre() \%>\% magnitudes()
 }

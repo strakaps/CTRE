@@ -4,11 +4,11 @@
 \alias{MLestimates}
 \title{Mittag-Leffler estimates for varying thresholds}
 \usage{
-MLestimates(ctrm, plot_me = TRUE, tail = NULL, scale = NULL,
-  ks = 5:length(ctrm))
+MLestimates(ctre, plot_me = TRUE, tail = NULL, scale = NULL,
+  ks = 5:length(ctre))
 }
 \arguments{
-\item{ctrm}{A \code{\link{ctrm}} object}
+\item{ctre}{A \code{\link{ctre}} object}
 
 \item{plot_me}{Should the estimates be plotted?}
 
@@ -42,6 +42,10 @@ distribution fitted to the threshold exceedance times.
 If \code{plot_me = TRUE}, the estimates are returned invisibly.
 }
 \examples{
+  library(magrittr)
   par(mfrow = c(1,2))
-  flares \%>\% ctrm() \%>\% thin(k=1000) \%>\% MLestimates(tail = 0.9)
+  flares \%>\% ctre() \%>\% thin(k=1000) \%>\% MLestimates(tail = 0.9, scale = 3E7)
+
+  bitcoin \%>\% ctre() \%>\% thin(k=500) \%>\% MLestimates(tail = 0.9, scale = 2.5E3)
+  bitcoin \%>\% ctre() \%>\% thin(k=500) \%>\% MLestimates(plot_me = FALSE) \%>\% str()
 }

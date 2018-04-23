@@ -21,3 +21,10 @@ distribution.}
 Generates a QQ plot for assessing the fit of a Mittag-Leffler
 distribution.
 }
+\examples{
+  library(magrittr)
+  flares \%>\% ctre() \%>\% thin(k=200) \%>\% interarrival() \%>\% mlqqplot(tail = 1, log = 'xy')
+  flares \%>\% ctre() \%>\% thin(k=200) \%>\% interarrival() \%>\% mlqqplot(tail = 0.8, log = 'xy')
+
+  seaquakes \%>\% ctre() \%>\% thin(k=150) \%>\% interarrival() \%>\% mlqqplot(tail = 0.9, log = 'xy')
+}

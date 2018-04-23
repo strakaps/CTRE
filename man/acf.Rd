@@ -7,7 +7,7 @@
 acf(x, ...)
 }
 \arguments{
-\item{x}{time series or ctrm object.}
+\item{x}{time series or ctre object.}
 
 \item{...}{Additional arguments passed to \code{stats::\link[stats]{acf}}}
 }
@@ -15,5 +15,5 @@ acf(x, ...)
 Autocorrelation function
 }
 \seealso{
-\code{\link{acf.ctrm}}
+\code{\link{acf.ctre}}
 }

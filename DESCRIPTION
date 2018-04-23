@@ -1,10 +1,10 @@
-Package: CTRM
+Package: CTRE
 Type: Package
-Title: Model Extremes of Bursty Events
+Title: Thresholding Bursty Time Series
 Version: 0.1.0
 Author: Katharina Hees [aut], Peter Straka [aut, cre]
 Maintainer: Peter Straka <p.straka@unsw.edu.au>
-Description: Fits a Continuous Time Random Maxima (CTRM) model to a 
+Description: Fits a Continuous Time Random Exceedance (CTRE) model to a 
     "bursty" time series with heavy-tailed inter-arrival times 
     between events. For a given threshold, the threshold crossing times are
     Mittag-Leffler distributed, and estimates of the Mittag-Leffler 

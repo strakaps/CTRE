@@ -1,14 +1,14 @@
 #' @export
-print.ctrm <- function(x, ...)
+print.ctre <- function(x, ...)
   x()
 
-#' Plot a ctrm object
+#' Plot a ctre object
 #'
-#' @param x The ctrm object whose time series should be plotted
+#' @param x The ctre object whose time series should be plotted
 #' @param p The fraction of magnitudes that exceed the threshold to be plotted
 #' @param ... Additional plotting parameters
 #' @export
-plot.ctrm <- function(x, p = 0.05, ...) {
+plot.ctre <- function(x, p = 0.05, ...) {
   TT <- time(x)
   JJ <- magnitudes(x)
   idxJ <- environment(x)$idxJ
