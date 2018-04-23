@@ -5,12 +5,12 @@ library(magrittr)
 library(markdown)
 
 ui <- fluidPage(
-  titlePanel("CTRM Statistics"),
+  titlePanel("CTRE Modelling"),
   sidebarLayout(
     sidebarPanel(
       radioButtons(
         "dataChoice",
-        label = "Which dataset should we use?",
+        label = "Dataset",
         choiceNames = list(
           "Solar Flares",
           "Bitcoin trades",
@@ -35,37 +35,45 @@ ui <- fluidPage(
       ),
       includeText("upload-instructions.md"),
       numericInput(
-        "shape",
-        label = "Tail parameter:",
+        "tail",
+        label = "Tail parameter",
         value = 0.85,
         min = 0.1,
         max = 1,
         step = 0.05
       ),
       sliderInput("num_exceedances",
-                  label = "Number of Exceedances:",
+                  label = "Number of Exceedances",
                   10, 600, 100)
     ),
-    mainPanel(tabsetPanel(
-      type = "pills",
-      tabPanel(
-        "Data Plot",
-        includeMarkdown("dataPlot.md"),
-        plotOutput("dataPlot")
-      ),
-      tabPanel(
-        "Exceedance Times",
-        includeMarkdown("stabilityPlot.md"),
-        plotOutput("tailscalePlot")
+    mainPanel(
+      tabsetPanel(
+        type = "pills",
+        tabPanel(
+          "Data Plot",
+          includeMarkdown("dataPlot.md"),
+          plotOutput("dataPlot")
+        ),
+        tabPanel(
+          "Exceedance Times",
+          includeMarkdown("stabilityPlot.md"),
+          plotOutput("tailscalePlot")
+        ),
+        tabPanel(
+          "Diagnostics",
+          includeMarkdown("diagnostics.md"),
+          plotOutput("mlqqcopulaPlot"),
+          plotOutput("acfPlot")
+        )
       )
-    ))
+    )
   ))
 
 server <- function(input, output) {
   simData <- eventReactive(
       input$simButton, {
         data.frame(
-          cumsum(MittagLeffleR::rml(n = 1000, tail = 0.8, scale = 5)),
+          cumsum(MittagLeffleR::rml(n = 1000, tail = input$tail, scale = 5)),
           rexp(n = 1000)
         )
       },
@@ -94,12 +102,29 @@ server <- function(input, output) {
   output$dataPlot <- renderPlot({
     k <- input$num_exceedances
     n <- length(base_ctre())
-    ylim <- NULL
     if (input$yscale == 'y')
-      ylim <- c(0.01, max(base_ctre() %>% magnitudes()))
-    base_ctre() %>% plot(p = k/n, log = input$yscale, ylim = ylim)
+      base_ctre() %>% plot(p = k/n, log = 'y')
+    else
+      base_ctre() %>% plot(p = k/n)
   })
 
+  output$tailscalePlot <- renderPlot({
+    par(mfrow = c(1,2))
+    base_ctre() %>%
+      thin(k = input$num_exceedances) %>%
+      MLestimates(tail = input$tail)
+  })
+
+  output$mlqqcopulaPlot <- renderPlot({
+    thinned_ctre <- base_ctre() %>% thin(k = input$num_exceedances)
+    par(mfrow = c(1,2))
+    thinned_ctre %>% interarrival() %>% mlqqplot(tail = input$tail, log = 'xy')
+    thinned_ctre %>% empcopula()
+  })
+
+  output$acfPlot <- renderPlot({
+    base_ctre() %>% thin(k = input$num_exceedances) %>% acf()
+  })
 }
 
 shinyApp(ui, server)
