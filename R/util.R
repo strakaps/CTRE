@@ -41,3 +41,11 @@ plot.ctre <- function(x, p = 0.05, ...) {
   }
 }
 
+runCTREshiny <- function() {
+  appDir <- system.file("ctre-app", package = "CTRE")
+  if (appDir == "") {
+    stop("Could not find app directory. Try re-installing `CTRE`.", call. = FALSE)
+  }
+
+  shiny::runApp(appDir, display.mode = "normal")
+}
