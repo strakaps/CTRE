@@ -1,18 +1,18 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-CTRM
-====
 
-Install from GitHub
--------------------
+# CTRE package
 
-Run
+## Install from GitHub
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("strakaps/CTRM")
+devtools::install_github("UNSW-MATH/CTRE")
+library(CTRE)
 ```
 
-Example
--------
+## Run shiny app
 
-Run `foo.R` line by line.
+``` r
+runCTREshiny()
+```

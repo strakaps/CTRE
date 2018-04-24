@@ -14,12 +14,15 @@ using a shiny app.
 \section{References}{
 
 "Peaks Over Threshold for Bursty Time Series",
+Katharina Hees, Smarak Nayak, Peter Straka.
 \url{https://arxiv.org/abs/1802.05218}
 }
 
 \examples{
 library(CTRE)
+\dontrun{
 runCTREshiny()
+}
 
 ctre_mod <- ctre(flares)
 ctre_mod
@@ -34,5 +37,14 @@ library(magrittr)
 ctre_mod \%>\% interarrival() \%>\% mlqqplot(tail = 0.8, log = 'xy')
 acf(ctre_mod)
 empcopula(ctre_mod)
+
+}
+\author{
+\strong{Maintainer}: Peter Straka \email{p.straka@unsw.edu.au}
+
+Authors:
+\itemize{
+  \item Katharina Hees \email{hees@statistik.uni-dortmund.de}
+}
 
 }

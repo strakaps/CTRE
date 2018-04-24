@@ -12,7 +12,9 @@
 #'
 #' @examples
 #' library(CTRE)
+#' \dontrun{
 #' runCTREshiny()
+#' }
 #'
 #' ctre_mod <- ctre(flares)
 #' ctre_mod
