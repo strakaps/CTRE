@@ -2,13 +2,14 @@ Package: CTRE
 Type: Package
 Title: Thresholding Bursty Time Series
 Version: 0.1.0
-Author: Katharina Hees [aut], Peter Straka [aut, cre]
-Maintainer: Peter Straka <p.straka@unsw.edu.au>
+Authors@R: c(
+    person("Katharina", "Hees", email = "hees@statistik.uni-dortmund.de", 
+            role = "aut"),
+    person("Peter", "Straka", email = "p.straka@unsw.edu.au", 
+            role = c("aut", "cre")))
 Description: Fits a Continuous Time Random Exceedance (CTRE) model to a 
-    "bursty" time series with heavy-tailed inter-arrival times 
-    between events. For a given threshold, the threshold crossing times are
-    Mittag-Leffler distributed, and estimates of the Mittag-Leffler 
-    distribution parameters are computed. 
+    thresholded "bursty" time series. 
+    Threshold crossing times are modelled with the Mittag-Leffler distribution. 
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
