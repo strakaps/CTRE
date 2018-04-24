@@ -64,6 +64,12 @@ ui <- fluidPage(
           includeMarkdown("diagnostics.md"),
           plotOutput("mlqqcopulaPlot"),
           plotOutput("acfPlot")
+        ),
+        tabPanel(
+          "Exceedances",
+          includeMarkdown("exceedancePlot.md"),
+          plotOutput("tshapeplot"),
+          plotOutput("tscaleplot")
         )
       )
     )
@@ -127,6 +133,16 @@ server <- function(input, output) {
 
   output$acfPlot <- renderPlot({
     base_ctre() %>% thin(k = input$num_exceedances) %>% acf()
+  })
+
+  output$tshapeplot <- renderPlot({
+    base_ctre() %>% thin(k = input$num_exceedances) %>%
+      magnitudes() %>% evmix::tshapeplot()
+  })
+
+  output$tscaleplot <- renderPlot({
+    base_ctre() %>% thin(k = input$num_exceedances) %>%
+      magnitudes() %>% evmix::tscaleplot()
   })
 }
 
