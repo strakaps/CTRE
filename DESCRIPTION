@@ -24,4 +24,7 @@ Imports:
     zoo
 Depends:
   R (>= 2.10)
-Suggests: magrittr
+Suggests: 
+    evmix, 
+    magrittr, 
+    shiny

@@ -43,7 +43,7 @@ plot.ctre <- function(x, p = 0.05, ...) {
 
 #' Run a shiny app to explore a CTRE model fit
 #'
-#' Explore two pre-loaded datasets, or upload your own.
+#' Explore two pre-loaded datasets, simulated data, or upload your own.
 #'
 #' @export
 runCTREshiny <- function() {

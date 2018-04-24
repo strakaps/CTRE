@@ -4,30 +4,28 @@
 \name{CTRE-package}
 \alias{CTRE}
 \alias{CTRE-package}
-\title{Continuous Time Random Maxima}
+\title{Continuous Time Random Exceedances}
 \description{
-Fits a Continuous Time Random Maxima (CTRE) model to data.
-Generates stability plots for the Mittag-Leffler distribution as
-fitted to the threshold exceedance times at varying thresholds.
-Generates plots to assess the goodness of fit of the CTRE model.
+Fits a Continuous Time Random Exceedance model to bursty time series.
+CTREs model the distribution of threshold crossing times of extreme events.
+Fits are made by interactive visual assessment of "stability plots"
+using a shiny app.
 }
-\details{
-\enumerate{
-  \item Create a \code{\link{ctre}} object
-  \item Read off the fitted Mittag-Leffler parameters via
-        \code{\link{MLestimates}}
-  \item Criticize the model (with \code{\link{acf}},
-  \code{\link{mlqqplot}}, \code{\link{empcopula}}).
+\section{References}{
+
+"Peaks Over Threshold for Bursty Time Series",
+\url{https://arxiv.org/abs/1802.05218}
 }
 
-See arXiv paper https://arxiv.org/abs/1802.05218 for the theory.
-}
 \examples{
 library(CTRE)
+runCTREshiny()
+
 ctre_mod <- ctre(flares)
 ctre_mod
 length(ctre_mod)
 ctre_mod <- thin(ctre_mod, k = 500)
+ctre_mod
 magnitudes(ctre_mod)
 time(ctre_mod)
 interarrival(ctre_mod)

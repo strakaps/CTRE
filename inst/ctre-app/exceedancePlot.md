@@ -1,8 +1,13 @@
 ### The POT (Points over Threshold) model
 
-A Generalized Pareto (GP) distribution is fitted to the exceedance times of the threshold crossings.
+(_Set the minimum threshold height to at least 120._) 
+A standard modelling tool for extremes is the POT model, see e.g. 
+the book "An Introduction to Statistical Modelling of Extreme Values" 
+by Coles, 2001. 
 
-* From left to right, the threshold is lowered; the x-axis shows the number `k` of exceedances.
-* At each threshold height, a GP distribution is fitted to the `k` exceedances.
+Compared to the second panel, now the parameters of the Generalized 
+Pareto distribution are fitted to magnitudes (minus threshold) for 
+varying threshold heights. 
 
-Towards the left, the plot becomes "unstable". Read off the parameters of the GP distribution before they become "unstable" (yes, this can be tricky).
+The plots below are created with `tcplot()` from the 
+[`evmix` R package](https://cran.r-project.org/web/packages/evmix/index.html). 

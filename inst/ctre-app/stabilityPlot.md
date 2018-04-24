@@ -1,12 +1,22 @@
-### Inference on the Exceedance time distribution
+### Stability Plots for Interarrival Times
 
-A Mittag-Leffler distribution is fitted to the arrival times of the threshold crossings.
+Asymptotically (for high enough thresholds), the interarrival times 
+(i.e. times between threshold crossings) follow a Mittag-Leffler
+distribution. 
+The slider now chooses the maximum number of exceedances 
+(the minimum height of the threshold). 
+The estimates of the tail and (rescaled) scale parameters of the 
+Mittag-Leffler distribution are plotted as the threshold varies from 
+the minimum height to the 10th largest data point. 
+To the left (high threshold), data are scarce and variance is high; 
+to the right (low threshold), the asymptotics are off and bias is high. 
+A region of 'stability' in the middle is choisen for a parameter estimate. 
 
-* From left to right, the threshold is lowered; the x-axis shows the number `k` of exceedances.
-* At each threshold height, a Mittag-Leffler distribution is fitted to the `k-1` inter-exceedance times.
+1. Adjust the `Tail parameter` to your choice of estimate
+2. Then read off estimates of the scale parameter. 
 
-**Move the `tail parameter` so it best coincides with the tail parameter estimate.** The tail parameter is used in rescaling the scale parameter (scroll down), hence it changes.
-
-For instance, `tail=0.9` and `scale=13` (days) seem to be a good fit for the Bitcoin trade dataset. This means that if the threshold is set to a height that is only crossed once every `n` observations, then the threshold crossing times have a Mittag-Leffler inter-arrival distribution with `tail=0.9` and `scale=13 * n^(1/tail)`.
-
-Dashed lines are 95% confidence intervals.
+For instance, `tail=0.85` and `scale=3000` (days) seem to be a good fit 
+for the Bitcoin trade dataset. 
+This means that if the threshold is set to the k-th largest magnitude, 
+then the interarrival times are Mittag-Leffler distributed with parameters
+`tail = 0.85` and `scale = 3000 / k^(1/tail)`.

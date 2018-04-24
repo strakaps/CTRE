@@ -7,5 +7,5 @@
 runCTREshiny()
 }
 \description{
-Explore 2 pre-loaded datasets or upload your own.
+Explore two pre-loaded datasets, simulated data, or upload your own.
 }
