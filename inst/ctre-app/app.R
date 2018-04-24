@@ -102,8 +102,11 @@ server <- function(input, output) {
   output$dataPlot <- renderPlot({
     k <- input$num_exceedances
     n <- length(base_ctre())
-    if (input$yscale == 'y')
+    if (input$yscale == 'y') {
+      mags <- magnitudes(base_ctre())
+      ylim <- c(max(0.01, min(mags)), max(mags))
       base_ctre() %>% plot(p = k/n, log = 'y')
+    }
     else
       base_ctre() %>% plot(p = k/n)
   })
