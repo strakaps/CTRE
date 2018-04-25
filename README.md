@@ -3,6 +3,12 @@
 
 # CTRE
 
+[![Travis-CI Build
+Status](https://api.travis-ci.org/UNSW-MATH/CTRE.svg?branch=master)](https://travis-ci.org/UNSW-MATH/CTRE)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/CTRE)](https://cran.r-project.org/package=CTRE)
+[![Downloads](http://cranlogs.r-pkg.org/badges/CTRE)](https://cran.r-project.org/package=CTRE)
+[![DL\_Total](http://cranlogs.r-pkg.org/badges/grand-total/CTRE?color=blue)](https://cran.r-project.org/package=CTRE)
+
 This R package provides tools to analyse extremes of ‘bursty’ time
 series. [Burstiness](https://en.wikipedia.org/wiki/Burstiness) is
 characterized by heavy-tailed inter-arrival times and scale-free event
