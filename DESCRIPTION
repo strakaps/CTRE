@@ -10,9 +10,9 @@ Authors@R: c(
     person("Peter", "Straka", email = "p.straka@unsw.edu.au", 
             role = c("aut", "cre")))
 Description: 
-    Models Extremes of a 'bursty' time series by fitting a 
-    Continuous Time Random Exceedance (CTRE) model
-    <https://arxiv.org/abs/1802.05218>. 
+    Models extremes of 'bursty' time series via
+    Continuous Time Random Exceedances (CTRE).
+    See <arXiv:1802.05218>, K. Hees, S. Nayak, P.Straka, 2018.
 URL: https://unsw-math.github.io/CTRE/
 BugReports: https://github.com/UNSW-MATH/CTRE/issues
 License: GPL-3
