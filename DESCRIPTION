@@ -9,10 +9,11 @@ Authors@R: c(
             role = "aut"),
     person("Peter", "Straka", email = "p.straka@unsw.edu.au", 
             role = c("aut", "cre")))
-Description: Fits a Continuous Time Random Exceedance (CTRE) model to a 
-    thresholded "bursty" time series. 
-    Threshold crossing times are modelled with the Mittag-Leffler distribution. 
-URL: https://unsw-math.github.io/CTRE/index.html
+Description: 
+    Models Extremes of a 'bursty' time series by fitting a 
+    Continuous Time Random Exceedance (CTRE) model
+    <https://arxiv.org/abs/1802.05218>. 
+URL: https://unsw-math.github.io/CTRE/
 BugReports: https://github.com/UNSW-MATH/CTRE/issues
 License: GPL-3
 Encoding: UTF-8

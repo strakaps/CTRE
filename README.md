@@ -20,6 +20,11 @@ inter-arrival times. Parameter estimates are read off from stability
 plots, and goodness of fit is assessed via diagnostic plots; see the
 Shiny app below.
 
+## Reference
+
+“Peaks Over Threshold for Bursty Time Series”, Katharina Hees, Smarak
+Nayak, Peter Straka (2018). <https://arxiv.org/abs/1802.05218>
+
 ## Shiny App
 
 The package comes with two examples of bursty time series: solar flare
