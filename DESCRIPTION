@@ -3,6 +3,7 @@ Type: Package
 Title: Thresholding Bursty Time Series
 Version: 0.1.0
 Date: 2018-04-25
+Maintainer: Peter Straka <p.straka@unsw.edu.au>
 Authors@R: c(
     person("Katharina", "Hees", email = "hees@statistik.uni-dortmund.de", 
             role = "aut"),
@@ -11,6 +12,8 @@ Authors@R: c(
 Description: Fits a Continuous Time Random Exceedance (CTRE) model to a 
     thresholded "bursty" time series. 
     Threshold crossing times are modelled with the Mittag-Leffler distribution. 
+URL: https://unsw-math.github.io/CTRE/index.html
+BugReports: https://github.com/UNSW-MATH/CTRE/issues
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
