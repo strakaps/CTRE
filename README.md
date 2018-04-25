@@ -3,6 +3,14 @@
 
 # CTRE package
 
+<div>
+
+<iframe src="https://strakaps.shinyapps.io/ctre-app/" style="border: none; width: 800px; height: 900px">
+
+</iframe>
+
+</div>
+
 ## Install from GitHub
 
 ``` r
