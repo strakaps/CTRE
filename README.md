@@ -54,16 +54,18 @@ runCTREshiny()
 
 You can
 
-  - Create a [`ctre`](/reference/ctre.html) object from a time series, a
-    data frame, or two vectors.
-  - Plot it with [`plot`](/reference/plot.ctre.html)
+  - Create a [`ctre`](/CTRE/reference/ctre.html) object from a time
+    series, a data frame, or two vectors.
+  - Plot it with [`plot`](/CTRE/reference/plot.ctre.html)
   - Discard the data below a threshold with
-    [`thin`](/reference/thin.html)
-  - Extract data with [`interarrival`](/reference/interarrival.html),
-    [`time`](/reference/time.html) and
-    [`magnitudes`](/reference/magnitudes.html)
+    [`thin`](/CTRE/reference/thin.html)
+  - Extract data with
+    [`interarrival`](/CTRE/reference/interarrival.html),
+    [`time`](/CTRE/reference/time.html) and
+    [`magnitudes`](/CTRE/reference/magnitudes.html)
   - Create stability plots with
-    [`MLestimates`](/reference/MLestimates.html)
-  - Look at diagnostic plots ([`mlqqplot`](/reference/mlqqplot.html),
-    [`acf`](/reference/acf.html),
-    [`empcopula`](/reference/empcopula.html))
+    [`MLestimates`](/CTRE/reference/MLestimates.html)
+  - Look at diagnostic plots
+    ([`mlqqplot`](/CTRE/reference/mlqqplot.html),
+    [`acf`](/CTRE/reference/acf.html),
+    [`empcopula`](/CTRE/reference/empcopula.html))
