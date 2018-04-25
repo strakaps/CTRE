@@ -8,6 +8,9 @@ print.ctre <- function(x, ...)
 #' @param p The fraction of magnitudes that exceed the threshold to be plotted
 #' @param ... Additional plotting parameters
 #' @export
+#' @examples
+#'   library(magrittr)
+#'   flares %>% ctre() %>% plot(p = 0.02, log = 'y')
 plot.ctre <- function(x, p = 0.05, ...) {
   TT <- time(x)
   JJ <- magnitudes(x)
