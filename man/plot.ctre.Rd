@@ -16,3 +16,7 @@
 \description{
 Plot a ctre object
 }
+\examples{
+  library(magrittr)
+  flares \%>\% ctre() \%>\% plot(p = 0.02, log = 'y')
+}
