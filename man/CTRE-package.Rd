@@ -39,6 +39,14 @@ acf(ctre_mod)
 empcopula(ctre_mod)
 
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://unsw-math.github.io/CTRE/index.html}
+  \item Report bugs at \url{https://github.com/UNSW-MATH/CTRE/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Peter Straka \email{p.straka@unsw.edu.au}
 
