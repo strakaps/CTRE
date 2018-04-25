@@ -1,4 +1,4 @@
-### The POT (Points over Threshold) model
+### The POT (Peaks over Threshold) model
 
 (_Set the minimum threshold height to at least 120._) 
 A standard modelling tool for extremes is the POT model, see e.g. 

@@ -44,7 +44,7 @@ ui <- fluidPage(
       ),
       sliderInput("num_exceedances",
                   label = "Number of Exceedances",
-                  10, 600, 100)
+                  10, 600, 120)
     ),
     mainPanel(
       tabsetPanel(
