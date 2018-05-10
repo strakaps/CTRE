@@ -18,13 +18,23 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="CTRE model — ctre" />
+
+<meta property="og:description" content="Creates an object of class 'ctre' (Continuous Time Random
+Maxima)." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +57,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">CTRE</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">CTRE</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,6 +79,7 @@
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -72,20 +87,24 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>CTRE model</h1>
+    
+    <div class="hidden name"><code>ctre.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Creates an object of class <code>'ctre'</code> (Continuous Time Random
 Maxima).</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>ctre</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop.duplicate.times</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -117,7 +136,7 @@ dropped?</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='CTRE-package.html'>CTRE</a></p>
+    <div class='dont-index'><p><a href='CTRE-package.html'>CTRE</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -128,10 +147,10 @@ dropped?</p></td>
 #&gt; Timestamps:
 #&gt;  num [1:1000] 2.98 4.36 12.57 19.65 30.59 ...
 #&gt; Magnitudes:
-#&gt;  num [1:1000] 0.5016 0.8388 1.042 1.7023 0.0333 ...</div><div class='input'><span class='fu'>plot</span>(<span class='no'>sim_ctre</span>)</div><div class='img'><img src='ctre-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt;  num [1:1000] 0.5016 0.8388 1.042 1.7023 0.0333 ...</div><div class='input'><span class='fu'>plot</span>(<span class='no'>sim_ctre</span>)</div><div class='img'><img src='ctre-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>library</span>(<span class='no'>magrittr</span>)
 <span class='no'>bitcoin_ctre</span> <span class='kw'>&lt;-</span> <span class='no'>bitcoin</span> <span class='kw'>%&gt;%</span> <span class='fu'>ctre</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span>(<span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>400</span>)
-<span class='fu'>plot</span>(<span class='no'>bitcoin_ctre</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>'y'</span>)</div><div class='img'><img src='ctre-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plot</span>(<span class='no'>bitcoin_ctre</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>'y'</span>)</div><div class='img'><img src='ctre-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -160,5 +179,8 @@ dropped?</p></td>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

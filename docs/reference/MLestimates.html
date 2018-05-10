@@ -18,13 +18,23 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Mittag-Leffler estimates for varying thresholds — MLestimates" />
+
+<meta property="og:description" content="For a range of thresholds, return the parameters of the Mittag-Leffler
+distribution fitted to the threshold exceedance times." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +57,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">CTRE</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">CTRE</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,6 +79,7 @@
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -72,21 +87,25 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Mittag-Leffler estimates for varying thresholds</h1>
+    
+    <div class="hidden name"><code>MLestimates.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>For a range of thresholds, return the parameters of the Mittag-Leffler
 distribution fitted to the threshold exceedance times.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>MLestimates</span>(<span class='no'>ctre</span>, <span class='kw'>plot_me</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>tail</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>ks</span> <span class='kw'>=</span> <span class='fl'>5</span>:<span class='fu'>length</span>(<span class='no'>ctre</span>))</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -136,8 +155,8 @@ and the estimates are returned in a data frame.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>  <span class='fu'>library</span>(<span class='no'>magrittr</span>)
   <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>2</span>))
-  <span class='no'>flares</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='ctre.html'>ctre</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span>(<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>1000</span>) <span class='kw'>%&gt;%</span> <span class='fu'>MLestimates</span>(<span class='kw'>tail</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>3E7</span>)</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='img'><img src='MLestimates-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-  <span class='no'>bitcoin</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='ctre.html'>ctre</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span>(<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>500</span>) <span class='kw'>%&gt;%</span> <span class='fu'>MLestimates</span>(<span class='kw'>tail</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>2.5E3</span>)</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='img'><img src='MLestimates-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>  <span class='no'>bitcoin</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='ctre.html'>ctre</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span>(<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>500</span>) <span class='kw'>%&gt;%</span> <span class='fu'>MLestimates</span>(<span class='kw'>plot_me</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>str</span>()</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='output co'>#&gt; 'data.frame':	496 obs. of  7 variables:
+  <span class='no'>flares</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='ctre.html'>ctre</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span>(<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>1000</span>) <span class='kw'>%&gt;%</span> <span class='fu'>MLestimates</span>(<span class='kw'>tail</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>3E7</span>)</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='img'><img src='MLestimates-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='no'>bitcoin</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='ctre.html'>ctre</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span>(<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>500</span>) <span class='kw'>%&gt;%</span> <span class='fu'>MLestimates</span>(<span class='kw'>tail</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>2.5E3</span>)</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='img'><img src='MLestimates-2.png' alt='' width='700' height='433' /></div><div class='input'>  <span class='no'>bitcoin</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='ctre.html'>ctre</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span>(<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>500</span>) <span class='kw'>%&gt;%</span> <span class='fu'>MLestimates</span>(<span class='kw'>plot_me</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>str</span>()</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='output co'>#&gt; 'data.frame':	496 obs. of  7 variables:
 #&gt;  $ k      : num  5 6 7 8 9 10 11 12 13 14 ...
 #&gt;  $ tail   : num  0.971 0.833 0.759 0.811 0.861 ...
 #&gt;  $ scale  : num  39.1 70.2 117.5 132.4 140.4 ...
@@ -173,5 +192,8 @@ and the estimates are returned in a data frame.</p></td>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

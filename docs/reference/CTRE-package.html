@@ -18,13 +18,25 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Continuous Time Random Exceedances — CTRE-package" />
+
+<meta property="og:description" content="Fits a Continuous Time Random Exceedance model to bursty time series.
+CTREs model the distribution of threshold crossing times of extreme events.
+Fits are made by interactive visual assessment of "stability plots"
+using a shiny app." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">CTRE</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">CTRE</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,6 +81,7 @@
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -72,18 +89,22 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Continuous Time Random Exceedances</h1>
+    
+    <div class="hidden name"><code>CTRE-package.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Fits a Continuous Time Random Exceedance model to bursty time series.
 CTREs model the distribution of threshold crossing times of extreme events.
 Fits are made by interactive visual assessment of "stability plots"
 using a shiny app.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -95,10 +116,10 @@ Katharina Hees, Smarak Nayak, Peter Straka.
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Useful links:</p><ul>
+    <div class='dont-index'><p>Useful links:</p><ul>
 <li><p><a href='https://unsw-math.github.io/CTRE/'>https://unsw-math.github.io/CTRE/</a></p></li>
 <li><p>Report bugs at <a href='https://github.com/UNSW-MATH/CTRE/issues'>https://github.com/UNSW-MATH/CTRE/issues</a></p></li>
-</ul>
+</ul></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -512,8 +533,8 @@ Katharina Hees, Smarak Nayak, Peter Straka.
 #&gt; [481]   281.333333   534.233333   129.200000   406.350000   267.300000
 #&gt; [486]  1035.866667     9.466667   485.433333   361.183333   269.466667
 #&gt; [491]  1792.650000  7708.116667   266.433333   857.600000   373.016667
-#&gt; [496]  1700.116667   886.133333  1138.250000  1021.600000</div><div class='input'><span class='fu'><a href='MLestimates.html'>MLestimates</a></span>(<span class='no'>ctre_mod</span>, <span class='kw'>tail</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>3E7</span>)</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='img'><img src='CTRE-package-1.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='CTRE-package-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>library</span>(<span class='no'>magrittr</span>)
-<span class='no'>ctre_mod</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='interarrival.html'>interarrival</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='mlqqplot.html'>mlqqplot</a></span>(<span class='kw'>tail</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>'xy'</span>)</div><div class='img'><img src='CTRE-package-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'><a href='acf.html'>acf</a></span>(<span class='no'>ctre_mod</span>)</div><div class='img'><img src='CTRE-package-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'><a href='empcopula.html'>empcopula</a></span>(<span class='no'>ctre_mod</span>)</div><div class='img'><img src='CTRE-package-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; [496]  1700.116667   886.133333  1138.250000  1021.600000</div><div class='input'><span class='fu'><a href='MLestimates.html'>MLestimates</a></span>(<span class='no'>ctre_mod</span>, <span class='kw'>tail</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>3E7</span>)</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='img'><img src='CTRE-package-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='CTRE-package-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>library</span>(<span class='no'>magrittr</span>)
+<span class='no'>ctre_mod</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='interarrival.html'>interarrival</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='mlqqplot.html'>mlqqplot</a></span>(<span class='kw'>tail</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>'xy'</span>)</div><div class='img'><img src='CTRE-package-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='acf.html'>acf</a></span>(<span class='no'>ctre_mod</span>)</div><div class='img'><img src='CTRE-package-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='empcopula.html'>empcopula</a></span>(<span class='no'>ctre_mod</span>)</div><div class='img'><img src='CTRE-package-5.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -552,5 +573,8 @@ Authors:
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

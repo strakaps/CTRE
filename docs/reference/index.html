@@ -18,13 +18,19 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Function reference" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +53,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">CTRE</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">CTRE</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,6 +75,7 @@
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -72,142 +83,137 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.1.0</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="acf.ctre.html">acf</a></code> </p>
-          </td>
-          <td><p>Autocorrelation function</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="acf.html">acf</a></code> </p>
-          </td>
-          <td><p>Autocorrelation function</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bitcoin.html">bitcoin</a></code> </p>
-          </td>
-          <td><p>Bitcoin trading data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="CTRE-package.html">CTRE-package</a></code> </p>
-          </td>
-          <td><p>Continuous Time Random Exceedances</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ctre.html">ctre</a></code> </p>
-          </td>
-          <td><p>CTRE model</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="empcopula.html">empcopula</a></code> </p>
-          </td>
-          <td><p>Plot empirical copula</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="flares.html">flares</a></code> </p>
-          </td>
-          <td><p>Solar flare data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="interarrival.html">interarrival</a></code> </p>
-          </td>
-          <td><p>Get inter-arrival times</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="length.ctre.html">length</a></code> </p>
-          </td>
-          <td><p>Get length of underlying time series</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="magnitudes.html">magnitudes</a></code> </p>
-          </td>
-          <td><p>Extract event magnitudes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="MLestimates.html">MLestimates</a></code> </p>
-          </td>
-          <td><p>Mittag-Leffler estimates for varying thresholds</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="mlqqplot.html">mlqqplot</a></code> </p>
-          </td>
-          <td><p>Mittag-Leffler QQ Plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot.ctre.html">plot</a></code> </p>
-          </td>
-          <td><p>Plot a ctre object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="qqestplot_static.html">qqestplot_static</a></code> </p>
-          </td>
-          <td><p>Static QQ Plot estimator</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="runCTREshiny.html">runCTREshiny</a></code> </p>
-          </td>
-          <td><p>Run a shiny app to explore a CTRE model fit</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="seaquakes.html">seaquakes</a></code> </p>
-          </td>
-          <td><p>Coral Sea Earthquake Data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="thin.html">thin</a></code> </p>
-          </td>
-          <td><p>Apply a higher threshold to a CTRE process</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="time.html">time</a></code> </p>
-          </td>
-          <td><p>Sampling Times of Time Series</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="CTRE-package.html">CTRE-package</a></code> </p>
+        </td>
+        <td><p>Continuous Time Random Exceedances</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="MLestimates.html">MLestimates()</a></code> </p>
+        </td>
+        <td><p>Mittag-Leffler estimates for varying thresholds</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="acf.html">acf()</a></code> </p>
+        </td>
+        <td><p>Autocorrelation function</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="acf.ctre.html">acf(<i>&lt;ctre&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Autocorrelation function</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="bitcoin.html">bitcoin</a></code> </p>
+        </td>
+        <td><p>Bitcoin trading data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ctre.html">ctre()</a></code> </p>
+        </td>
+        <td><p>CTRE model</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="empcopula.html">empcopula()</a></code> </p>
+        </td>
+        <td><p>Plot empirical copula</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="flares.html">flares</a></code> </p>
+        </td>
+        <td><p>Solar flare data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="interarrival.html">interarrival()</a></code> </p>
+        </td>
+        <td><p>Get inter-arrival times</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="length.ctre.html">length(<i>&lt;ctre&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Get length of underlying time series</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="magnitudes.html">magnitudes()</a></code> </p>
+        </td>
+        <td><p>Extract event magnitudes</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="mlqqplot.html">mlqqplot()</a></code> </p>
+        </td>
+        <td><p>Mittag-Leffler QQ Plot</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plot.ctre.html">plot(<i>&lt;ctre&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot a ctre object</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="qqestplot_static.html">qqestplot_static()</a></code> </p>
+        </td>
+        <td><p>Static QQ Plot estimator</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="runCTREshiny.html">runCTREshiny()</a></code> </p>
+        </td>
+        <td><p>Run a shiny app to explore a CTRE model fit</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="seaquakes.html">seaquakes</a></code> </p>
+        </td>
+        <td><p>Coral Sea Earthquake Data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="thin.html">thin()</a></code> </p>
+        </td>
+        <td><p>Apply a higher threshold to a CTRE process</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="time.html">time()</a></code> </p>
+        </td>
+        <td><p>Sampling Times of Time Series</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -230,5 +236,8 @@
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
