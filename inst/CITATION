@@ -1,12 +1,17 @@
 citHeader("To cite CTRE in publications, please use:")
 
-citEntry(entry = "manual",
+bibentry(bibtype = "Manual",
   author = c(person("Katharina", "Hees", email = "hees@statistik.uni-dortmund.de",
             role = "aut"),
     person("Peter", "Straka", email = "p.straka@unsw.edu.au",
             role = c("aut", "cre"))),
   title = "CTRE: Thresholding Bursty Time Series",
   year = "2018",
-  url = "https://unsw-math.github.io/CTRE/",
-  textVersion = "K. Hees and P. Straka (2018). CTRE: Thresholding Bursty Time Series."
+  month = "May",
+  url = "https://strakaps.github.io/CTRE/",
+  textVersion =
+    "K. Hees and P. Straka (2018).
+    CTRE: Thresholding Bursty Time Series.
+    <doi:10.6084/m9.figshare.6243434.v2>",
+  doi = "10.6084/m9.figshare.6243434.v2"
 )
