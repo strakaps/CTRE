@@ -39,7 +39,14 @@ For a range of thresholds, return the parameters of the Mittag-Leffler
 distribution fitted to the threshold exceedance times.
 }
 \details{
-If \code{plot_me = TRUE}, the estimates are returned invisibly.
+In the resulting "stability plots", parameter estimates are read off
+as seemingly constant values within an interval of threshold-values
+delineated by too few exceedances (high variance, left)
+and too many exceedances (high bias, right). If \eqn{\beta \in (0,1)}
+is the tail parameter estimate and \eqn{\sigma > 0} the scale parameter
+estimate, then the inter-arrival time \eqn{T(k)} for magnitudes higher than the
+\eqn{k}-th magnitude is distributed as
+\deqn{T(k) ~ \sim ML(\beta, k^{-1/\beta} \sigma).}
 }
 \examples{
   library(magrittr)

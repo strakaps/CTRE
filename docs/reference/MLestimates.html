@@ -149,7 +149,14 @@ and the estimates are returned in a data frame.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If <code>plot_me = TRUE</code>, the estimates are returned invisibly.</p>
+    <p>In the resulting "stability plots", parameter estimates are read off
+as seemingly constant values within an interval of threshold-values
+delineated by too few exceedances (high variance, left)
+and too many exceedances (high bias, right). If \(\beta \in (0,1)\)
+is the tail parameter estimate and \(\sigma &gt; 0\) the scale parameter
+estimate, then the inter-arrival time \(T(k)\) for magnitudes higher than the
+\(k\)-th magnitude is distributed as
+$$T(k) ~ \sim ML(\beta, k^{-1/\beta} \sigma).$$</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
