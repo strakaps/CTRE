@@ -54,12 +54,20 @@ For the standard POT model plots, see the "Exceedances" tab.
 <iframe src="https://strakaps.shinyapps.io/ctre-app/" style="border: none; width: 800px; height: 900px"></iframe>
 </div>
 
-## Install from GitHub
+## Installing 
+
+#### From CRAN:
+
+```{r, eval=FALSE}
+install.packages("CTRE")
+library(CTRE)
+```
+
+#### Development version from GitHub:
 
 ```{r, eval=FALSE}
 library("devtools")
 install_github("UNSW-MATH/CTRE")
-library(CTRE)
 ```
 
 ## Run shiny app

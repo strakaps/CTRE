@@ -45,12 +45,20 @@ tab.
 
 </div>
 
-## Install from GitHub
+## Installing
+
+#### From CRAN:
+
+``` r
+install.packages("CTRE")
+library(CTRE)
+```
+
+#### Development version from GitHub:
 
 ``` r
 library("devtools")
 install_github("UNSW-MATH/CTRE")
-library(CTRE)
 ```
 
 ## Run shiny app
