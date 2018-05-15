@@ -14,7 +14,7 @@ Description:
     Continuous Time Random Exceedances (CTRE).
     See <arXiv:1802.05218>, K. Hees, S. Nayak, P.Straka, 2018.
 URL: https://unsw-math.github.io/CTRE/
-BugReports: https://github.com/UNSW-MATH/CTRE/issues
+BugReports: https://github.com/strakaps/CTRE/issues
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
