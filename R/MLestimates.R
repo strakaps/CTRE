@@ -54,8 +54,8 @@ MLestimates <- function(ctre,
   est <- environment(ctre)$MLestimates
   if (!plot_me)
     return(est)
-  plot_MLtail(est, tail)
-  plot_MLscale(est, tail, scale)
+  plot(plot_MLtail(est, tail))
+  plot(plot_MLscale(est, tail, scale))
   invisible(est)
 }
 
@@ -78,27 +78,14 @@ update_MLestimates <- function(ctre, ks = ks) {
 
 
 plot_MLtail <- function(est, tail = NULL) {
-  graphics::plot(
-    est$k,
-    est$tail,
-    type = "l",
-    ylab = "tail parameter",
-    xlab = "exceedances",
-    ylim = c(0, 1.5),
-    main = "ML tail"
-  )
-  graphics::lines(est$k,
-        est$tailHi,
-        type = "l",
-        col = "blue",
-        lty = 2)
-  graphics::lines(est$k,
-        est$tailLo,
-        type = "l",
-        col = "blue",
-        lty = 2)
+  p0 <- est %>% ggplot(mapping=aes(x=k)) +
+    geom_ribbon(mapping = aes(ymin=tailLo, ymax=tailHi), alpha=0.3) +
+    geom_line(mapping=aes(y=tail)) + labs(ggtitle("Tail Plot"))
   if (!is.null(tail))
-    graphics::abline(h = tail, lty = 3, col = 2)
+    p0 <- p0 + geom_hline(yintercept = tail,
+                          colour = 'red',
+                          linetype = 'dashed')
+  p0
 }
 
 plot_MLscale <- function(est, tail = NULL, scale = NULL) {
@@ -111,29 +98,15 @@ plot_MLscale <- function(est, tail = NULL, scale = NULL) {
     est$scaleLo * est$k ^ (1 / tail)
   rescaledScaleHi <-
     est$scaleHi * est$k ^ (1 / tail)
-  graphics::plot(
-    est$k,
-    rescaledScale,
-    type = "l",
-    ylab = "scale parameter",
-    xlab = "exceedances",
-    ylim = c(0, 2 * max(rescaledScale)),
-    main = "ML scale"
-  )
-  graphics::lines(
-    est$k,
-    rescaledScaleLo,
-    type = "l",
-    col = "blue",
-    lty = 2
-  )
-  graphics::lines(
-    est$k,
-    rescaledScaleHi,
-    type = "l",
-    col = "blue",
-    lty = 2
-  )
+  p0 <- est %>% ggplot(mapping = aes(x = k)) +
+    geom_ribbon(mapping = aes(ymin = rescaledScaleLo, ymax = rescaledScaleHi),
+                alpha = 0.3) +
+    geom_line(mapping = aes(y = rescaledScale)) +
+    ylim(0, 2 * max(rescaledScale)) +
+    labs(ggtitle("Scale Plot"))
   if (!is.null(scale))
-    graphics::abline(h = scale, lty = 3, col = 2)
+    p0 <- p0 + geom_hline(yintercept = scale,
+                          colour = 'red',
+                          linetype = 'dashed')
+  p0
 }
