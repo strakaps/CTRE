@@ -11,37 +11,48 @@ print.ctre <- function(x, ...)
 #' @examples
 #'   library(magrittr)
 #'   flares %>% ctre() %>% plot(p = 0.02, log = 'y')
-plot.ctre <- function(x, p = 0.05, ...) {
+plot.ctre <- function(x, p = 0.05, log = '') {
   TT <- time(x)
   JJ <- magnitudes(x)
+  JJ_min <- min(JJ)
   idxJ <- environment(x)$idxJ
   n <- length(JJ)
-  graphics::plot(
-    TT,
-    JJ,
-    type = 'h',
-    col = 'gray',
-    xlab = "times",
-    ylab = "magnitudes",
-    ...
-  )
   k <- ceiling(n * p)
-  idxJ <- order(JJ, decreasing = TRUE)
   ell <- JJ[idxJ][k]
   ell <- ifelse(is.na(ell), 0, ell)
-  graphics::abline(h = ell, lty = 2)
-  ii <- which(JJ > ell)
-  n <- length(ii)
-  graphics::points(TT[ii],
-         rep(min(JJ), n),
-         col = 4,
-         pch = 3,
-         lwd = 3)
-  for (i in ii) {
-    xx = c(TT[i], TT[i])
-    yy = c(ell, JJ[i])
-    graphics::lines(xx, yy, col = 2)
-  }
+
+  df <- data.frame(TT, JJ)
+  p0 <- df %>% ggplot(mapping = aes(x = TT, y = JJ)) +
+    geom_segment(mapping = aes(
+      x = TT,
+      xend = TT,
+      y = JJ_min,
+      yend = JJ
+    ),
+    colour = 'gray') +
+    geom_hline(yintercept = ell, linetype = 'dashed')
+
+  if (log == 'y')
+    p0 <- p0 + scale_y_log10()
+
+  df2 <- df[df$JJ > ell, ]
+  p0 + geom_segment(
+    data = df2,
+    mapping = aes(
+      x = TT,
+      xend = TT,
+      y = ell,
+      yend = JJ
+    ),
+    colour = 'red'
+  ) +
+    geom_point(
+      data = df2,
+      mapping = aes(x = TT, y = JJ_min),
+      colour = 'blue',
+      shape = '+',
+      size = 5
+    )
 }
 
 #' Run a shiny app to explore a CTRE model fit
