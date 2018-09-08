@@ -30,7 +30,7 @@ estimates <- function(TT, idxJ, KK){
   returned_df <- ldply(.data = KK, function(k){
     WW <- get_durations(TT, idxJ, k)
     est <- MittagLeffleR::logMomentEstimator(WW)
-    row <- c(k, est["nu"], est["nuLo"], est["nuHi"], est['delta'], est['deltaLo'], 
+    row <- c(k, est["nu"], est["nuLo"], est["nuHi"], est['delta'], est['deltaLo'],
              est['deltaHi'])
     return(row)
   })
@@ -58,3 +58,4 @@ GPestimates <- function(JJ, idxJ, KK){
                           "shapeL","shapeH")
   return(returned_df)
 }
+

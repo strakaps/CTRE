@@ -68,3 +68,39 @@ runCTREshiny <- function() {
 
   shiny::runApp(appDir, display.mode = "normal")
 }
+
+
+plot_MLtail <- function(est, tail = NULL) {
+  p0 <- est %>% ggplot(mapping=aes(x=k)) +
+    geom_ribbon(mapping = aes(ymin=tailLo, ymax=tailHi), alpha=0.3) +
+    geom_line(mapping=aes(y=tail)) + labs(ggtitle("Tail Plot"))
+  if (!is.null(tail))
+    p0 <- p0 + geom_hline(yintercept = tail,
+                          colour = 'red',
+                          linetype = 'dashed')
+  p0
+}
+
+
+plot_MLscale <- function(est, tail = NULL, scale = NULL) {
+  # no rescaling if no tail parameter given
+  if (is.null(tail))
+    tail <- 1
+  rescaledScale   <-
+    est$scale   * est$k ^ (1 / tail)
+  rescaledScaleLo <-
+    est$scaleLo * est$k ^ (1 / tail)
+  rescaledScaleHi <-
+    est$scaleHi * est$k ^ (1 / tail)
+  p0 <- est %>% ggplot(mapping = aes(x = k)) +
+    geom_ribbon(mapping = aes(ymin = rescaledScaleLo, ymax = rescaledScaleHi),
+                alpha = 0.3) +
+    geom_line(mapping = aes(y = rescaledScale)) +
+    ylim(0, 2 * max(rescaledScale)) +
+    labs(ggtitle("Scale Plot"))
+  if (!is.null(scale))
+    p0 <- p0 + geom_hline(yintercept = scale,
+                          colour = 'red',
+                          linetype = 'dashed')
+  p0
+}

@@ -118,7 +118,6 @@ server <- function(input, output) {
   })
 
   output$tailscalePlot <- renderPlot({
-    par(mfrow = c(1,2))
     base_ctre() %>%
       thin(k = input$num_exceedances) %>%
       MLestimates(tail = input$tail)
