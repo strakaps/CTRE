@@ -7,11 +7,12 @@ print.ctre <- function(x, ...)
 #' @param x The ctre object whose time series should be plotted
 #' @param p The fraction of magnitudes that exceed the threshold to be plotted
 #' @param ... Additional plotting parameters
+#' @param log Set to 'y' if magnitudes should be plotted on a logarithmic axis
 #' @export
 #' @examples
 #'   library(magrittr)
 #'   flares %>% ctre() %>% plot(p = 0.02, log = 'y')
-plot.ctre <- function(x, p = 0.05, log = '') {
+plot.ctre <- function(x, p = 0.05, log = '', ...) {
   TT <- time(x)
   JJ <- magnitudes(x)
   JJ_min <- min(JJ)
@@ -22,23 +23,23 @@ plot.ctre <- function(x, p = 0.05, log = '') {
   ell <- ifelse(is.na(ell), 0, ell)
 
   df <- data.frame(TT, JJ)
-  p0 <- df %>% ggplot(mapping = aes(x = TT, y = JJ)) +
-    geom_segment(mapping = aes(
+  p0 <- ggplot2::ggplot(df, mapping = ggplot2::aes(x = TT, y = JJ)) +
+    ggplot2::geom_segment(mapping = ggplot2::aes(
       x = TT,
       xend = TT,
       y = JJ_min,
       yend = JJ
     ),
     colour = 'gray') +
-    geom_hline(yintercept = ell, linetype = 'dashed')
+    ggplot2::geom_hline(yintercept = ell, linetype = 'dashed')
 
   if (log == 'y')
-    p0 <- p0 + scale_y_log10()
+    p0 <- p0 + ggplot2::scale_y_log10()
 
   df2 <- df[df$JJ > ell, ]
-  p0 + geom_segment(
+  p0 + ggplot2::geom_segment(
     data = df2,
-    mapping = aes(
+    mapping = ggplot2::aes(
       x = TT,
       xend = TT,
       y = ell,
@@ -46,9 +47,9 @@ plot.ctre <- function(x, p = 0.05, log = '') {
     ),
     colour = 'red'
   ) +
-    geom_point(
+    ggplot2::geom_point(
       data = df2,
-      mapping = aes(x = TT, y = JJ_min),
+      mapping = ggplot2::aes(x = TT, y = JJ_min),
       colour = 'blue',
       shape = '+',
       size = 5
@@ -71,11 +72,13 @@ runCTREshiny <- function() {
 
 
 plot_MLtail <- function(est, tail = NULL) {
-  p0 <- est %>% ggplot(mapping=aes(x=k)) +
-    geom_ribbon(mapping = aes(ymin=tailLo, ymax=tailHi), alpha=0.3) +
-    geom_line(mapping=aes(y=tail)) + labs(ggtitle("Tail Plot"))
+  k <- NULL; tailLo <- NULL; tailHi <- NULL # to appease R CMD CHECK
+  p0 <- ggplot2::ggplot(est, mapping = ggplot2::aes(x = k)) +
+    ggplot2::geom_ribbon(mapping = ggplot2::aes(ymin = tailLo, ymax = tailHi),
+                         alpha = 0.3) +
+    ggplot2::geom_line(mapping = ggplot2::aes(y = tail)) + ggplot2::labs(ggplot2::ggtitle("Tail Plot"))
   if (!is.null(tail))
-    p0 <- p0 + geom_hline(yintercept = tail,
+    p0 <- p0 + ggplot2::geom_hline(yintercept = tail,
                           colour = 'red',
                           linetype = 'dashed')
   p0
@@ -92,14 +95,16 @@ plot_MLscale <- function(est, tail = NULL, scale = NULL) {
     est$scaleLo * est$k ^ (1 / tail)
   rescaledScaleHi <-
     est$scaleHi * est$k ^ (1 / tail)
-  p0 <- est %>% ggplot(mapping = aes(x = k)) +
-    geom_ribbon(mapping = aes(ymin = rescaledScaleLo, ymax = rescaledScaleHi),
+  # to appease R CMD CHECK
+  k <- NULL
+  p0 <- ggplot2::ggplot(est, mapping = ggplot2::aes(x = k)) +
+    ggplot2::geom_ribbon(mapping = ggplot2::aes(ymin = rescaledScaleLo, ymax = rescaledScaleHi),
                 alpha = 0.3) +
-    geom_line(mapping = aes(y = rescaledScale)) +
-    ylim(0, 2 * max(rescaledScale)) +
-    labs(ggtitle("Scale Plot"))
+    ggplot2::geom_line(mapping = ggplot2::aes(y = rescaledScale)) +
+    ggplot2::ylim(0, 2 * max(rescaledScale)) +
+    ggplot2::labs(ggplot2::ggtitle("Scale Plot"))
   if (!is.null(scale))
-    p0 <- p0 + geom_hline(yintercept = scale,
+    p0 <- p0 + ggplot2::geom_hline(yintercept = scale,
                           colour = 'red',
                           linetype = 'dashed')
   p0

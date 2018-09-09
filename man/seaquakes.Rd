@@ -19,4 +19,5 @@ A time series of earthquake magnitudes measured within the bounding box
 Other bursty-data: \code{\link{bitcoin}},
   \code{\link{flares}}
 }
+\concept{bursty-data}
 \keyword{datasets}

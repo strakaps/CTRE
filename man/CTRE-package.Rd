@@ -43,7 +43,7 @@ empcopula(ctre_mod)
 Useful links:
 \itemize{
   \item \url{https://unsw-math.github.io/CTRE/}
-  \item Report bugs at \url{https://github.com/UNSW-MATH/CTRE/issues}
+  \item Report bugs at \url{https://github.com/strakaps/CTRE/issues}
 }
 
 }

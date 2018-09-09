@@ -20,4 +20,5 @@ measured in "Bitcoin days destroyed", from
 Other bursty-data: \code{\link{flares}},
   \code{\link{seaquakes}}
 }
+\concept{bursty-data}
 \keyword{datasets}

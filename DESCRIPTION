@@ -18,9 +18,10 @@ BugReports: https://github.com/strakaps/CTRE/issues
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 Imports:
     assertthat,
+    ggplot2,
     graphics,
     MittagLeffleR, 
     plyr, 
@@ -31,6 +32,7 @@ Imports:
 Depends:
   R (>= 2.10)
 Suggests: 
-    evmix, 
+    evmix,
+    gridExtra,
     magrittr, 
     shiny

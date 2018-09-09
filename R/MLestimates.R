@@ -54,8 +54,7 @@ MLestimates <- function(ctre,
   est <- environment(ctre)$MLestimates
   if (!plot_me)
     return(est)
-  library(gridExtra)
-  grid.arrange(
+  gridExtra::grid.arrange(
     plot_MLtail(est, tail),
     plot_MLscale(est, tail, scale),
     ncol = 2

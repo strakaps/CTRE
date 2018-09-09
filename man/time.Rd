@@ -2,7 +2,6 @@
 % Please edit documentation in R/extract.R
 \name{time}
 \alias{time}
-\alias{time}
 \alias{time.ctre}
 \title{Sampling Times of Time Series}
 \usage{
@@ -19,8 +18,6 @@ time(x, ...)
 A numeric vector of event times, or a time series.
 }
 \description{
-Sampling Times of Time Series
-
 Extract event times from a \code{ctre} object.
 }
 \examples{

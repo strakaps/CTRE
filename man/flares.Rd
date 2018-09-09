@@ -20,4 +20,5 @@ A time series of peak rates of solar eruptions.
 Other bursty-data: \code{\link{bitcoin}},
   \code{\link{seaquakes}}
 }
+\concept{bursty-data}
 \keyword{datasets}

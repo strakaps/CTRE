@@ -4,12 +4,14 @@
 \alias{plot.ctre}
 \title{Plot a ctre object}
 \usage{
-\method{plot}{ctre}(x, p = 0.05, ...)
+\method{plot}{ctre}(x, p = 0.05, log = "", ...)
 }
 \arguments{
 \item{x}{The ctre object whose time series should be plotted}
 
 \item{p}{The fraction of magnitudes that exceed the threshold to be plotted}
+
+\item{log}{Set to 'y' if magnitudes should be plotted on a logarithmic axis}
 
 \item{...}{Additional plotting parameters}
 }
