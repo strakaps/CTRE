@@ -1,8 +1,10 @@
 library(shiny)
+devtools::install_github("strakaps/CTRE")
 library(CTRE)
 library(MittagLeffleR)
 library(magrittr)
 library(markdown)
+library(gridExtra)
 
 ui <- fluidPage(
   titlePanel("CTRE Modelling"),
@@ -34,17 +36,17 @@ ui <- fluidPage(
                    '.csv')
       ),
       includeText("upload-instructions.md"),
-      numericInput(
+      sliderInput("num_exceedances",
+                  label = "Number of Exceedances",
+                  10, 600, 120),
+      sliderInput(
         "tail",
         label = "Tail parameter",
         value = 0.85,
         min = 0.1,
         max = 1,
         step = 0.05
-      ),
-      sliderInput("num_exceedances",
-                  label = "Number of Exceedances",
-                  10, 600, 120)
+      )
     ),
     mainPanel(
       tabsetPanel(
