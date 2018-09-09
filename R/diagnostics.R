@@ -137,5 +137,13 @@ empcopula <- function(ctre, OCTRE = FALSE, ...){
     X_ell <- X_ell[-1]
   else
     X_ell <- X_ell[-n]
-  graphics::plot(rank(T_ell)/n, rank(X_ell)/n, main = "Emp. Copula (Exc & Exc Time)", ...)
+  TT <- rank(T_ell)/n
+  JJ <- rank(X_ell)/n
+  ggplot2::ggplot(data.frame(TT, JJ),
+                  ggplot2::aes(x=TT, y=JJ)) +
+    ggplot2::geom_point() +
+    ggplot2::labs(ggplot2::ggtitle("Emp. Copula: Exc & Exc Time")) +
+    ggplot2::xlab("rank(Exc. Time)") +
+    ggplot2::ylab("rank(Exc.)")
+  #graphics::plot(rank(T_ell)/n, rank(X_ell)/n, main = "Emp. Copula (Exc & Exc Time)", ...)
 }
