@@ -19,69 +19,46 @@ knitr::opts_chunk$set(
 [![Downloads](http://cranlogs.r-pkg.org/badges/CTRE)](https://cran.r-project.org/package=CTRE)
 [![DL_Total](http://cranlogs.r-pkg.org/badges/grand-total/CTRE?color=blue)](https://cran.r-project.org/package=CTRE)
 
-This R package provides tools to analyse extremes of 'bursty' time series. 
-[Burstiness](https://en.wikipedia.org/wiki/Burstiness) is characterized by 
-heavy-tailed inter-arrival times and scale-free event dynamics. 
-The CTRE model captures burstiness by generalizing the Poisson process 
-to a 
-[fractional Poisson process](https://en.wikipedia.org/wiki/Fractional_Poisson_process), 
-with [Mittag-Leffler](https://strakaps.github.io/MittagLeffleR/) 
-inter-arrival times. 
-Parameter estimates are read off from stability plots, and 
-goodness of fit is assessed via diagnostic plots; see the 
-Shiny app below. 
+The CTRE package fits a CTRE model ("Continuous Time Random Exceedances") 
+to extremes of 'bursty' time series. 
 
-## Reference
++ A [bursty](https://en.wikipedia.org/wiki/Burstiness) time series typically
+  has heavy-tailed inter-arrival times.
++ Given a high threshold, the times between threshold crossings follow a 
+  [Mittag-Leffler](https://strakaps.github.io/MittagLeffleR/) distribution, 
+  whose scale parameter increases with the threshold.
 
-"Peaks Over Threshold for Bursty Time Series", 
-Katharina Hees, Smarak Nayak, Peter Straka (2018). 
-<https://arxiv.org/abs/1802.05218>
+The magnitudes of the extremes are modelled via the 
+[POT](https://en.wikipedia.org/wiki/Extreme_value_theory#Data_analysis)
+("Peaks-Over-Threshold") method, which is standard in Extreme Value Theory. 
+It is the time between threshold crossings that is the focus of the CTRE model.
 
-## Shiny App
+## Installation
 
-The package comes with two examples of bursty time series: solar flare 
-magnitudes and bitcoin trading volumes. 
-For parameter estimates of the Mittag-Leffler distribution, see the tab 
-"Exceedance Times". 
-CTRE model assumptions are checked via a QQ plot of the Mittag-Leffler
-distribution; an empirical copula plot checking for dependence between 
-inter-arrival times and magnitudes; and a plot of the autocorrelation 
-function for the two series (interarrival times and magnitudes). 
-For the standard POT model plots, see the "Exceedances" tab. 
+### Stable release on CRAN
 
+You can install `CTRE` from CRAN via 
 
-<div>
-<iframe src="https://strakaps.shinyapps.io/ctre-app/" style="border: none; width: 800px; height: 900px"></iframe>
-</div>
-
-## Installing 
-
-#### From CRAN:
-
-```{r, eval=FALSE}
+```{r CRAN-installation, eval = FALSE}
 install.packages("CTRE")
 library(CTRE)
 ```
 
-#### Development version from GitHub:
+### Development version on Github
 
-```{r, eval=FALSE}
-library("devtools")
-install_github("UNSW-MATH/CTRE")
+Install the `devtools` package first, then 
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("strakaps/CTRE")
+library("CTRE")
 ```
 
-## Run shiny app
+## Usage
 
-You can run the above Shiny app from within RStudio: 
-
-```{r, eval=FALSE}
-runCTREshiny()
-```
-
-
-## Package usage
-
-You can 
+Below is the main workflow for fitting a CTRE model to a time series. 
+See the [Reference page](/CTRE/reference/index.html) for more details on each 
+R function. 
 
 * Create a [`ctre`](/CTRE/reference/ctre.html) object from a time series, 
   a data frame, or two vectors.
@@ -95,3 +72,35 @@ You can
   ([`mlqqplot`](/CTRE/reference/mlqqplot.html), [`acf`](/CTRE/reference/acf.html), 
   [`empcopula`](/CTRE/reference/empcopula.html))
 
+
+## Shiny App
+
++ The package comes with two examples of bursty time series: solar flare 
+magnitudes and bitcoin trading volumes. 
++ For parameter estimates of the Mittag-Leffler distribution, see the tab 
+"Exceedance Times". 
++ For the POT model fit, see the tab "Exceedances"
++ CTRE model assumptions are checked via 
+    - a QQ plot of the Mittag-Leffler distribution
+    - an empirical copula plot checking for dependence between 
+      inter-arrival times and magnitudes
+    - a plot of the autocorrelation function for the two series (interarrival 
+      times and magnitudes). 
+
+To run the Shiny app from within RStudio:
+
+```{r, eval=FALSE}
+runCTREshiny()
+```
+
+<div>
+<iframe src="https://strakaps.shinyapps.io/ctre-app/" style="border: none; width: 800px; height: 900px"></iframe>
+</div>
+
+
+
+## The CTRE paper
+
+"Peaks Over Threshold for Bursty Time Series", 
+Katharina Hees, Smarak Nayak, Peter Straka (2018). 
+<https://arxiv.org/abs/1802.05218>
