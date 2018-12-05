@@ -53,7 +53,8 @@ plot.ctre <- function(x, p = 0.05, log = '', ...) {
       colour = 'blue',
       shape = '+',
       size = 5
-    )
+    ) +
+    ggplot2::xlab("times") + ggplot2::ylab("magnitudes")
 }
 
 #' Run a shiny app to explore a CTRE model fit
