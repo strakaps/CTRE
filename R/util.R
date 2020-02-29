@@ -77,7 +77,8 @@ plot_MLtail <- function(est, tail = NULL) {
   p0 <- ggplot2::ggplot(est, mapping = ggplot2::aes(x = k)) +
     ggplot2::geom_ribbon(mapping = ggplot2::aes(ymin = tailLo, ymax = tailHi),
                          alpha = 0.3) +
-    ggplot2::geom_line(mapping = ggplot2::aes(y = tail)) + ggplot2::labs(ggplot2::ggtitle("Tail Plot"))
+    ggplot2::geom_line(mapping = ggplot2::aes(y = tail)) + ggplot2::labs(ggplot2::ggtitle("Tail Plot")) +
+    ggplot2::ggtitle("Tail Parameter")
   if (!is.null(tail))
     p0 <- p0 + ggplot2::geom_hline(yintercept = tail,
                           colour = 'red',
@@ -103,7 +104,8 @@ plot_MLscale <- function(est, tail = NULL, scale = NULL) {
                 alpha = 0.3) +
     ggplot2::geom_line(mapping = ggplot2::aes(y = rescaledScale)) +
     ggplot2::ylim(0, 2 * max(rescaledScale)) +
-    ggplot2::labs(ggplot2::ggtitle("Scale Plot"))
+    ggplot2::labs(ggplot2::ggtitle("Scale Plot")) +
+    ggplot2::ggtitle("Scale Parameter")
   if (!is.null(scale))
     p0 <- p0 + ggplot2::geom_hline(yintercept = scale,
                           colour = 'red',
