@@ -8,21 +8,29 @@
 
 <title>Mittag-Leffler estimates for varying thresholds — MLestimates • CTRE</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Mittag-Leffler estimates for varying thresholds — MLestimates" />
 
+<meta property="og:title" content="Mittag-Leffler estimates for varying thresholds — MLestimates" />
 <meta property="og:description" content="For a range of thresholds, return the parameters of the Mittag-Leffler
 distribution fitted to the threshold exceedance times." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -48,9 +56,10 @@ distribution fitted to the threshold exceedance times." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -64,7 +73,7 @@ distribution fitted to the threshold exceedance times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CTRE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -72,17 +81,24 @@ distribution fitted to the threshold exceedance times." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/strakaps/CTRE/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -90,26 +106,25 @@ distribution fitted to the threshold exceedance times." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Mittag-Leffler estimates for varying thresholds</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/strakaps/CTRE/blob/master/R/MLestimates.R'><code>R/MLestimates.R</code></a></small>
     <div class="hidden name"><code>MLestimates.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>For a range of thresholds, return the parameters of the Mittag-Leffler
 distribution fitted to the threshold exceedance times.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>MLestimates</span>(<span class='no'>ctre</span>, <span class='kw'>plot_me</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>tail</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ks</span> <span class='kw'>=</span> <span class='fl'>5</span>:<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>ctre</span>))</pre>
-    
+    <pre class="usage"><span class='fu'>MLestimates</span><span class='op'>(</span><span class='va'>ctre</span>, plot_me <span class='op'>=</span> <span class='cn'>TRUE</span>, tail <span class='op'>=</span> <span class='cn'>NULL</span>, scale <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ks <span class='op'>=</span> <span class='fl'>5</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>ctre</span><span class='op'>)</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -145,13 +160,12 @@ By default, all order statistics are used except the 5 largest,
 and the estimates are returned in a data frame.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>data.frame</code> of Mittag-Leffler parameter estimates,
         one row for each threshold, which is returned invisibly
         unless <code>plot_me = FALSE</code>.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>In the resulting "stability plots", parameter estimates are read off
@@ -162,13 +176,15 @@ is the tail parameter estimate and \(\sigma &gt; 0\) the scale parameter
 estimate, then the inter-arrival time \(T(k)\) for magnitudes higher than the
 \(k\)-th magnitude is distributed as
 $$T(k) ~ \sim ML(\beta, k^{-1/\beta} \sigma).$$</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>magrittr</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>))
-  <span class='no'>flares</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='ctre.html'>ctre</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span>(<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>1000</span>) <span class='kw'>%&gt;%</span> <span class='fu'>MLestimates</span>(<span class='kw'>tail</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>3E7</span>)</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='output co'>#&gt; <span class='error'>Error in loadNamespace(name): there is no package called ‘gridExtra’</span></div><div class='input'>
-  <span class='no'>bitcoin</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='ctre.html'>ctre</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span>(<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>500</span>) <span class='kw'>%&gt;%</span> <span class='fu'>MLestimates</span>(<span class='kw'>tail</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>2.5E3</span>)</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='output co'>#&gt; <span class='error'>Error in loadNamespace(name): there is no package called ‘gridExtra’</span></div><div class='input'>  <span class='no'>bitcoin</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='ctre.html'>ctre</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span>(<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>500</span>) <span class='kw'>%&gt;%</span> <span class='fu'>MLestimates</span>(<span class='kw'>plot_me</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>()</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='output co'>#&gt; 'data.frame':	496 obs. of  7 variables:
+    <pre class="examples"><div class='input'>  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://magrittr.tidyverse.org'>magrittr</a></span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>flares</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='ctre.html'>ctre</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span><span class='op'>(</span>k<span class='op'>=</span><span class='fl'>1000</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>MLestimates</span><span class='op'>(</span>tail <span class='op'>=</span> <span class='fl'>0.9</span>, scale <span class='op'>=</span> <span class='fl'>3E7</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='img'><img src='MLestimates-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='va'>bitcoin</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='ctre.html'>ctre</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span><span class='op'>(</span>k<span class='op'>=</span><span class='fl'>500</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>MLestimates</span><span class='op'>(</span>tail <span class='op'>=</span> <span class='fl'>0.9</span>, scale <span class='op'>=</span> <span class='fl'>2.5E3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='img'><img src='MLestimates-2.png' alt='' width='700' height='433' /></div><div class='input'>  <span class='va'>bitcoin</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='ctre.html'>ctre</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='thin.html'>thin</a></span><span class='op'>(</span>k<span class='op'>=</span><span class='fl'>500</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>MLestimates</span><span class='op'>(</span>plot_me <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='output co'>#&gt; 'data.frame':	496 obs. of  7 variables:
 #&gt;  $ k      : num  5 6 7 8 9 10 11 12 13 14 ...
 #&gt;  $ tail   : num  0.971 0.833 0.759 0.811 0.861 ...
 #&gt;  $ scale  : num  39.1 70.2 117.5 132.4 140.4 ...
@@ -177,20 +193,13 @@ $$T(k) ~ \sim ML(\beta, k^{-1/\beta} \sigma).$$</p>
 #&gt;  $ scaleLo: num  -12.9 -38 -72 -47.3 -22.3 ...
 #&gt;  $ scaleHi: num  91.2 178.5 306.9 312.2 303.2 ...</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -198,13 +207,16 @@ $$T(k) ~ \sim ML(\beta, k^{-1/\beta} \sigma).$$</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

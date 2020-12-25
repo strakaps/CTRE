@@ -8,21 +8,29 @@
 
 <title>Continuous Time Random Exceedances — CTRE-package • CTRE</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,13 +38,13 @@
 
 
 
-<meta property="og:title" content="Continuous Time Random Exceedances — CTRE-package" />
 
+<meta property="og:title" content="Continuous Time Random Exceedances — CTRE-package" />
 <meta property="og:description" content="Fits a Continuous Time Random Exceedance model to bursty time series.
 CTREs model the distribution of threshold crossing times of extreme events.
 Fits are made by interactive visual assessment of &quot;stability plots&quot;
 using a shiny app." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -50,9 +58,10 @@ using a shiny app." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -66,7 +75,7 @@ using a shiny app." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CTRE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -74,17 +83,24 @@ using a shiny app." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/strakaps/CTRE/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -92,56 +108,71 @@ using a shiny app." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Continuous Time Random Exceedances</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/strakaps/CTRE/blob/master/R/CTRE.R'><code>R/CTRE.R</code></a></small>
     <div class="hidden name"><code>CTRE-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Fits a Continuous Time Random Exceedance model to bursty time series.
 CTREs model the distribution of threshold crossing times of extreme events.
 Fits are made by interactive visual assessment of "stability plots"
 using a shiny app.</p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
-    <p>"Peaks Over Threshold for Bursty Time Series",
+
+<p>"Peaks Over Threshold for Bursty Time Series",
 Katharina Hees, Smarak Nayak, Peter Straka.
 <a href='https://arxiv.org/abs/1802.05218'>https://arxiv.org/abs/1802.05218</a></p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Useful links:</p><ul>
 <li><p><a href='https://unsw-math.github.io/CTRE/'>https://unsw-math.github.io/CTRE/</a></p></li>
 <li><p>Report bugs at <a href='https://github.com/strakaps/CTRE/issues'>https://github.com/strakaps/CTRE/issues</a></p></li>
-</ul></div>
-    
+</ul>
+
+</div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p><strong>Maintainer</strong>: Peter Straka <a href='mailto:p.straka@unsw.edu.au'>p.straka@unsw.edu.au</a></p>
+<p>Authors:</p><ul>
+<li><p>Katharina Hees <a href='mailto:hees@statistik.uni-dortmund.de'>hees@statistik.uni-dortmund.de</a></p></li>
+</ul>
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>CTRE</span>)</div><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='runCTREshiny.html'>runCTREshiny</a></span>()
-<span class='co'># }</span><div class='input'>
-<span class='no'>ctre_mod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ctre.html'>ctre</a></span>(<span class='no'>flares</span>)
-<span class='no'>ctre_mod</span></div><div class='output co'>#&gt; 'ctre' object with 2488 timestamps and magnitudes.
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://unsw-math.github.io/CTRE/'>CTRE</a></span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'><a href='runCTREshiny.html'>runCTREshiny</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='va'>ctre_mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ctre.html'>ctre</a></span><span class='op'>(</span><span class='va'>flares</span><span class='op'>)</span>
+<span class='va'>ctre_mod</span>
+</div><div class='output co'>#&gt; 'ctre' object with 2488 timestamps and magnitudes.
 #&gt; Timestamps:
 #&gt;  POSIXct[1:2488], format: "1982-01-01 00:55:00" "1982-01-01 16:43:15" "1982-01-01 22:13:16" ...
 #&gt; Magnitudes:
-#&gt;  int [1:2488] 2404 94 60 53 107 5363 61 262 85 83 ...</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>ctre_mod</span>)</div><div class='output co'>#&gt; [1] 2488</div><div class='input'><span class='no'>ctre_mod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='thin.html'>thin</a></span>(<span class='no'>ctre_mod</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>500</span>)
-<span class='no'>ctre_mod</span></div><div class='output co'>#&gt; 'ctre' object with 500 timestamps and magnitudes.
+#&gt;  int [1:2488] 2404 94 60 53 107 5363 61 262 85 83 ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>ctre_mod</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 2488</div><div class='input'><span class='va'>ctre_mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='thin.html'>thin</a></span><span class='op'>(</span><span class='va'>ctre_mod</span>, k <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span>
+<span class='va'>ctre_mod</span>
+</div><div class='output co'>#&gt; 'ctre' object with 500 timestamps and magnitudes.
 #&gt; Timestamps:
 #&gt;  POSIXct[1:500], format: "1982-01-01 00:55:00" "1982-01-02 06:09:42" "1982-01-03 00:11:51" ...
 #&gt; Magnitudes:
-#&gt;  int [1:500] 2404 5363 262 421 2309 655 685 935 984 9763 ...</div><div class='input'><span class='fu'><a href='magnitudes.html'>magnitudes</a></span>(<span class='no'>ctre_mod</span>)</div><div class='output co'>#&gt;   [1]   2404   5363    262    421   2309    655    685    935    984   9763
+#&gt;  int [1:500] 2404 5363 262 421 2309 655 685 935 984 9763 ...</div><div class='input'><span class='fu'><a href='magnitudes.html'>magnitudes</a></span><span class='op'>(</span><span class='va'>ctre_mod</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   [1]   2404   5363    262    421   2309    655    685    935    984   9763
 #&gt;  [11]    228    822   1006    375   1819   1428    419    540    365   4864
 #&gt;  [21]   1756    784    489   1610    494    223    806    546   1617    230
 #&gt;  [31]   7230    218    228   1143   1606    298    236    406    374    623
@@ -190,7 +221,8 @@ Katharina Hees, Smarak Nayak, Peter Straka.
 #&gt; [461]    290   2454    269    259    469   2936    323   3311   1187    480
 #&gt; [471]    518  12464   2807    250  81391   5165   8678    269    448   3596
 #&gt; [481]    430    907 108043    408   1882  19095    413    228    380    304
-#&gt; [491]    534   1193    341    460    375    228   2287  38120   6891    423</div><div class='input'><span class='fu'><a href='time.html'>time</a></span>(<span class='no'>ctre_mod</span>)</div><div class='output co'>#&gt;   [1] "1982-01-01 00:55:00 UTC" "1982-01-02 06:09:42 UTC"
+#&gt; [491]    534   1193    341    460    375    228   2287  38120   6891    423</div><div class='input'><span class='fu'><a href='time.html'>time</a></span><span class='op'>(</span><span class='va'>ctre_mod</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   [1] "1982-01-01 00:55:00 UTC" "1982-01-02 06:09:42 UTC"
 #&gt;   [3] "1982-01-03 00:11:51 UTC" "1982-01-07 19:37:40 UTC"
 #&gt;   [5] "1982-01-08 02:01:20 UTC" "1982-01-08 14:27:01 UTC"
 #&gt;   [7] "1982-01-11 01:25:36 UTC" "1982-01-24 01:52:35 UTC"
@@ -439,7 +471,8 @@ Katharina Hees, Smarak Nayak, Peter Straka.
 #&gt; [493] "1982-12-26 10:39:42 UTC" "1982-12-26 15:06:08 UTC"
 #&gt; [495] "1982-12-27 05:23:44 UTC" "1982-12-27 11:36:45 UTC"
 #&gt; [497] "1982-12-28 15:56:52 UTC" "1982-12-29 06:43:00 UTC"
-#&gt; [499] "1982-12-30 01:41:15 UTC" "1982-12-30 18:42:51 UTC"</div><div class='input'><span class='fu'><a href='interarrival.html'>interarrival</a></span>(<span class='no'>ctre_mod</span>)</div><div class='output co'>#&gt;   [1]  1754.700000  1082.150000  6925.816667   383.666667   745.683333
+#&gt; [499] "1982-12-30 01:41:15 UTC" "1982-12-30 18:42:51 UTC"</div><div class='input'><span class='fu'><a href='interarrival.html'>interarrival</a></span><span class='op'>(</span><span class='va'>ctre_mod</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   [1]  1754.700000  1082.150000  6925.816667   383.666667   745.683333
 #&gt;   [6]  3538.583333 18746.983333  1063.750000  5017.000000  1199.333333
 #&gt;  [11]  1292.500000   679.666667  1141.166667   369.583333   675.000000
 #&gt;  [16]   828.166667  1528.916667   184.250000   380.516667   121.983333
@@ -538,30 +571,21 @@ Katharina Hees, Smarak Nayak, Peter Straka.
 #&gt; [481]   281.333333   534.233333   129.200000   406.350000   267.300000
 #&gt; [486]  1035.866667     9.466667   485.433333   361.183333   269.466667
 #&gt; [491]  1792.650000  7708.116667   266.433333   857.600000   373.016667
-#&gt; [496]  1700.116667   886.133333  1138.250000  1021.600000</div><div class='input'><span class='fu'><a href='MLestimates.html'>MLestimates</a></span>(<span class='no'>ctre_mod</span>, <span class='kw'>tail</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>3E7</span>)</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='output co'>#&gt; <span class='error'>Error in loadNamespace(name): there is no package called ‘gridExtra’</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>magrittr</span>)
-<span class='no'>ctre_mod</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='interarrival.html'>interarrival</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='mlqqplot.html'>mlqqplot</a></span>(<span class='kw'>tail</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>'xy'</span>)</div><div class='img'><img src='CTRE-package-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='acf.html'>acf</a></span>(<span class='no'>ctre_mod</span>)</div><div class='img'><img src='CTRE-package-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='empcopula.html'>empcopula</a></span>(<span class='no'>ctre_mod</span>)</div><div class='img'><img src='CTRE-package-3.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; [496]  1700.116667   886.133333  1138.250000  1021.600000</div><div class='input'><span class='fu'><a href='MLestimates.html'>MLestimates</a></span><span class='op'>(</span><span class='va'>ctre_mod</span>, tail <span class='op'>=</span> <span class='fl'>0.8</span>, scale <span class='op'>=</span> <span class='fl'>3E7</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Computing Mittag-Leffler estimates for all thresholds.</span></div><div class='img'><img src='CTRE-package-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://magrittr.tidyverse.org'>magrittr</a></span><span class='op'>)</span>
+<span class='va'>ctre_mod</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='interarrival.html'>interarrival</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='mlqqplot.html'>mlqqplot</a></span><span class='op'>(</span>tail <span class='op'>=</span> <span class='fl'>0.8</span>, log <span class='op'>=</span> <span class='st'>'xy'</span><span class='op'>)</span>
+</div><div class='img'><img src='CTRE-package-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='acf.html'>acf</a></span><span class='op'>(</span><span class='va'>ctre_mod</span><span class='op'>)</span>
+</div><div class='img'><img src='CTRE-package-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='empcopula.html'>empcopula</a></span><span class='op'>(</span><span class='va'>ctre_mod</span><span class='op'>)</span>
+</div><div class='img'><img src='CTRE-package-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p><strong>Maintainer</strong>: Peter Straka <a href='mailto:p.straka@unsw.edu.au'>p.straka@unsw.edu.au</a></p>
-<p>Authors:</p><ul>
-<li><p>Katharina Hees <a href='mailto:hees@statistik.uni-dortmund.de'>hees@statistik.uni-dortmund.de</a></p></li>
-</ul>
-
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -569,13 +593,16 @@ Katharina Hees, Smarak Nayak, Peter Straka.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
