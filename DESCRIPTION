@@ -1,7 +1,7 @@
 Package: CTRE
 Type: Package
 Title: Thresholding Bursty Time Series
-Version: 0.1.0
+Version: 0.2.0
 Date: 2018-04-25
 Maintainer: Peter Straka <p.straka@unsw.edu.au>
 Authors@R: c(
