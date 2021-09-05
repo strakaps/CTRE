@@ -1,7 +1,7 @@
 Package: CTRE
 Type: Package
 Title: Thresholding Bursty Time Series
-Version: 0.2.0
+Version: 0.2.1
 Date: 2018-04-25
 Maintainer: Peter Straka <p.straka@unsw.edu.au>
 Authors@R: c(
@@ -18,7 +18,7 @@ BugReports: https://github.com/strakaps/CTRE/issues
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 Imports:
     assertthat,
     ggplot2,
@@ -26,7 +26,6 @@ Imports:
     MittagLeffleR, 
     plyr, 
     stats,
-    tea,
     utils,
     zoo
 Depends:

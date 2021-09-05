@@ -4,7 +4,9 @@
 \name{bitcoin}
 \alias{bitcoin}
 \title{Bitcoin trading data}
-\format{An object of class \code{zoo} of length 2043.}
+\format{
+An object of class \code{zoo} of length 2043.
+}
 \source{
 \url{https://datamarket.com/data/set/4aq9/various-bitcoin-currency-statistics}
 }
@@ -17,8 +19,9 @@ measured in "Bitcoin days destroyed", from
 2010-12-04 until 2016-07-07.
 }
 \seealso{
-Other bursty-data: \code{\link{flares}},
-  \code{\link{seaquakes}}
+Other bursty-data: 
+\code{\link{flares}},
+\code{\link{seaquakes}}
 }
 \concept{bursty-data}
 \keyword{datasets}

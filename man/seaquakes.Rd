@@ -4,7 +4,9 @@
 \name{seaquakes}
 \alias{seaquakes}
 \title{Coral Sea Earthquake Data}
-\format{An object of class \code{data.frame} with 754 rows and 2 columns.}
+\format{
+An object of class \code{data.frame} with 754 rows and 2 columns.
+}
 \source{
 \url{http://seismicportal.eu/}
 }
@@ -16,8 +18,9 @@ A time series of earthquake magnitudes measured within the bounding box
 [166'E, 167'E] x [13.5'S, 12.4'S]
 }
 \seealso{
-Other bursty-data: \code{\link{bitcoin}},
-  \code{\link{flares}}
+Other bursty-data: 
+\code{\link{bitcoin}},
+\code{\link{flares}}
 }
 \concept{bursty-data}
 \keyword{datasets}

@@ -4,8 +4,13 @@
 \alias{MLestimates}
 \title{Mittag-Leffler estimates for varying thresholds}
 \usage{
-MLestimates(ctre, plot_me = TRUE, tail = NULL, scale = NULL,
-  ks = 5:length(ctre))
+MLestimates(
+  ctre,
+  plot_me = TRUE,
+  tail = NULL,
+  scale = NULL,
+  ks = 5:length(ctre)
+)
 }
 \arguments{
 \item{ctre}{A \code{\link{ctre}} object}
