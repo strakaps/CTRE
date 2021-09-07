@@ -5,9 +5,9 @@ Version: 0.2.1
 Date: 2018-04-25
 Maintainer: Peter Straka <p.straka@unsw.edu.au>
 Authors@R: c(
-    person("Katharina", "Hees", email = "hees@statistik.uni-dortmund.de", 
+    person("Katharina", "Hees", email = "heeskatharina@gmail.com", 
             role = "aut"),
-    person("Peter", "Straka", email = "p.straka@unsw.edu.au", 
+    person("Peter", "Straka", email = "straka.ps@unsw.edu.au", 
             role = c("aut", "cre")))
 Description: 
     Models extremes of 'bursty' time series via

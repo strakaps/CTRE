@@ -48,11 +48,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Peter Straka \email{p.straka@unsw.edu.au}
+\strong{Maintainer}: Peter Straka \email{straka.ps@unsw.edu.au}
 
 Authors:
 \itemize{
-  \item Katharina Hees \email{hees@statistik.uni-dortmund.de}
+  \item Katharina Hees \email{heeskatharina@gmail.com}
 }
 
 }
